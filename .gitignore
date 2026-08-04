@@ -22,4 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.skillux/*
+
+# Lokalny skill pack — nie śledzimy w repozytorium strony
+.skilux/
