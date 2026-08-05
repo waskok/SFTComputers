@@ -1,11 +1,5 @@
-import { Mail, MonitorCog, Phone } from "lucide-react";
-import { FacebookIcon, InstagramIcon } from "./ui/SocialIcons";
+import { Mail, Phone } from "lucide-react";
 import { company, footerLinks } from "../data/siteData";
-
-const socials = [
-  { icon: FacebookIcon, label: "Facebook", href: "#" },
-  { icon: InstagramIcon, label: "Instagram", href: "#" },
-];
 
 export default function Footer() {
   return (
@@ -14,9 +8,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <a href="#top" className="flex items-center gap-2.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white">
-                <MonitorCog className="h-5 w-5" />
-              </span>
+              <img
+                src={`${import.meta.env.BASE_URL}favicon.jpg`}
+                alt={`Logo ${company.name}`}
+                className="h-10 w-auto rounded-xl object-contain shadow-md shadow-slate-200/60"
+              />
               <span className="text-base font-extrabold tracking-tight text-slate-900">{company.name}</span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">
@@ -31,19 +27,6 @@ export default function Footer() {
               <a href={`mailto:${company.email}`} className="flex items-center gap-2 hover:text-blue-700">
                 <Mail className="h-4 w-4" /> {company.email}
               </a>
-            </div>
-
-            <div className="mt-6 flex items-center gap-3">
-              {socials.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-700"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
             </div>
           </div>
 

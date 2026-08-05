@@ -7,7 +7,6 @@ import { company } from "../data/siteData";
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-36 pb-20 sm:pt-40 sm:pb-28 lg:pb-32">
-      {/* Miękkie, rozmyte akcenty w tle — subtelna głębia bez ciężkich kontrastów */}
       <div
         className="pointer-events-none absolute -top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-blue-100 opacity-70 blur-3xl"
         aria-hidden="true"
@@ -24,13 +23,13 @@ export default function Hero() {
             <SectionBadge>Serwis komputerowy w Krakowie</SectionBadge>
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem] lg:leading-[1.08]">
-              Szybka naprawa i serwis komputerów{" "}
+              Szybka naprawa i serwis sprzętu{" "}
               <span className="text-blue-600">w Krakowie</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
               Diagnozujemy i naprawiamy komputery oraz laptopy bez zbędnego czekania. Zajmujemy się też
-              opieką IT dla firm i budową komputerów do gier skrojonych pod Twój budżet.
+              opieką IT dla firm i budową komputerów pod Twój budżet.
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -48,7 +47,7 @@ export default function Hero() {
                   <Clock3 className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">Naprawa w 24–48h</p>
+                  <p className="text-sm font-bold text-slate-900">Naprawa w 24-48h</p>
                   <p className="text-xs text-slate-500">w większości przypadków</p>
                 </div>
               </div>
@@ -84,7 +83,7 @@ export default function Hero() {
                     <MonitorSmartphone className="h-12 w-12 text-white" />
                   </span>
                   <p className="text-sm font-medium text-blue-100">
-                    [TO-DO: zdjęcie serwisu / technika przy pracy]
+                    [TO-DO: zdjęcie serwisu ]
                   </p>
                 </div>
 
@@ -112,7 +111,7 @@ export default function Hero() {
                 </span>
                 <div>
                   <p className="text-xs text-slate-500">Zaufało nam</p>
-                  <p className="text-sm font-bold text-slate-900">1200+ klientów</p>
+                  <p className="text-sm font-bold text-slate-900">1000+ klientów</p>
                 </div>
               </div>
             </div>

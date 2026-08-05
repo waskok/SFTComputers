@@ -15,16 +15,15 @@ export default function PcBuilder() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Komputery do gier na zamówienie</SectionBadge>
           <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Składamy komputer pod Twoje gry
+            Składamy komputer pod Twoje potrzeby
           </h2>
           <p className="mt-4 text-lg text-slate-300">
-            Kliknij podzespół na wizualizacji, aby zobaczyć, jak dobieramy go pod kątem tytułów, w które
-            grasz — bez przepłacania za moc, której nie wykorzystasz.
+            Kliknij podzespół na wizualizacji, aby zobaczyć, jak dobieramy go pod kątem twoich potrzeb - bez przepłacania za moc, której nie wykorzystasz.
           </p>
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Wizualizacja PC z hotspotami — 7/12 */}
+          {/* Wizualizacja PC z hotspotami - 7/12 */}
           <Reveal className="relative lg:col-span-7">
             <div className="relative mx-auto aspect-[6/5] max-w-2xl rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-slate-800 to-slate-950 p-8 shadow-2xl shadow-black/40 sm:p-12">
               <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
@@ -32,7 +31,7 @@ export default function PcBuilder() {
                   <Gamepad2 className="h-10 w-10 text-blue-400" />
                 </span>
                 <p className="max-w-xs text-sm font-medium text-slate-400">
-                  [TO-DO: zdjęcie/wizualizacja obudowy PC — hotspoty poniżej wskazują podzespoły]
+                  [TO-DO: zdjęcie/wizualizacja obudowy PC ]
                 </p>
               </div>
 
@@ -74,7 +73,7 @@ export default function PcBuilder() {
             </div>
           </Reveal>
 
-          {/* Opis wybranego podzespołu — 5/12 */}
+          {/* Opis wybranego podzespołu - 5/12 */}
           <Reveal delay={150} className="lg:col-span-5">
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-md sm:p-10">
               <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/30">

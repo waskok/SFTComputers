@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, MonitorCog, Phone, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import Button from "./ui/Button";
 import { company, navLinks } from "../data/siteData";
 
@@ -14,7 +14,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Blokujemy scroll strony, gdy otwarte jest menu mobilne.
+  // Scroll block strony, gdy otwarte jest menu mobilne.
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -35,9 +35,11 @@ export default function Header() {
           }`}
         >
           <a href="#top" className="flex items-center gap-2.5 shrink-0">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/30">
-              <MonitorCog className="h-5 w-5" aria-hidden="true" />
-            </span>
+            <img
+              src={`${import.meta.env.BASE_URL}favicon.jpg`}
+              alt={`Logo ${company.name}`}
+              className="h-10 w-auto rounded-xl object-contain shadow-md shadow-slate-200/60"
+            />
             <span className="flex flex-col leading-tight">
               <span className="text-base font-extrabold tracking-tight text-slate-900">{company.name}</span>
               <span className="hidden text-[11px] font-medium text-slate-500 sm:block">{company.claim}</span>

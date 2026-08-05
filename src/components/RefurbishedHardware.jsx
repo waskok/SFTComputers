@@ -25,7 +25,7 @@ export default function RefurbishedHardware() {
                   [TO-DO: zdjęcie laptopów/komputerów poleasingowych]
                 </p>
                 <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-700">
-                  12 miesięcy gwarancji
+                  TO-DO miesięcy gwarancji
                 </span>
               </div>
             </Reveal>
@@ -37,7 +37,7 @@ export default function RefurbishedHardware() {
                 Solidny sprzęt klasy biznesowej za mniej
               </h2>
               <p className="mt-4 max-w-xl text-lg text-slate-600">
-                Laptopy i komputery używane wcześniej w firmach — sprawdzone, odnowione i gotowe do pracy.
+                Laptopy i komputery używane wcześniej w firmach - sprawdzone, odnowione i gotowe do pracy.
                 Oszczędzasz bez kompromisu na jakości i niezawodności.
               </p>
 
@@ -57,7 +57,7 @@ export default function RefurbishedHardware() {
               </div>
 
               <div className="mt-10">
-                <Button href="#kontakt">Zobacz dostępny sprzęt</Button>
+                <Button href="#kontakt">Jestem zainteresowany/a</Button>
               </div>
             </Reveal>
           </div>

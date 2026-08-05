@@ -29,15 +29,15 @@ export default function Contact() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Kontakt i lokalizacja</SectionBadge>
           <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            Zgłoś się do nas — odpowiemy szybko
+            Skontaktuj się z nami
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Opisz problem lub zapytaj o wycenę. Odpowiadamy zwykle w ciągu jednego dnia roboczego.
+            Jeśli jesteś zainteresowany naszymi usługami - zadzwoń, wypełnij formularz kontaktowy lub odwiedź nas w Krakowie.
           </p>
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12">
-          {/* Formularz kontaktowy — 7/12 */}
+          {/* Formularz kontaktowy - 7/12 */}
           <Reveal className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
@@ -111,10 +111,10 @@ export default function Contact() {
             </form>
           </Reveal>
 
-          {/* Dane adresowe + mapa — 5/12 */}
+          {/* Dane adresowe + mapa - 5/12 */}
           <Reveal delay={120} className="flex flex-col gap-6 lg:col-span-5">
             <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-xl shadow-slate-200/60 sm:p-10">
-              <h3 className="text-lg font-bold tracking-tight text-slate-900">SFT Computers — Kraków</h3>
+              <h3 className="text-lg font-bold tracking-tight text-slate-900">SFT Computers - Kraków</h3>
 
               <ul className="mt-6 flex flex-col gap-5">
                 <li className="flex items-start gap-3">
@@ -171,9 +171,6 @@ export default function Contact() {
               </span>
               <p className="text-sm font-semibold text-slate-500">
                 [TO-DO: Google Maps Widget]
-              </p>
-              <p className="max-w-xs text-xs text-slate-400">
-                W tym miejscu zostanie osadzona interaktywna mapa Google z lokalizacją serwisu.
               </p>
             </div>
           </Reveal>

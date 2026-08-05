@@ -1,25 +1,25 @@
-// Dane placeholder — do zastąpienia realnymi treściami klienta przed wdrożeniem produkcyjnym.
+// Dane placeholder - do zastąpienia realnymi treściami klienta przed wdrożeniem produkcyjnym.
 
 export const company = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
-  phone: "+48 123 456 789",
+  phone: "TO-DO",
   phoneHref: "tel:+48123456789",
-  email: "kontakt@sftcomputers.pl",
+  email: "TO-DO",
   address: {
     street: "ul. Przykładowa 12",
     city: "30-001 Kraków",
-    full: "ul. Przykładowa 12, 30-001 Kraków",
+    full: "TO-DO",
   },
   hours: [
-    { days: "Poniedziałek – Piątek", hours: "9:00 – 18:00" },
-    { days: "Sobota", hours: "10:00 – 14:00" },
+    { days: "Poniedziałek – Piątek", hours: "10:00 – 18:00" },
+    { days: "Sobota - Niedziela", hours: "Nieczynne" },
   ],
   registry: {
-    company: "SFT Computers Sp. z o.o.",
-    nip: "NIP: 000-000-00-00",
-    krs: "KRS: 0000000000",
-    regon: "REGON: 000000000",
+    company: "SFT Computers",
+    nip: "NIP: TO-DO",
+    krs: "KRS: TO-DO",
+    regon: "REGON: TO-DO",
   },
   googleRating: {
     score: "4.9 / 5",
@@ -29,7 +29,7 @@ export const company = {
 
 export const navLinks = [
   { label: "Usługi", href: "#uslugi" },
-  { label: "Komputery do gier", href: "#konfigurator" },
+  { label: "Komputery", href: "#konfigurator" },
   { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
   { label: "Opinie", href: "#opinie" },
   { label: "Kontakt", href: "#kontakt" },
@@ -67,75 +67,99 @@ export const pcParts = [
     id: "cpu",
     label: "Procesor (CPU)",
     position: { top: "28%", left: "50%" },
-    title: "Procesor — mózg Twojego komputera",
+    title: "Procesor - mózg Twojego komputera",
     description:
-      "Dobieramy procesor dopasowany do gier i programów, w których grasz najczęściej. Dzięki temu płacisz tylko za moc, którą realnie wykorzystasz — bez przepłacania za niepotrzebne parametry.",
+      "TO-DO",
   },
   {
     id: "gpu",
     label: "Karta graficzna (GPU)",
     position: { top: "58%", left: "28%" },
-    title: "Karta graficzna — płynność w Twoich ulubionych tytułach",
+    title: "Karta graficzna - płynność w Twoich ulubionych tytułach",
     description:
-      "To ona odpowiada za liczbę klatek na sekundę i jakość grafiki. Podpowiemy, który model zapewni płynną rozgrywkę w rozdzielczości i detalach, na jakich Ci zależy.",
+      "TO-DO",
   },
   {
     id: "chlodzenie",
     label: "Chłodzenie",
     position: { top: "18%", left: "72%" },
-    title: "Chłodzenie — cichy komputer, który żyje dłużej",
+    title: "Chłodzenie - cichy komputer, który żyje dłużej",
     description:
-      "Dobrze dobrane chłodzenie oznacza niższe temperatury, cichszą pracę i dłuższą żywotność podzespołów — nawet podczas najbardziej intensywnych sesji grania.",
+      "TO-DO",
   },
   {
     id: "ram",
     label: "Pamięć RAM",
     position: { top: "68%", left: "70%" },
-    title: "Pamięć RAM — płynne przełączanie się między zadaniami",
+    title: "Pamięć RAM - płynne przełączanie się między zadaniami",
     description:
-      "Odpowiednia ilość i szybkość pamięci RAM to gwarancja, że gra nie zwolni nawet z Discordem, przeglądarką i streamem działającymi w tle.",
+      "TO-DO",
+  },
+  {
+    id: "obudowa",
+    label: "Obudowa",
+    position: { top: "42%", left: "18%" },
+    title: "Obudowa - wygląd, chłodzenie i miejsce na rozbudowę",
+    description:
+      "TO-DO",
+  },
+  {
+    id: "dysk",
+    label: "Dysk",
+    position: { top: "78%", left: "42%" },
+    title: "Dysk - szybki start systemu i bezpieczeństwo danych",
+    description:
+      "TO-DO",
+  },
+  {
+    id: "zasilacz",
+    label: "Zasilacz",
+    position: { top: "82%", left: "78%" },
+    title: "Zasilacz - stabilna moc i bezpieczeństwo podzespołów",
+    description:
+      "TO-DO",
   },
 ];
 
 export const refurbishedHighlights = [
   {
-    title: "Nawet 40% niższa cena",
+    title: "Nawet X% niższa cena",
     description: "Sprzęt klasy biznesowej w cenie znacznie niższej niż nowe modele o podobnych parametrach.",
     icon: "PiggyBank",
   },
   {
-    title: "12 miesięcy gwarancji",
+    title: "X miesięcy gwarancji",
     description: "Każdy laptop i komputer przechodzi pełny serwis i testy przed sprzedażą.",
     icon: "ShieldCheck",
   },
   {
     title: "Sprawdzona niezawodność",
-    description: "Marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach — solidne i przetestowane.",
+    description: "Marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
     icon: "BadgeCheck",
   },
 ];
 
 export const testimonials = [
   {
-    name: "Marek Nowak",
-    role: "Klient indywidualny",
+    name: "TO-DO",
+    role: "TO-DO",
     rating: 5,
     quote:
-      "Laptop odmówił posłuszeństwa tuż przed ważnym projektem. W SFT naprawili go tego samego dnia i jeszcze wyjaśnili, co się stało. Polecam każdemu.",
+      "TO-DO.",
   },
   {
-    name: "Anna Kowalska",
-    role: "Właścicielka salonu kosmetycznego",
+    name: "TO-DO",
+    role: "TO-DO",
     rating: 5,
     quote:
-      "Korzystamy z opieki IT dla firm od roku. Wreszcie nie musimy się martwić o komputery — jeden telefon i problem szybko zniknie.",
+      "TO-DO",
   },
   {
-    name: "Piotr Zieliński",
-    role: "Gracz, klient konfiguratora PC",
+    name: "TO-DO",
+    role: "TO-DO",
     rating: 5,
     quote:
-      "Zamówiłem u nich komputer do gier pod konkretny budżet. Doradzili podzespoły, których sam bym nie wybrał — i gra śmiga świetnie.",
+      "TO-DO",
   },
 ];
 
