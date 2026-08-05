@@ -22,8 +22,8 @@ export const company = {
     regon: "REGON: TO-DO",
   },
   googleRating: {
-    score: "4.9 / 5",
-    reviewsCount: "128 opinii",
+    score: "4.8 / 5",
+    reviewsCount: "+140 opinii",
   },
 };
 
@@ -140,27 +140,25 @@ export const refurbishedHighlights = [
 ];
 
 export const testimonials = [
-  {
-    name: "TO-DO",
-    role: "TO-DO",
-    rating: 5,
-    quote:
-      "TO-DO.",
-  },
-  {
-    name: "TO-DO",
-    role: "TO-DO",
-    rating: 5,
-    quote:
-      "TO-DO",
-  },
-  {
-    name: "TO-DO",
-    role: "TO-DO",
-    rating: 5,
-    quote:
-      "TO-DO",
-  },
+  { name: "Mateusz Jajeśnica", rating: 5, text: "Ekspresowa diagnoza, ekspresowa naprawa. Super miły Pan obsługujący. Polecam z czystego serca." },
+  { name: "Urszula Ryznar", rating: 5, text: "Już któryś raz przyszłam po pomoc w awaryjnej sytuacji i Panowie kompetentnie podeszli do problemu, po raz kolejny dobrali odpowiedni sprzęt 😊 bardzo dziękuję, że względu na wyjazd nie miałam czasu podejść podziękować osobiście😊" },
+  { name: "Włodzimierz", rating: 5, text: "Bardzo miła i pomocna obsługa, w kilka minut nauczyli mnie - komputerowego analfabetę - jak wymienić zasilacz. Na pewno będę tu zaglądał w razie przyszłych usterek. Bardzo dziękuję za pomoc w naprawie mojego złoma." },
+  { name: "Oskar", rating: 5, text: "Serdecznie polecam to miejsce! Miła obsługa, konkretna i rzeczowa. Diagnoza usterki bardzo szybka, (w moim przypadku awaria systemu chłodzenia w laptopie gamingowym) naprawa również błyskawiczna. Laptop śmiga, aż miło 😁 Dziękuję jeszcze raz za profesjonalną pomoc!" },
+  { name: "Monika Rogoza", rating: 5, text: "Jestem bardzo zadowolona z usług tego serwisu komputerowego. Naprawa została wykonana szybko. Komputer odebrałam już następnego dnia, w pełni sprawny. Wszystko działa bez zarzutu i bardzo szybko. Pan był niezwykle cierpliwy i uprzejmy, odpowiadał na wszystkie moje pytania. Zostałam dokładnie i rzeczowo skonsultowana. Serdecznie polecam ten serwis! 😉" },
+  { name: "Panajota C", rating: 5, text: "Bardzo profesjonalna, fachowa, życzliwa i miła obsługa. Panowie w ciągu paru minut wybawili mnie z kłopotu, który miałam z laptopem. Bardzo dziękuję za pomoc. POLECAM TEN SERWIS." },
+  { name: "Ewelina Wojtacha", rating: 5, text: "Dwukrotnie pomogli mi z laptopem, który zawieszał się w ładowaniu i nie mogłam go włączyć. Dzięki nim szybko mogłam korzystać ze sprzętu. Od ręki i miło mnie obsłużyli." },
+  { name: "Michał Nowak", rating: 5, text: "Fachowa pomoc w rozsądnych pieniądzach. Podejście do klienta bardzo dobre. Polecam z problemami" },
+  { name: "Maciej Mikuszewski", rating: 5, text: "Wielokrotnie korzystałem z usług serwisu i za każdym razem wyszedłem naprawdę zadowolony. Panowie rozmowni, zawsze chętnie wszystko wyjaśnią, doradzą i polecą najlepsze rozwiązanie. Wyznaczają realne terminy odbioru sprzętu, nigdy nic się nie opóźniło. Dbają o powierzony sprzęt. Cenowo zawsze uczciwie. Polecam!" },
+  { name: "Barti S", rating: 5, text: "Obsługa bardzo szybka, wyszedłem przed chwilą a przyszedłem tylko po śruby do dysku. Atmosfera ocena na 6 i obsługa jak i ich poczucie humoru tak samo na ocenę celującą. Polecam bo naprawę dostaniecie i akcesoria do komputera też dostaniecie. Polecam" },
+  { name: "Kasia Solecka", rating: 5, text: "Mega polecam! Panowie bardzo mili i profesjonalni. Naprawili mój laptop szybko i porządnie, podczas naprawy informowali mnie na bieżąco o procesie i pytali o moje preferencje wymiany elementów. Zdecydowanie polecam każdemu i sama też nieraz skorzystam! :)" },
+  { name: "Jola Libera", rating: 5, text: "Bardzo uprzejme, kulturalne i profesjonalne podejście do klienta. Szybka diagnoza i naprawa z uprzednim poinformowaniem o wszystkim, łącznie z kosztami. Informacje o każdych plusach i minusach komputera. Z całego serca mogę polecić każdemu! :)" },
+  { name: "Joanna Tatarczuch-Pawlik", rating: 5, text: "Świetna obługa, profesjonalna i bardzo uprzejma. Szybka i skuteczna naprawa sprzętu. Gorąco polecam." },
+  { name: "Jakub Dziwura", rating: 5, text: "Szybka i trafna diagnoza komputera, bez naciągania na koszty." },
+  { name: "Katarzyna", rating: 5, text: "Szanowni Czytelnicy, jestem szczerze zachwycona profesjonalizmem pracujących w Sklepie Specjalistów, którzy z pasją zdiagnozowali usterki i dokonali naprawy laptopa. Dzięki fachowemu doradztwu Pracowników Sklepu zakupiłam dwa nowe laptopy i wybór ich był strzałem w dziesiątkę. Solidny, najwyższej klasy sprzęt, profesjonalizm w obsłudze klienta i korzystne ceny to cechy SFT Computers. Polecam każedemu." },
+  { name: "Agata Gąsiorek", rating: 5, text: "Dołączam do chóru bardzo zadowolonych klientów - oprócz szerokiego asortymentu, rozległej wiedzy, fachowego doradztwa, ekspresowego i rzetelnego serwisu za na prawdę rozsądne pieniądze, jest coś równie istotnego - w SFT jesteś ważny Ty, Twój sprzęt i problem z którym przyszedłeś oraz jego rozwiązanie, na pewno nie zadasz tam głupiego pytania bo takie mogą być tylko odpowiedzi ;)" },
+  { name: "Hanka", rating: 5, text: "Szczerze polecam - super specjaliści, a co najważniejsze, potrafią przemówić językiem zrozumiałym dla laika. Szybko i sprawnie uratowali mój zalany komputer :) 5 gwiazdek w pełni zasłużone." },
+  { name: "Małgorzata Pasierska", rating: 5, text: "Serdecznie POLECAM!! Profesjonalny serwis i podejście do klienta" },
+  { name: "Paweł Bober", rating: 5, text: "Profesjonalnie, miła obsługa. Polecam." },
 ];
 
 export const footerLinks = [
