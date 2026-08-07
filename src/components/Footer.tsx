@@ -16,7 +16,7 @@ export default function Footer() {
               <span className="text-base font-extrabold tracking-tight text-slate-900">{company.name}</span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">
-              Serwis komputerowy, opieka IT i komputery do gier na zamówienie. Zaufany partner
+              Serwis komputerowy, opieka IT i komputery na zamówienie. Zaufany partner
               technologiczny w Krakowie.
             </p>
 

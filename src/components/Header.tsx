@@ -6,12 +6,27 @@ import { company, navLinks } from "../data/siteData";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [announcementHeight, setAnnouncementHeight] = useState(0);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Header jest "fixed", więc mierzymy wysokość paska ogłoszeń (może się zawinąć
+  // do 2 linii na wąskich ekranach), żeby w spoczynku nagłówek zaczynał się dokładnie pod nim.
+  useEffect(() => {
+    const announcementBar = document.getElementById("announcement-bar");
+    if (!announcementBar) return undefined;
+
+    const measure = () => setAnnouncementHeight(announcementBar.offsetHeight);
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(announcementBar);
+    return () => resizeObserver.disconnect();
   }, []);
 
   // Scroll block strony, gdy otwarte jest menu mobilne.
@@ -27,7 +42,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-300 ease-out ${
+      style={{ top: isScrolled ? 0 : announcementHeight }}
+      className={`fixed inset-x-0 z-50 w-full transition-all duration-300 ease-out ${
         isSolid
           ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md"
           : "border-b border-transparent bg-transparent"

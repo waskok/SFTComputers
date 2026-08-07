@@ -1,4 +1,4 @@
-import { Clock3, MonitorSmartphone, ShieldCheck, Star, Wrench } from "lucide-react";
+import { Clock3, MonitorSmartphone, ShieldCheck, ShoppingBag, Star, Wrench } from "lucide-react";
 import Button from "./ui/Button";
 import SectionBadge from "./ui/SectionBadge";
 import Reveal from "./ui/Reveal";
@@ -6,7 +6,7 @@ import { company } from "../data/siteData";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-20 sm:pt-40 sm:pb-28 lg:pb-32">
+    <section id="top" className="relative overflow-hidden pt-44 pb-20 sm:pb-28 lg:pt-40 lg:pb-32">
       <div
         className="pointer-events-none absolute -top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-blue-100 opacity-70 blur-3xl"
         aria-hidden="true"
@@ -61,14 +61,12 @@ export default function Hero() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex text-amber-400">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                  <ShoppingBag className="h-5 w-5" />
+                </span>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score} </p>
-                  <p className="text-xs text-slate-500">{company.googleRating.reviewsCount}</p>
+                  <p className="text-sm font-bold text-slate-900">Sklep stacjonarny</p>
+                  <p className="text-xs text-slate-500">Kable, podzespoły i sprzęt na miejscu</p>
                 </div>
               </div>
             </div>
@@ -104,14 +102,14 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Wolno stojący element — ocena; lekko przezroczyste tło, żeby było czytelne na ciemnym panelu */}
+              {/* Wolno stojący element — ocena Google; lekko przezroczyste tło, żeby było czytelne na ciemnym panelu */}
               <div className="absolute -bottom-4 right-0 flex items-center gap-3 rounded-2xl bg-white/75 px-3 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:right-6">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-500">
                   <Star className="h-5 w-5 fill-current" />
                 </span>
                 <div className="text-left">
-                  <p className="text-xs text-slate-500">Zaufało nam</p>
-                  <p className="text-sm font-bold text-slate-900">1000+ klientów</p>
+                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score}</p>
+                  <p className="text-xs text-slate-500">{company.googleRating.reviewsCount}</p>
                 </div>
               </div>
             </div>
