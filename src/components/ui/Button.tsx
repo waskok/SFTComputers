@@ -1,14 +1,43 @@
-const VARIANT_STYLES = {
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ComponentType,
+  ReactNode,
+  SVGProps,
+} from "react";
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+type ButtonVariant = "primary" | "secondary" | "ghost" | "inverse";
+type ButtonSize = "md" | "lg";
+
+interface ButtonOwnProps {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  icon?: IconComponent;
+  iconPosition?: "left" | "right";
+  className?: string;
+  children?: ReactNode;
+}
+
+type ButtonAsAnchorProps = ButtonOwnProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & { href: string };
+
+type ButtonAsButtonProps = ButtonOwnProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+
+export type ButtonProps = ButtonAsAnchorProps | ButtonAsButtonProps;
+
+const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
     "bg-blue-600 text-white shadow-xl shadow-blue-600/25 hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5",
   secondary:
     "bg-white text-slate-900 border border-slate-200 shadow-lg shadow-slate-200/60 hover:border-blue-200 hover:text-blue-700 hover:-translate-y-0.5",
   ghost: "bg-blue-50 text-blue-700 hover:bg-blue-100 hover:-translate-y-0.5",
-  inverse:
-    "bg-white text-blue-700 shadow-xl shadow-black/10 hover:bg-blue-50 hover:-translate-y-0.5",
+  inverse: "bg-white text-blue-700 shadow-xl shadow-black/10 hover:bg-blue-50 hover:-translate-y-0.5",
 };
 
-const SIZE_STYLES = {
+const SIZE_STYLES: Record<ButtonSize, string> = {
   md: "px-6 py-3 text-sm",
   lg: "px-8 py-4 text-base",
 };
@@ -26,7 +55,7 @@ export default function Button({
   className = "",
   children,
   ...props
-}) {
+}: ButtonProps) {
   const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-300 ease-out whitespace-nowrap ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`;
 
   const content = (
@@ -39,14 +68,14 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes} {...props}>
+      <a href={href} className={classes} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type="button" className={classes} {...props}>
+    <button type="button" className={classes} {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}>
       {content}
     </button>
   );

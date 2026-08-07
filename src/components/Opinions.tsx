@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Star } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { company, testimonials } from "../data/siteData";
+import { company, opinions, type Opinion } from "../data/siteData";
 
 // Duplikujemy listę, aby pętla marquee była nieskończona i bez widocznego przeskoku.
-const loopTestimonials = [...testimonials, ...testimonials];
+const loopOpinions: Opinion[] = [...opinions, ...opinions];
 
 // Paleta kolorów awatarów — dobierana deterministycznie na podstawie imienia,
 // żeby ta sama osoba zawsze miała to samo kółko, a różne osoby różne kolory.
@@ -24,7 +24,7 @@ const AVATAR_COLORS = [
 
 // 1 litera imienia i nazwiska (np. "Mateusz Jajeśnica" -> "MJ"), a jeśli podano
 // tylko imię — sama jego pierwsza litera (np. "Oskar" -> "O").
-function getInitials(name) {
+function getInitials(name: string): string {
   return name
     .trim()
     .split(/\s+/)
@@ -34,12 +34,12 @@ function getInitials(name) {
     .slice(0, 2);
 }
 
-function getAvatarColor(name) {
+function getAvatarColor(name: string): string {
   const hash = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return AVATAR_COLORS[hash % AVATAR_COLORS.length];
 }
 
-function Stars({ rating }) {
+function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
@@ -52,10 +52,10 @@ function Stars({ rating }) {
   );
 }
 
-export default function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(null);
+export default function Opinions() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isOpen = activeIndex !== null;
-  const activeTestimonial = isOpen ? loopTestimonials[activeIndex] : null;
+  const activeOpinion = activeIndex !== null ? loopOpinions[activeIndex] : null;
 
   // Blokujemy scroll strony i pozwalamy zamknąć podgląd klawiszem Escape.
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function Testimonials() {
 
     if (!isOpen) return undefined;
 
-    function handleKeyDown(event) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setActiveIndex(null);
     }
     document.addEventListener("keydown", handleKeyDown);
@@ -111,9 +111,9 @@ export default function Testimonials() {
 
           <div
             className={`flex w-max gap-6 py-6 animate-marquee ${isOpen ? "is-paused" : ""}`}
-            style={{ "--marquee-duration": `${testimonials.length * 4}s` }}
+            style={{ "--marquee-duration": `${opinions.length * 4}s` } as React.CSSProperties}
           >
-            {loopTestimonials.map((testimonial, index) => {
+            {loopOpinions.map((opinion, index) => {
               const isActive = activeIndex === index;
 
               return (
@@ -129,19 +129,19 @@ export default function Testimonials() {
                   <div className="flex items-center gap-3">
                     <span
                       className={`flex h-10 w-10 flex-none items-center justify-center rounded-full text-sm font-bold text-white ${getAvatarColor(
-                        testimonial.name
+                        opinion.name
                       )}`}
                     >
-                      {getInitials(testimonial.name)}
+                      {getInitials(opinion.name)}
                     </span>
-                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                    <p className="font-semibold text-gray-900">{opinion.name}</p>
                   </div>
 
                   <div className="mt-3">
-                    <Stars rating={testimonial.rating} />
+                    <Stars rating={opinion.rating} />
                   </div>
 
-                  <p className="mt-3 line-clamp-6 text-sm leading-relaxed text-gray-600">{testimonial.text}</p>
+                  <p className="mt-3 line-clamp-6 text-sm leading-relaxed text-gray-600">{opinion.text}</p>
                 </button>
               );
             })}
@@ -158,11 +158,11 @@ export default function Testimonials() {
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        {activeTestimonial && (
+        {activeOpinion && (
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={`Opinia — ${activeTestimonial.name}`}
+            aria-label={`Opinia — ${activeOpinion.name}`}
             onClick={(event) => event.stopPropagation()}
             className={`relative flex max-h-[80vh] w-full max-w-lg flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 ease-out ${
               isOpen ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-95 opacity-0"
@@ -172,20 +172,20 @@ export default function Testimonials() {
               <div className="flex items-center gap-3">
                 <span
                   className={`flex h-12 w-12 flex-none items-center justify-center rounded-full text-base font-bold text-white ${getAvatarColor(
-                    activeTestimonial.name
+                    activeOpinion.name
                   )}`}
                 >
-                  {getInitials(activeTestimonial.name)}
+                  {getInitials(activeOpinion.name)}
                 </span>
-                <p className="text-lg font-semibold text-gray-900">{activeTestimonial.name}</p>
+                <p className="text-lg font-semibold text-gray-900">{activeOpinion.name}</p>
               </div>
 
               <div className="mt-4">
-                <Stars rating={activeTestimonial.rating} />
+                <Stars rating={activeOpinion.rating} />
               </div>
 
               <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-gray-600 sm:text-base">
-                {activeTestimonial.text}
+                {activeOpinion.text}
               </p>
             </div>
 

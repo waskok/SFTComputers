@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import PcBuilder from "./components/PcBuilder";
 import RefurbishedHardware from "./components/RefurbishedHardware";
-import Testimonials from "./components/Testimonials";
+import Opinions from "./components/Opinions";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -16,7 +16,7 @@ function App() {
         <Services />
         <PcBuilder />
         <RefurbishedHardware />
-        <Testimonials />
+        <Opinions />
         <Contact />
       </main>
       <Footer />
