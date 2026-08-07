@@ -131,7 +131,7 @@ export const services: ServiceItem[] = [
     title: "Opieka IT dla firm",
     description:
       "Stały nadzór nad sprzętem i siecią w Twojej firmie. Mniej przestojów, szybsza pomoc i jeden numer do wszystkich problemów IT.",
-    bullets: ["Zdalna i stacjonarna pomoc", "Stałe pakiety abonamentowe", "Reakcja tego samego dnia"],
+    bullets: ["Zdalna i stacjonarna pomoc", "Bezpieczeństwo danych", "Reakcja tego samego dnia"],
     icon: "Building2",
   },
   {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, Phone, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Button from "./ui/Button";
 import { company, navLinks } from "../data/siteData";
 
@@ -22,83 +22,86 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
+  // Menu mobilne otwarte na samej górze strony też potrzebuje czytelnego, jednolitego tła.
+  const isSolid = isScrolled || isMenuOpen;
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out ${
-        isScrolled ? "py-3" : "py-5"
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-300 ease-out ${
+        isSolid
+          ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      } ${isScrolled ? "py-4" : "py-7"}`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          className={`flex items-center justify-between rounded-full border border-slate-100 bg-white/80 px-4 py-2.5 backdrop-blur-md transition-shadow duration-300 sm:px-6 ${
-            isScrolled ? "shadow-xl shadow-slate-200/70" : "shadow-md shadow-slate-200/40"
-          }`}
+      <div className="mx-auto flex max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
+        <a href="#top" className="flex items-center gap-2.5 shrink-0">
+          <img
+            src={`${import.meta.env.BASE_URL}favicon.jpg`}
+            alt={`Logo ${company.name}`}
+            className="h-10 w-auto rounded-xl object-contain"
+          />
+          <span className="flex flex-col leading-tight">
+            <span className="text-lg font-extrabold tracking-tight text-slate-900">{company.name}</span>
+            <span className="hidden text-xs font-medium text-slate-500 sm:block">{company.claim}</span>
+          </span>
+        </a>
+
+        <nav className="hidden items-center gap-9 lg:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700"
+            >
+              {link.label}
+              <span
+                className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-blue-600 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                aria-hidden="true"
+              />
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden lg:ml-10 lg:block">
+          <Button href="#kontakt" variant="ghost" size="md" icon={ArrowRight}>
+            Sprawdzam ofertę
+          </Button>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+          aria-expanded={isMenuOpen}
+          className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 lg:hidden"
         >
-          <a href="#top" className="flex items-center gap-2.5 shrink-0">
-            <img
-              src={`${import.meta.env.BASE_URL}favicon.jpg`}
-              alt={`Logo ${company.name}`}
-              className="h-10 w-auto rounded-xl object-contain shadow-md shadow-slate-200/60"
-            />
-            <span className="flex flex-col leading-tight">
-              <span className="text-base font-extrabold tracking-tight text-slate-900">{company.name}</span>
-              <span className="hidden text-[11px] font-medium text-slate-500 sm:block">{company.claim}</span>
-            </span>
-          </a>
+          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-blue-700"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
-            <Button href={company.phoneHref} icon={Phone} size="md">
-              Zadzwoń: {company.phone}
+      {/* Menu mobilne — pełna szerokość, bez oddzielnej "karty" */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-out lg:hidden ${
+          isMenuOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pb-5 pt-2 sm:px-6 lg:px-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 hover:text-blue-700"
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="mt-2 px-1">
+            <Button href="#kontakt" icon={ArrowRight} className="w-full" onClick={() => setIsMenuOpen(false)}>
+              Sprawdzam ofertę
             </Button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
-            aria-expanded={isMenuOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 lg:hidden"
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Menu mobilne */}
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out lg:hidden ${
-            isMenuOpen ? "mt-3 max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <nav className="flex flex-col gap-1 rounded-3xl border border-slate-100 bg-white/95 p-4 shadow-xl shadow-slate-200/70 backdrop-blur-md">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-700"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="mt-2 px-1">
-              <Button href={company.phoneHref} icon={Phone} className="w-full">
-                Zadzwoń: {company.phone}
-              </Button>
-            </div>
-          </nav>
-        </div>
+        </nav>
       </div>
     </header>
   );
