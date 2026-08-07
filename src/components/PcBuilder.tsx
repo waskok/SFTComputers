@@ -6,7 +6,7 @@ import SectionBadge from "./ui/SectionBadge";
 import { pcParts } from "../data/siteData";
 
 export default function PcBuilder() {
-  const [activeId, setActiveId] = useState(pcParts[0].id);
+  const [activeId, setActiveId] = useState<string>(pcParts[0].id);
   const activePart = pcParts.find((part) => part.id === activeId) ?? pcParts[0];
 
   return (

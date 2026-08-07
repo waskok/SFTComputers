@@ -1,10 +1,13 @@
+import type { ComponentType, SVGProps } from "react";
 import { BadgeCheck, Laptop, PiggyBank, ShieldCheck } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { refurbishedHighlights } from "../data/siteData";
+import { refurbishedHighlights, type RefurbishedIconName } from "../data/siteData";
 
-const ICONS = { PiggyBank, ShieldCheck, BadgeCheck };
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const ICONS: Record<RefurbishedIconName, IconComponent> = { PiggyBank, ShieldCheck, BadgeCheck };
 
 export default function RefurbishedHardware() {
   return (

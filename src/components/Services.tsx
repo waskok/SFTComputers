@@ -1,9 +1,12 @@
+import type { ComponentType, SVGProps } from "react";
 import { ArrowUpRight, Building2, Check, DatabaseBackup, Wrench } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { services } from "../data/siteData";
+import { services, type ServiceIconName } from "../data/siteData";
 
-const ICONS = { Wrench, Building2, DatabaseBackup };
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Building2, DatabaseBackup };
 
 export default function Services() {
   return (

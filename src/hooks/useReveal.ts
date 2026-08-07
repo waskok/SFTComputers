@@ -1,11 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
+
+export interface UseRevealOptions {
+  threshold?: number;
+  rootMargin?: string;
+}
+
+export interface UseRevealResult<T extends HTMLElement> {
+  ref: RefObject<T | null>;
+  isVisible: boolean;
+}
 
 /**
  * Odsłania element (fade-in-up) gdy wejdzie w viewport podczas scrollowania.
  * Zwraca ref do podczepienia pod element oraz flagę widoczności.
  */
-export function useReveal({ threshold = 0.15, rootMargin = "0px 0px -80px 0px" } = {}) {
-  const ref = useRef(null);
+export function useReveal<T extends HTMLElement = HTMLDivElement>({
+  threshold = 0.15,
+  rootMargin = "0px 0px -80px 0px",
+}: UseRevealOptions = {}): UseRevealResult<T> {
+  const ref = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

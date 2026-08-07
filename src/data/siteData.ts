@@ -1,6 +1,88 @@
 // Dane placeholder - do zastąpienia realnymi treściami klienta przed wdrożeniem produkcyjnym.
 
-export const company = {
+export interface AddressInfo {
+  street: string;
+  city: string;
+  full: string;
+}
+
+export interface HoursSlot {
+  days: string;
+  hours: string;
+}
+
+export interface RegistryInfo {
+  company: string;
+  nip: string;
+  krs: string;
+  regon: string;
+}
+
+export interface GoogleRatingInfo {
+  score: string;
+  reviewsCount: string;
+}
+
+export interface CompanyData {
+  name: string;
+  claim: string;
+  phone: string;
+  phoneHref: string;
+  email: string;
+  address: AddressInfo;
+  hours: HoursSlot[];
+  registry: RegistryInfo;
+  googleRating: GoogleRatingInfo;
+}
+
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+export type ServiceIconName = "Wrench" | "Building2" | "DatabaseBackup";
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  icon: ServiceIconName;
+}
+
+export interface PcPartPosition {
+  top: string;
+  left: string;
+}
+
+export interface PcPart {
+  id: string;
+  label: string;
+  position: PcPartPosition;
+  title: string;
+  description: string;
+}
+
+export type RefurbishedIconName = "PiggyBank" | "ShieldCheck" | "BadgeCheck";
+
+export interface RefurbishedHighlight {
+  title: string;
+  description: string;
+  icon: RefurbishedIconName;
+}
+
+export interface Opinion {
+  name: string;
+  rating: number;
+  text: string;
+}
+
+export interface FooterLinkColumn {
+  heading: string;
+  links: NavLink[];
+}
+
+export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
   phone: "TO-DO",
@@ -27,7 +109,7 @@ export const company = {
   },
 };
 
-export const navLinks = [
+export const navLinks: NavLink[] = [
   { label: "Usługi", href: "#uslugi" },
   { label: "Komputery", href: "#konfigurator" },
   { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
@@ -35,7 +117,7 @@ export const navLinks = [
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-export const services = [
+export const services: ServiceItem[] = [
   {
     id: "serwis",
     title: "Serwis i naprawa",
@@ -62,66 +144,59 @@ export const services = [
   },
 ];
 
-export const pcParts = [
+export const pcParts: PcPart[] = [
   {
     id: "cpu",
     label: "Procesor (CPU)",
     position: { top: "28%", left: "50%" },
     title: "Procesor - mózg Twojego komputera",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "gpu",
     label: "Karta graficzna (GPU)",
     position: { top: "58%", left: "28%" },
     title: "Karta graficzna - płynność w Twoich ulubionych tytułach",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "chlodzenie",
     label: "Chłodzenie",
     position: { top: "18%", left: "72%" },
     title: "Chłodzenie - cichy komputer, który żyje dłużej",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "ram",
     label: "Pamięć RAM",
     position: { top: "68%", left: "70%" },
     title: "Pamięć RAM - płynne przełączanie się między zadaniami",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "obudowa",
     label: "Obudowa",
     position: { top: "42%", left: "18%" },
     title: "Obudowa - wygląd, chłodzenie i miejsce na rozbudowę",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "dysk",
     label: "Dysk",
     position: { top: "78%", left: "42%" },
     title: "Dysk - szybki start systemu i bezpieczeństwo danych",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
   {
     id: "zasilacz",
     label: "Zasilacz",
     position: { top: "82%", left: "78%" },
     title: "Zasilacz - stabilna moc i bezpieczeństwo podzespołów",
-    description:
-      "TO-DO",
+    description: "TO-DO",
   },
 ];
 
-export const refurbishedHighlights = [
+export const refurbishedHighlights: RefurbishedHighlight[] = [
   {
     title: "Nawet X% niższa cena",
     description: "Sprzęt klasy biznesowej w cenie znacznie niższej niż nowe modele o podobnych parametrach.",
@@ -139,7 +214,7 @@ export const refurbishedHighlights = [
   },
 ];
 
-export const testimonials = [
+export const opinions: Opinion[] = [
   { name: "Mateusz Jajeśnica", rating: 5, text: "Ekspresowa diagnoza, ekspresowa naprawa. Super miły Pan obsługujący. Polecam z czystego serca." },
   { name: "Urszula Ryznar", rating: 5, text: "Już któryś raz przyszłam po pomoc w awaryjnej sytuacji i Panowie kompetentnie podeszli do problemu, po raz kolejny dobrali odpowiedni sprzęt 😊 bardzo dziękuję, że względu na wyjazd nie miałam czasu podejść podziękować osobiście😊" },
   { name: "Włodzimierz", rating: 5, text: "Bardzo miła i pomocna obsługa, w kilka minut nauczyli mnie - komputerowego analfabetę - jak wymienić zasilacz. Na pewno będę tu zaglądał w razie przyszłych usterek. Bardzo dziękuję za pomoc w naprawie mojego złoma." },
@@ -161,7 +236,7 @@ export const testimonials = [
   { name: "Paweł Bober", rating: 5, text: "Profesjonalnie, miła obsługa. Polecam." },
 ];
 
-export const footerLinks = [
+export const footerLinks: FooterLinkColumn[] = [
   {
     heading: "Oferta",
     links: [

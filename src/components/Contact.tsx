@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
 import { company } from "../data/siteData";
 
-const initialForm = { name: "", phone: "", message: "" };
+interface ContactFormState {
+  name: string;
+  phone: string;
+  message: string;
+}
+
+const initialForm: ContactFormState = { name: "", phone: "", message: "" };
 
 export default function Contact() {
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState<ContactFormState>(initialForm);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // TODO: podłączyć wysyłkę formularza do backendu / usługi mailingowej.
     setIsSubmitted(true);
