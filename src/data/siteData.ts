@@ -82,6 +82,11 @@ export interface FooterLinkColumn {
   links: NavLink[];
 }
 
+export interface ContactCategory {
+  id: string;
+  label: string;
+}
+
 export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
@@ -105,7 +110,7 @@ export const company: CompanyData = {
   },
   googleRating: {
     score: "4.8 / 5",
-    reviewsCount: "+140 opinii",
+    reviewsCount: "opinie Google",
   },
 };
 
@@ -131,7 +136,7 @@ export const services: ServiceItem[] = [
     title: "Opieka IT dla firm",
     description:
       "Stały nadzór nad sprzętem i siecią w Twojej firmie. Mniej przestojów, szybsza pomoc i jeden numer do wszystkich problemów IT.",
-    bullets: ["Zdalna i stacjonarna pomoc", "Stałe pakiety abonamentowe", "Reakcja tego samego dnia"],
+    bullets: ["Zdalna i stacjonarna pomoc", "Bezpieczeństwo danych", "Reakcja tego samego dnia"],
     icon: "Building2",
   },
   {
@@ -234,6 +239,15 @@ export const opinions: Opinion[] = [
   { name: "Hanka", rating: 5, text: "Szczerze polecam - super specjaliści, a co najważniejsze, potrafią przemówić językiem zrozumiałym dla laika. Szybko i sprawnie uratowali mój zalany komputer :) 5 gwiazdek w pełni zasłużone." },
   { name: "Małgorzata Pasierska", rating: 5, text: "Serdecznie POLECAM!! Profesjonalny serwis i podejście do klienta" },
   { name: "Paweł Bober", rating: 5, text: "Profesjonalnie, miła obsługa. Polecam." },
+];
+
+export const contactCategories: ContactCategory[] = [
+  { id: "dostepnosc", label: "Dostępność produktu w sklepie" },
+  { id: "konfiguracja-pc", label: "Konfiguracja PC na zamówienie" },
+  { id: "serwis", label: "Serwis / naprawa sprzętu" },
+  { id: "dane", label: "Odzyskiwanie danych" },
+  { id: "it-firmy", label: "Opieka IT dla firmy" },
+  { id: "poleasingowy", label: "Sprzęt poleasingowy" },
 ];
 
 export const footerLinks: FooterLinkColumn[] = [

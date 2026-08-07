@@ -3,21 +3,25 @@ import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { company } from "../data/siteData";
+import { company, contactCategories } from "../data/siteData";
 
 interface ContactFormState {
   name: string;
   phone: string;
+  email: string;
+  category: string;
   message: string;
 }
 
-const initialForm: ContactFormState = { name: "", phone: "", message: "" };
+const initialForm: ContactFormState = { name: "", phone: "", email: "", category: "", message: "" };
 
 export default function Contact() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
@@ -42,7 +46,7 @@ export default function Contact() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Formularz kontaktowy - 7/12 */}
           <Reveal className="lg:col-span-7">
             <form
@@ -61,7 +65,7 @@ export default function Contact() {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Jan Kowalski"
+                    placeholder="TODO"
                     className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
@@ -77,9 +81,50 @@ export default function Contact() {
                     required
                     value={form.phone}
                     onChange={handleChange}
-                    placeholder="+48 600 000 000"
+                    placeholder="+48 123 456 789"
                     className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
                   />
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="email" className="text-sm font-semibold text-slate-700">
+                    Adres e-mail
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="jan.kowalski@example.com"
+                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="category" className="text-sm font-semibold text-slate-700">
+                    Kategoria zapytania
+                  </label>
+                  <select
+                    id="category"
+                    name="category"
+                    required
+                    value={form.category}
+                    onChange={handleChange}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                  >
+                    <option value="" disabled>
+                      Wybierz kategorię
+                    </option>
+                    {contactCategories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
@@ -94,13 +139,13 @@ export default function Contact() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Np. komputer nie włącza się, laptop głośno pracuje, potrzebuję wyceny konfiguracji PC..."
+                  placeholder="TO DO"
                   className="resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
                 />
               </div>
 
               <p className="mt-3 text-xs text-slate-400">
-                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie.
+                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie oraz akceptujesz naszą politykę prywatności.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -117,9 +162,9 @@ export default function Contact() {
             </form>
           </Reveal>
 
-          {/* Dane adresowe + mapa - 5/12 */}
-          <Reveal delay={120} className="flex flex-col gap-6 lg:col-span-5">
-            <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-xl shadow-slate-200/60 sm:p-10">
+          {/* Dane adresowe + mapa - 5/12, bez pudełka: elementy oddzielone samą przestrzenią */}
+          <Reveal delay={120} className="flex flex-col gap-10 lg:col-span-5">
+            <div>
               <h3 className="text-lg font-bold tracking-tight text-slate-900">SFT Computers - Kraków</h3>
 
               <ul className="mt-6 flex flex-col gap-5">

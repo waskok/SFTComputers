@@ -83,6 +83,7 @@ export default function Opinions() {
             <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
               Zaufali nam mieszkańcy Krakowa
             </h2>
+            <p className="mt-2 text-sm text-slate-400">Kliknij na opinię, by ją przeczytać</p>
           </div>
 
           <div className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white px-6 py-4 shadow-lg shadow-slate-200/60">
@@ -96,7 +97,7 @@ export default function Opinions() {
               <p className="text-lg font-extrabold leading-none text-slate-900">
                 {company.googleRating.score}
               </p>
-              <p className="text-xs text-slate-500">Google  {company.googleRating.reviewsCount}</p>
+              <p className="text-xs text-slate-500">  {company.googleRating.reviewsCount}</p>
             </div>
           </div>
         </Reveal>
@@ -122,7 +123,7 @@ export default function Opinions() {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-pressed={isActive}
-                  className={`relative flex w-72 flex-none flex-col rounded-xl border bg-white p-6 text-left shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-300/70 sm:w-80 ${
+                  className={`relative flex w-72 flex-none cursor-pointer flex-col rounded-xl border bg-white p-6 text-left shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-300/70 sm:w-80 ${
                     isActive ? "border-blue-300 ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-50" : "border-gray-100"
                   }`}
                 >
