@@ -67,7 +67,7 @@ export default function Hero() {
                   ))}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score} Google</p>
+                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score} </p>
                   <p className="text-xs text-slate-500">{company.googleRating.reviewsCount}</p>
                 </div>
               </div>

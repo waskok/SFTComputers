@@ -96,7 +96,7 @@ export default function Opinions() {
               <p className="text-lg font-extrabold leading-none text-slate-900">
                 {company.googleRating.score}
               </p>
-              <p className="text-xs text-slate-500">Google  {company.googleRating.reviewsCount}</p>
+              <p className="text-xs text-slate-500">  {company.googleRating.reviewsCount}</p>
             </div>
           </div>
         </Reveal>

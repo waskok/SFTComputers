@@ -105,7 +105,7 @@ export const company: CompanyData = {
   },
   googleRating: {
     score: "4.8 / 5",
-    reviewsCount: "+140 opinii",
+    reviewsCount: "opinie Google",
   },
 };
 
