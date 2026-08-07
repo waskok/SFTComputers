@@ -1,4 +1,4 @@
-import { Clock3, MonitorSmartphone, ShieldCheck, Star, Wrench } from "lucide-react";
+import { Clock3, MonitorSmartphone, ShieldCheck, ShoppingBag, Star, Wrench } from "lucide-react";
 import Button from "./ui/Button";
 import SectionBadge from "./ui/SectionBadge";
 import Reveal from "./ui/Reveal";
@@ -6,7 +6,7 @@ import { company } from "../data/siteData";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-36 pb-20 sm:pt-40 sm:pb-28 lg:pb-32">
+    <section id="top" className="relative overflow-hidden pt-44 pb-20 sm:pb-28 lg:pt-40 lg:pb-32">
       <div
         className="pointer-events-none absolute -top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-blue-100 opacity-70 blur-3xl"
         aria-hidden="true"
@@ -16,11 +16,11 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-8">
-          {/* Kolumna tekstowa — 7/12, asymetryczny układ */}
+      <div className="relative mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-16 xl:gap-24">
+          {/* Kolumna tekstowa — 7/12, przesunięta bliżej lewej krawędzi ekranu */}
           <Reveal className="lg:col-span-7">
-            <SectionBadge>Serwis komputerowy w Krakowie</SectionBadge>
+            <SectionBadge>Sklep komputerowy w Krakowie</SectionBadge>
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem] lg:leading-[1.08]">
               Szybka naprawa i serwis sprzętu{" "}
@@ -61,22 +61,20 @@ export default function Hero() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex text-amber-400">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                  <ShoppingBag className="h-5 w-5" />
+                </span>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score} Google</p>
-                  <p className="text-xs text-slate-500">{company.googleRating.reviewsCount}</p>
+                  <p className="text-sm font-bold text-slate-900">Sklep stacjonarny</p>
+                  <p className="text-xs text-slate-500">Kable, podzespoły i sprzęt na miejscu</p>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          {/* Kolumna wizualna — 5/12 */}
+          {/* Kolumna wizualna — 5/12, bez pudełek, przesunięta bliżej prawej krawędzi ekranu */}
           <Reveal delay={150} className="relative lg:col-span-5">
-            <div className="relative mx-auto max-w-md">
+            <div className="relative mx-auto max-w-md lg:ml-auto lg:mr-0">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-slate-100 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-900 p-10 shadow-2xl shadow-blue-900/20">
                 <div className="flex h-full flex-col items-center justify-center gap-6 text-center">
                   <span className="flex h-24 w-24 items-center justify-center rounded-3xl bg-white/10 backdrop-blur-md">
@@ -93,25 +91,25 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Floating badge — czas reakcji */}
-              <div className="absolute -left-6 top-10 flex items-center gap-3 rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-xl shadow-slate-200/70 backdrop-blur-md sm:-left-10">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              {/* Wolno stojący element — czas reakcji; lekko przezroczyste tło, żeby było czytelne na ciemnym panelu */}
+              <div className="absolute -left-2 top-10 flex items-center gap-3 rounded-2xl bg-white/75 px-3 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:-left-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                   <Wrench className="h-5 w-5" />
                 </span>
-                <div>
+                <div className="text-left">
                   <p className="text-xs text-slate-500">Diagnoza usterki</p>
                   <p className="text-sm font-bold text-slate-900">Bezpłatnie</p>
                 </div>
               </div>
 
-              {/* Floating badge — ocena */}
-              <div className="absolute -bottom-8 -right-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-xl shadow-slate-200/70 backdrop-blur-md sm:-right-8">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-500">
+              {/* Wolno stojący element — ocena Google; lekko przezroczyste tło, żeby było czytelne na ciemnym panelu */}
+              <div className="absolute -bottom-4 right-0 flex items-center gap-3 rounded-2xl bg-white/75 px-3 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:right-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-500">
                   <Star className="h-5 w-5 fill-current" />
                 </span>
-                <div>
-                  <p className="text-xs text-slate-500">Zaufało nam</p>
-                  <p className="text-sm font-bold text-slate-900">1000+ klientów</p>
+                <div className="text-left">
+                  <p className="text-sm font-bold text-slate-900">{company.googleRating.score}</p>
+                  <p className="text-xs text-slate-500">{company.googleRating.reviewsCount}</p>
                 </div>
               </div>
             </div>

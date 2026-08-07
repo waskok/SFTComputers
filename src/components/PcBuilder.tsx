@@ -6,12 +6,12 @@ import SectionBadge from "./ui/SectionBadge";
 import { pcParts } from "../data/siteData";
 
 export default function PcBuilder() {
-  const [activeId, setActiveId] = useState(pcParts[0].id);
+  const [activeId, setActiveId] = useState<string>(pcParts[0].id);
   const activePart = pcParts.find((part) => part.id === activeId) ?? pcParts[0];
 
   return (
     <section id="konfigurator" className="bg-slate-900 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Komputery do gier na zamówienie</SectionBadge>
           <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
@@ -22,15 +22,19 @@ export default function PcBuilder() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Wizualizacja PC z hotspotami - 7/12 */}
+        <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16 xl:gap-24">
+          {/* Wizualizacja PC z hotspotami - 7/12, bez pudełka, przesunięta bliżej lewej krawędzi ekranu */}
           <Reveal className="relative lg:col-span-7">
-            <div className="relative mx-auto aspect-[6/5] max-w-2xl rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-slate-800 to-slate-950 p-8 shadow-2xl shadow-black/40 sm:p-12">
+            <div className="relative mx-auto aspect-[6/5] max-w-2xl p-8 sm:p-12 lg:mr-auto lg:ml-0">
               <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
-                <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-white/5">
+                <div
+                  className="pointer-events-none absolute inset-10 rounded-full bg-blue-500/10 blur-3xl"
+                  aria-hidden="true"
+                />
+                <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/5">
                   <Gamepad2 className="h-10 w-10 text-blue-400" />
                 </span>
-                <p className="max-w-xs text-sm font-medium text-slate-400">
+                <p className="relative max-w-xs text-sm font-medium text-slate-400">
                   [TO-DO: zdjęcie/wizualizacja obudowy PC ]
                 </p>
               </div>
@@ -73,10 +77,10 @@ export default function PcBuilder() {
             </div>
           </Reveal>
 
-          {/* Opis wybranego podzespołu - 5/12 */}
+          {/* Opis wybranego podzespołu - 5/12, bez pudełka, przesunięty bliżej prawej krawędzi ekranu */}
           <Reveal delay={150} className="lg:col-span-5">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur-md sm:p-10">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/30">
+            <div>
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white">
                 <Cpu className="h-7 w-7" />
               </span>
 

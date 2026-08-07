@@ -57,3 +57,27 @@ body {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+/* Nieskończona karuzela pozioma (marquee) opinii klientów — czyste CSS, bez JS/framer-motion */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+.animate-marquee.is-paused {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
