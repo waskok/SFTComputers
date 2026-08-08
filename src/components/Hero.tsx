@@ -6,7 +6,7 @@ import { company } from "../data/siteData";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-44 pb-20 sm:pb-28 lg:pt-40 lg:pb-32">
+    <section id="top" className="relative overflow-hidden pt-56 pb-20 sm:pb-28 lg:pt-48 lg:pb-32">
       <div
         className="pointer-events-none absolute -top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-blue-100 opacity-70 blur-3xl"
         aria-hidden="true"

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import Button from "./ui/Button";
+import logoSft from "../assets/Logo1.png";
+import logoSftHover from "../assets/Logo2.png";
 import { company, navLinks } from "../data/siteData";
 
 export default function Header() {
@@ -50,16 +52,18 @@ export default function Header() {
       } ${isScrolled ? "py-4" : "py-7"}`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <a href="#top" className="flex items-center gap-2.5 shrink-0">
+        <a href="#top" className="group relative flex shrink-0 items-center">
           <img
-            src={`${import.meta.env.BASE_URL}favicon.jpg`}
+            src={logoSft}
             alt={`Logo ${company.name}`}
-            className="h-10 w-auto rounded-xl object-contain"
+            className="h-16 w-auto object-contain transition-opacity duration-200 ease-out group-hover:opacity-0 sm:h-20"
           />
-          <span className="flex flex-col leading-tight">
-            <span className="text-lg font-extrabold tracking-tight text-slate-900">{company.name}</span>
-            <span className="hidden text-xs font-medium text-slate-500 sm:block">{company.claim}</span>
-          </span>
+          <img
+            src={logoSftHover}
+            alt=""
+            aria-hidden="true"
+            className="absolute left-0 top-0 h-16 w-auto object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 sm:h-20"
+          />
         </a>
 
         <nav className="hidden items-center gap-9 lg:flex">
