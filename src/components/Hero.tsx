@@ -24,7 +24,9 @@ export default function Hero() {
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem] lg:leading-[1.08]">
               Szybka naprawa i serwis sprzętu{" "}
-              <span className="text-blue-600">w Krakowie</span>
+              <a href="#mapa" className="text-blue-600 transition-colors hover:text-blue-700">
+                w Krakowie
+              </a>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">

@@ -174,7 +174,14 @@ export default function Contact() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Adres</p>
-                    <p className="text-sm text-slate-500">{company.address.full}</p>
+                    <a
+                      href={company.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-slate-500 hover:text-blue-700"
+                    >
+                      {company.address.full}
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -215,14 +222,26 @@ export default function Contact() {
               </ul>
             </div>
 
-            {/* [TO-DO: Google Maps Widget] */}
-            <div className="flex min-h-[14rem] flex-1 flex-col items-center justify-center gap-3 rounded-[2.5rem] border border-dashed border-slate-200 bg-slate-50 p-8 text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-md shadow-slate-200/70">
-                <MapPin className="h-6 w-6" />
-              </span>
-              <p className="text-sm font-semibold text-slate-500">
-                [TO-DO: Google Maps Widget]
-              </p>
+            <div
+              id="mapa"
+              className="flex min-h-[14rem] flex-1 scroll-mt-36 flex-col overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 shadow-md shadow-slate-200/50"
+            >
+              <iframe
+                title="Lokalizacja SFT Computers na mapie Google"
+                src={company.mapsEmbedUrl}
+                className="h-full min-h-[14rem] w-full flex-1 border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <a
+                href={company.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-t border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50"
+              >
+                Otwórz w Google Maps
+              </a>
             </div>
           </Reveal>
         </div>
