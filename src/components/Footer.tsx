@@ -1,4 +1,5 @@
 import { Mail, Phone } from "lucide-react";
+import footerLogo from "../assets/FooterLogo.png";
 import { company, footerLinks } from "../data/siteData";
 
 export default function Footer() {
@@ -7,27 +8,9 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <a href="#top" className="flex items-center gap-2.5">
-              <img
-                src={`${import.meta.env.BASE_URL}favicon.jpg`}
-                alt={`Logo ${company.name}`}
-                className="h-10 w-auto rounded-xl object-contain shadow-md shadow-slate-200/60"
-              />
-              <span className="text-base font-extrabold tracking-tight text-slate-900">{company.name}</span>
+            <a href="#top" className="flex items-center">
+              <img src={footerLogo} alt={`Logo ${company.name}`} className="h-32 w-auto object-contain sm:h-40" />
             </a>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">
-              Serwis komputerowy, opieka IT i komputery na zamówienie. Zaufany partner
-              technologiczny w Krakowie.
-            </p>
-
-            <div className="mt-6 flex flex-col gap-2 text-sm text-slate-500">
-              <a href={company.phoneHref} className="flex items-center gap-2 hover:text-blue-700">
-                <Phone className="h-4 w-4" /> {company.phone}
-              </a>
-              <a href={`mailto:${company.email}`} className="flex items-center gap-2 hover:text-blue-700">
-                <Mail className="h-4 w-4" /> {company.email}
-              </a>
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-8 lg:col-span-5 lg:grid-cols-2">
@@ -59,6 +42,15 @@ export default function Footer() {
               <li>{company.registry.regon}</li>
               <li className="pt-1">{company.address.full}</li>
             </ul>
+
+            <div className="mt-4 flex flex-col gap-2 text-sm text-slate-500">
+              <a href={company.phoneHref} className="flex items-center gap-2 hover:text-blue-700">
+                <Phone className="h-4 w-4" /> {company.phone}
+              </a>
+              <a href={`mailto:${company.email}`} className="flex items-center gap-2 hover:text-blue-700">
+                <Mail className="h-4 w-4" /> {company.email}
+              </a>
+            </div>
           </div>
         </div>
 
