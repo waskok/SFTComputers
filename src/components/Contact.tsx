@@ -3,7 +3,7 @@ import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { company, contactCategories } from "../data/siteData";
+import { categoryPlaceholders, company, contactCategories, defaultMessagePlaceholder } from "../data/siteData";
 
 interface ContactFormState {
   name: string;
@@ -32,6 +32,10 @@ export default function Contact() {
     setIsSubmitted(true);
     setForm(initialForm);
   };
+
+  const messagePlaceholder = form.category
+  ? categoryPlaceholders[form.category] || defaultMessagePlaceholder
+  : defaultMessagePlaceholder;
 
   return (
     <section id="kontakt" className="py-20 sm:py-28">
@@ -139,7 +143,7 @@ export default function Contact() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Opisz swój problem, co dzieje się ze sprzętem lub jaki komputer chcesz złożyć."
+                  placeholder={messagePlaceholder}
                   className="resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
                 />
               </div>

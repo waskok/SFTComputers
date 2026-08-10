@@ -277,3 +277,19 @@ export const footerLinks: FooterLinkColumn[] = [
     ],
   },
 ];
+
+export const categoryPlaceholders: Record<string, string> = {
+  dostepnosc: "Podaj nazwę, model lub kod poszukiwanego komponentu bądź akcesorium...",
+
+  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje...",
+
+  serwis: "Opisz zaobserwowane objawy usterki (np. brak reakcji na włącznik, wyłączanie pod obciążeniem, głośna praca układu chłodzenia)...",
+
+  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików...",
+
+  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego...",
+  
+  poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu...",
+};
+
+export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
