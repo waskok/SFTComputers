@@ -28,7 +28,7 @@ export default function PcBuilder() {
     <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-16 pb-6 sm:pt-20 sm:pb-8">
       <div className="mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionBadge>Komputery do gier na zamówienie</SectionBadge>
+          <SectionBadge>Komputery na zamówienie</SectionBadge>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Składamy komputer pod Twoje potrzeby
           </h2>
@@ -81,7 +81,7 @@ export default function PcBuilder() {
                     aria-pressed={isActive}
                     aria-label={part.label}
                     style={{ top: part.position.top, left: part.position.left }}
-                    className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus:outline-none"
+                    className="absolute flex -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center focus:outline-none"
                   >
                     <span className="relative flex h-7 w-7 items-center justify-center sm:h-8 sm:w-8">
                       {isActive && (
