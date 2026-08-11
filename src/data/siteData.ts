@@ -33,6 +33,8 @@ export interface CompanyData {
   hours: HoursSlot[];
   registry: RegistryInfo;
   googleRating: GoogleRatingInfo;
+  mapsUrl: string;
+  mapsEmbedUrl: string;
 }
 
 export interface NavLink {
@@ -90,28 +92,32 @@ export interface ContactCategory {
 export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
-  phone: "TO-DO",
-  phoneHref: "tel:+48123456789",
-  email: "TO-DO",
+  phone: "12 640 10 50",
+  phoneHref: "tel:+48126401050",
+  email: "biuro@sft.net.pl",
   address: {
-    street: "ul. Przykładowa 12",
-    city: "30-001 Kraków",
-    full: "TO-DO",
+    street: "Osiedle 2 Pułku Lotniczego 1E",
+    city: "31-867 Kraków",
+    full: "Osiedle 2 Pułku Lotniczego 1E, 31-867 Kraków",
   },
   hours: [
     { days: "Poniedziałek – Piątek", hours: "10:00 – 18:00" },
     { days: "Sobota - Niedziela", hours: "Nieczynne" },
   ],
   registry: {
-    company: "SFT Computers",
-    nip: "NIP: TO-DO",
-    krs: "KRS: TO-DO",
-    regon: "REGON: TO-DO",
+    company: "SFT COMPUTERS M.KUBIŃSKI SPÓŁKA JAWNA",
+    nip: "NIP: 6782002498",
+    krs: "KRS: 0000084555",
+    regon: "REGON: 35116762700000",
   },
   googleRating: {
     score: "4.8 / 5",
     reviewsCount: "opinie Google",
   },
+  mapsUrl:
+    "https://www.google.com/maps/place/SFT+Computers/@50.0790951,20.0142603,17z/data=!3m1!4b1!4m6!3m5!1s0x47164545b70faf69:0xeefc72e925ce152!8m2!3d50.0790951!4d20.0142603!16s%2Fg%2F1pp2tzr35",
+  mapsEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.503384876389456!2d20.011685313451903!3d50.0790951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47164545b70faf69%3A0xeefc72e925ce152!2sSFT%20Computers!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl",
 };
 
 export const navLinks: NavLink[] = [
@@ -155,49 +161,49 @@ export const pcParts: PcPart[] = [
     label: "Procesor (CPU)",
     position: { top: "28%", left: "50%" },
     title: "Procesor - mózg Twojego komputera",
-    description: "TO-DO",
+    description: "Precyzyjnie dobieramy jednostkę pod kątem Twoich wymagań, dbając o idealne zbalansowanie zestawu. Eliminujemy zjawisko bottlenecku, dzięki czemu wykorzystujesz pełen potencjał procesora bez nadmiarowych kosztów.",
   },
   {
     id: "gpu",
     label: "Karta graficzna (GPU)",
     position: { top: "58%", left: "28%" },
     title: "Karta graficzna - płynność w Twoich ulubionych tytułach",
-    description: "TO-DO",
+    description: "Kluczowy element odpowiadający za generowanie obrazu i klatek na sekundę. Konfigurujemy ją w taki sposób, aby pozostałe komponenty nie ograniczały jej mocy, co gwarantuje maksymalną płynność w najwyższych ustawieniach.",
   },
   {
     id: "chlodzenie",
     label: "Chłodzenie",
     position: { top: "18%", left: "72%" },
     title: "Chłodzenie - cichy komputer, który żyje dłużej",
-    description: "TO-DO",
+    description: "Stosujemy przemyślane układy chłodzenia oraz optymalną cyrkulację powietrza, zapobiegając throtlingowi termicznemu. Prawidłowy montaż przekłada się na niskie temperatury i kulturę pracy sprzętu nawet przy ekstremalnym obciążeniu.",
   },
   {
     id: "ram",
     label: "Pamięć RAM",
     position: { top: "68%", left: "70%" },
     title: "Pamięć RAM - płynne przełączanie się między zadaniami",
-    description: "TO-DO",
+    description: "Wybieramy sprawdzone moduły o wysokiej przepustowości i niskich opóźnieniach. Zapewniają one stabilność platformy, optymalną współpracę z procesorem oraz bezproblemową pracę wielozadaniową.",
   },
   {
     id: "obudowa",
     label: "Obudowa",
     position: { top: "42%", left: "18%" },
     title: "Obudowa - wygląd, chłodzenie i miejsce na rozbudowę",
-    description: "TO-DO",
+    description: "Selekcjonujemy konstrukcje łączące estetykę z odpowiednią wentylacją. Profesjonalny cable management we wnętrzu obudowy zapewnia niezakłócony przepływ powietrza i ułatwia ewentualną rozbudowę w przyszłości.",
   },
   {
     id: "dysk",
     label: "Dysk",
     position: { top: "78%", left: "42%" },
     title: "Dysk - szybki start systemu i bezpieczeństwo danych",
-    description: "TO-DO",
+    description: "Wykorzystujemy wyselekcjonowane dyski M.2 NVMe o wysokich parametrach odczytu i zapisu. Gwarantują one błyskawiczny start systemu, natychmiastowe wczytywanie gier oraz wysokie bezpieczeństwo przechowywanych danych.",
   },
   {
     id: "zasilacz",
     label: "Zasilacz",
     position: { top: "82%", left: "78%" },
     title: "Zasilacz - stabilna moc i bezpieczeństwo podzespołów",
-    description: "TO-DO",
+    description: "Dobieramy jednostki z certyfikatem sprawności oraz zapasem mocy, dostosowane do specyfiki zestawu. To stabilne napięcia i pełny pakiet zabezpieczeń, stanowiące gwarancję bezawaryjnej pracy całego systemu.",
   },
 ];
 
@@ -271,3 +277,19 @@ export const footerLinks: FooterLinkColumn[] = [
     ],
   },
 ];
+
+export const categoryPlaceholders: Record<string, string> = {
+  dostepnosc: "Podaj nazwę, model lub kod poszukiwanego komponentu bądź akcesorium...",
+
+  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje...",
+
+  serwis: "Opisz zaobserwowane objawy usterki (np. brak reakcji na włącznik, wyłączanie pod obciążeniem, głośna praca układu chłodzenia)...",
+
+  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików...",
+
+  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego...",
+  
+  poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu...",
+};
+
+export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
