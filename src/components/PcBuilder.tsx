@@ -41,21 +41,23 @@ export default function PcBuilder() {
           {/* Wizualizacja PC z hotspotami - 7/12, bez pudełka, przesunięta bliżej lewej krawędzi ekranu */}
           <Reveal className="relative lg:col-span-7">
             <div className="relative mx-auto aspect-[1664/2544] w-full max-w-[220px] sm:max-w-xs md:max-w-sm lg:mx-0 lg:max-w-lg">
-              {/* Poświata RGB dookoła całej obudowy, w kolorach jej podświetlenia */}
+              {/* Poświata RGB dookoła całej obudowy, w kolorach jej podświetlenia.
+                  Pozycje "top"/"bottom" w % (a nie w px), bo zdjęcie ma sporo przezroczystego
+                  marginesu nad/pod samą obudową - stałe px "wędrowały" przy zmianie rozmiaru kontenera. */}
               <div
-                className="pointer-events-none absolute -top-10 -left-10 h-52 w-52 rounded-full bg-sky-400/45 blur-3xl"
+                className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-sky-400/45 blur-3xl"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute -top-10 -right-10 h-52 w-52 rounded-full bg-pink-400/40 blur-3xl"
+                className="pointer-events-none absolute top-[8%] -right-10 h-52 w-52 rounded-full bg-pink-400/40 blur-3xl"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute -bottom-10 -left-10 h-52 w-52 rounded-full bg-pink-400/35 blur-3xl"
+                className="pointer-events-none absolute bottom-[6%] -left-10 h-52 w-52 rounded-full bg-pink-400/35 blur-3xl"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute -bottom-10 -right-10 h-52 w-52 rounded-full bg-sky-400/40 blur-3xl"
+                className="pointer-events-none absolute bottom-[6%] -right-10 h-52 w-52 rounded-full bg-sky-400/40 blur-3xl"
                 aria-hidden="true"
               />
               <div
