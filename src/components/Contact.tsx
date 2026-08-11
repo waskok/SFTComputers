@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
@@ -18,6 +18,20 @@ const initialForm: ContactFormState = { name: "", phone: "", email: "", category
 export default function Contact() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    function handleSetCategory(event: Event) {
+      const custom = event as CustomEvent<{ categoryId?: string }>;
+      const categoryId = custom.detail?.categoryId;
+      if (!categoryId) return;
+
+      setForm((prev) => ({ ...prev, category: categoryId }));
+      setIsSubmitted(false);
+    }
+
+    window.addEventListener("sft:setContactCategory", handleSetCategory as EventListener);
+    return () => window.removeEventListener("sft:setContactCategory", handleSetCategory as EventListener);
+  }, []);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -118,7 +132,7 @@ export default function Contact() {
                     required
                     value={form.category}
                     onChange={handleChange}
-                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                    className="cursor-pointer rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
                   >
                     <option value="" disabled>
                       Wybierz kategorię
@@ -153,7 +167,7 @@ export default function Contact() {
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Button type="submit" icon={Send}>
+                <Button type="submit" icon={Send} className="cursor-pointer">
                   Wyślij zgłoszenie
                 </Button>
                 {isSubmitted && (

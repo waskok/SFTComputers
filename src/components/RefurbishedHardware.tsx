@@ -27,7 +27,7 @@ export default function RefurbishedHardware() {
               [TO-DO: zdjęcie laptopów/komputerów poleasingowych]
             </p>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-700">
-              TO-DO miesięcy gwarancji
+              12 miesięcy gwarancji
             </span>
           </Reveal>
 
@@ -58,7 +58,7 @@ export default function RefurbishedHardware() {
             </div>
 
             <div className="mt-10">
-              <Button href="#kontakt">Jestem zainteresowany/a</Button>
+              <Button href="#kontakt">Jestem zainteresowany/a sprzętem poleasingowym</Button>
             </div>
           </Reveal>
         </div>

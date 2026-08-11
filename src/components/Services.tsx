@@ -9,6 +9,17 @@ type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Building2, DatabaseBackup };
 
 export default function Services() {
+  const setCategoryFromService = (categoryId: string) => {
+    // Ustawienie kategorii w formularzu "Kontakt" realizujemy przez event globalny.
+    window.dispatchEvent(
+      new CustomEvent("sft:setContactCategory", {
+        detail: { categoryId },
+      }),
+    );
+
+    document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section id="uslugi" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -28,11 +39,23 @@ export default function Services() {
             const Icon = ICONS[service.icon];
             return (
               <Reveal key={service.id} delay={index * 120} className="group relative flex flex-col">
-                <div className="flex items-start justify-between">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                <div className="group/cta flex items-start justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setCategoryFromService(service.id)}
+                    aria-label={`Wybierz usługę: ${service.title}`}
+                    className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-colors duration-300 group-hover/cta:bg-blue-600 group-hover/cta:text-white"
+                  >
                     <Icon className="h-7 w-7" />
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-slate-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blue-600" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCategoryFromService(service.id)}
+                    aria-label={`Przejdź do formularza: ${service.title}`}
+                    className="cursor-pointer rounded-lg p-1 text-slate-300 transition-all duration-300 group-hover/cta:-translate-y-1 group-hover/cta:translate-x-1 group-hover/cta:text-blue-600"
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </button>
                 </div>
 
                 <h3 className="mt-6 text-xl font-bold tracking-tight text-slate-900">{service.title}</h3>

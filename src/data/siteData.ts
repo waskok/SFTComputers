@@ -161,42 +161,42 @@ export const pcParts: PcPart[] = [
     label: "Procesor (CPU)",
     position: { top: "28%", left: "50%" },
     title: "Procesor - mózg Twojego komputera",
-    description: "Precyzyjnie dobieramy jednostkę pod kątem Twoich wymagań, dbając o idealne zbalansowanie zestawu. Eliminujemy zjawisko bottlenecku, dzięki czemu wykorzystujesz pełen potencjał procesora bez nadmiarowych kosztów.",
+    description: "Dobieramy procesor tak, aby idealnie pasował do Twoich potrzeb. Zamiast wciskać najdroższy model, szukamy złotego środka. Dzięki temu komputer działa błyskawicznie, a Ty nie przepłacasz za moc, której nie wykorzystasz.",
   },
   {
     id: "gpu",
     label: "Karta graficzna (GPU)",
     position: { top: "58%", left: "28%" },
     title: "Karta graficzna - płynność w Twoich ulubionych tytułach",
-    description: "Kluczowy element odpowiadający za generowanie obrazu i klatek na sekundę. Konfigurujemy ją w taki sposób, aby pozostałe komponenty nie ograniczały jej mocy, co gwarantuje maksymalną płynność w najwyższych ustawieniach.",
+    description: "To ona odpowiada za generowanie obrazu i klatek na sekundę. Dostosujeny ją w taki sposób, aby pozostałe komponenty nie ograniczały jej mocy.",
   },
   {
     id: "chlodzenie",
     label: "Chłodzenie",
     position: { top: "18%", left: "72%" },
     title: "Chłodzenie - cichy komputer, który żyje dłużej",
-    description: "Stosujemy przemyślane układy chłodzenia oraz optymalną cyrkulację powietrza, zapobiegając throtlingowi termicznemu. Prawidłowy montaż przekłada się na niskie temperatury i kulturę pracy sprzętu nawet przy ekstremalnym obciążeniu.",
+    description: "Koniec z komputerem wyjącym jak odkurzacz. Projektujemy ciche i chłodne zestawy, które działają stabilnie nawet podczas wielogodzinnego grania czy pracy. Chłodny sprzęt to sprzęt, który służy latami.",
   },
   {
     id: "ram",
     label: "Pamięć RAM",
     position: { top: "68%", left: "70%" },
     title: "Pamięć RAM - płynne przełączanie się między zadaniami",
-    description: "Wybieramy sprawdzone moduły o wysokiej przepustowości i niskich opóźnieniach. Zapewniają one stabilność platformy, optymalną współpracę z procesorem oraz bezproblemową pracę wielozadaniową.",
+    description: "Kilka programów, zakładki w przeglądarce, gra w tle i Spotify? Żaden problem. Używamy szybkich i sprawdzonych pamięci, które pozwolą Ci na płynną pracę z wieloma programami naraz, bez najmniejszych zacięć.",
   },
   {
     id: "obudowa",
     label: "Obudowa",
     position: { top: "42%", left: "18%" },
     title: "Obudowa - wygląd, chłodzenie i miejsce na rozbudowę",
-    description: "Selekcjonujemy konstrukcje łączące estetykę z odpowiednią wentylacją. Profesjonalny cable management we wnętrzu obudowy zapewnia niezakłócony przepływ powietrza i ułatwia ewentualną rozbudowę w przyszłości.",
+    description: "Selekcjonujemy konstrukcje łączące estetykę z odpowiednią wentylacją. Profesjonalnie układamy i chowamy każdy przewód, co poprawia przepływ powietrza i ułatwia rozbudowę.",
   },
   {
     id: "dysk",
     label: "Dysk",
     position: { top: "78%", left: "42%" },
     title: "Dysk - szybki start systemu i bezpieczeństwo danych",
-    description: "Wykorzystujemy wyselekcjonowane dyski M.2 NVMe o wysokich parametrach odczytu i zapisu. Gwarantują one błyskawiczny start systemu, natychmiastowe wczytywanie gier oraz wysokie bezpieczeństwo przechowywanych danych.",
+    description: "Stosujemy tylko nowoczesne dyski, dzięki którym system uruchamia się błyskawicznie, a gry ładują się w mgnieniu oka. Zależy nam na Twoim spokoju, dlatego stawiamy na sprawdzone marki, by Twoje dane były zawsze bezpieczne.",
   },
   {
     id: "zasilacz",
@@ -209,18 +209,18 @@ export const pcParts: PcPart[] = [
 
 export const refurbishedHighlights: RefurbishedHighlight[] = [
   {
-    title: "Nawet X% niższa cena",
+    title: "Nawet 40% niższa cena",
     description: "Sprzęt klasy biznesowej w cenie znacznie niższej niż nowe modele o podobnych parametrach.",
     icon: "PiggyBank",
   },
   {
-    title: "X miesięcy gwarancji",
+    title: "12 miesięcy gwarancji",
     description: "Każdy laptop i komputer przechodzi pełny serwis i testy przed sprzedażą.",
     icon: "ShieldCheck",
   },
   {
     title: "Sprawdzona niezawodność",
-    description: "Marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
+    description: "Renomowane marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
     icon: "BadgeCheck",
   },
 ];
@@ -254,6 +254,7 @@ export const contactCategories: ContactCategory[] = [
   { id: "dane", label: "Odzyskiwanie danych" },
   { id: "it-firmy", label: "Opieka IT dla firmy" },
   { id: "poleasingowy", label: "Sprzęt poleasingowy" },
+  { id: "inny-problem", label: "Inny problem" },
 ];
 
 export const footerLinks: FooterLinkColumn[] = [
@@ -263,7 +264,7 @@ export const footerLinks: FooterLinkColumn[] = [
       { label: "Serwis i naprawa", href: "#uslugi" },
       { label: "Opieka IT dla firm", href: "#uslugi" },
       { label: "Odzyskiwanie danych", href: "#uslugi" },
-      { label: "Komputery do gier", href: "#konfigurator" },
+      { label: "Konfiguracja komputerów na zamówienie", href: "#konfigurator" },
       { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
     ],
   },
@@ -290,6 +291,7 @@ export const categoryPlaceholders: Record<string, string> = {
   "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego...",
   
   poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu...",
+  "inny-problem": "Opisz krótko, w czym możemy Ci pomóc...",
 };
 
 export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
