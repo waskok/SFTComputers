@@ -209,18 +209,18 @@ export const pcParts: PcPart[] = [
 
 export const refurbishedHighlights: RefurbishedHighlight[] = [
   {
-    title: "Nawet X% niższa cena",
+    title: "Nawet 40% niższa cena",
     description: "Sprzęt klasy biznesowej w cenie znacznie niższej niż nowe modele o podobnych parametrach.",
     icon: "PiggyBank",
   },
   {
-    title: "X miesięcy gwarancji",
+    title: "12 miesięcy gwarancji",
     description: "Każdy laptop i komputer przechodzi pełny serwis i testy przed sprzedażą.",
     icon: "ShieldCheck",
   },
   {
     title: "Sprawdzona niezawodność",
-    description: "Marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
+    description: "Renomowane marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
     icon: "BadgeCheck",
   },
 ];
@@ -254,6 +254,7 @@ export const contactCategories: ContactCategory[] = [
   { id: "dane", label: "Odzyskiwanie danych" },
   { id: "it-firmy", label: "Opieka IT dla firmy" },
   { id: "poleasingowy", label: "Sprzęt poleasingowy" },
+  { id: "inny-problem", label: "Inny problem" },
 ];
 
 export const footerLinks: FooterLinkColumn[] = [
@@ -290,6 +291,7 @@ export const categoryPlaceholders: Record<string, string> = {
   "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego...",
   
   poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu...",
+  "inny-problem": "Opisz krótko, w czym możemy Ci pomóc...",
 };
 
 export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
