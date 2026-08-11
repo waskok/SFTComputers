@@ -24,6 +24,8 @@ const AVATAR_COLORS = [
 
 // Prędkość auto-scrolla (px/s) — wolniejsza niż poprzedni marquee CSS.
 const AUTO_SCROLL_SPEED = 42;
+// Prędkość ręcznego przesuwania strzałkami (px/s) — płynne dopasowanie do ruchu karuzeli.
+const MANUAL_SCROLL_SPEED = 720;
 // Gap między kartami — musi odpowiadać klasie Tailwind `gap-6` (1.5rem = 24px).
 const CARD_GAP = 24;
 
@@ -57,6 +59,14 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
+function wrapOffset(value: number, half: number) {
+  if (half <= 0) return value;
+  let next = value;
+  while (next <= -half) next += half;
+  while (next > 0) next -= half;
+  return next;
+}
+
 export default function Opinions() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isOpen = activeIndex !== null;
@@ -69,6 +79,8 @@ export default function Opinions() {
   const prefersReducedMotionRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
+  // Pozostały dystans do płynnego dociągnięcia po kliknięciu strzałki (px).
+  const manualDeltaRef = useRef(0);
 
   isOpenRef.current = isOpen;
 
@@ -87,25 +99,37 @@ export default function Opinions() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Auto-scroll przez requestAnimationFrame — pauzuje przy otwartym modalu / reduced-motion.
+  // Auto-scroll + płynne dociąganie po kliknięciu strzałek.
   useEffect(() => {
     prefersReducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const tick = (timestamp: number) => {
       if (lastTsRef.current == null) lastTsRef.current = timestamp;
-      const delta = (timestamp - lastTsRef.current) / 1000;
+      const delta = Math.min((timestamp - lastTsRef.current) / 1000, 0.05);
       lastTsRef.current = timestamp;
 
-      if (!isOpenRef.current && !prefersReducedMotionRef.current && halfWidthRef.current > 0) {
-        offsetRef.current -= AUTO_SCROLL_SPEED * delta;
+      if (!isOpenRef.current && halfWidthRef.current > 0) {
+        let nextOffset = offsetRef.current;
 
-        // Zapętlenie: gdy przesuniemy o jedną kopię listy, wracamy o tę samą wartość.
-        if (offsetRef.current <= -halfWidthRef.current) {
-          offsetRef.current += halfWidthRef.current;
+        // Stały ruch karuzeli w lewo (pauza przy reduced-motion).
+        if (!prefersReducedMotionRef.current) {
+          nextOffset -= AUTO_SCROLL_SPEED * delta;
         }
-        if (offsetRef.current > 0) {
-          offsetRef.current -= halfWidthRef.current;
+
+        // Ręczne przesunięcie — ten sam ciągły ruch, tylko szybszy i w wybranym kierunku.
+        const remaining = manualDeltaRef.current;
+        if (remaining !== 0) {
+          const step = Math.sign(remaining) * Math.min(Math.abs(remaining), MANUAL_SCROLL_SPEED * delta);
+          nextOffset += step;
+          manualDeltaRef.current = remaining - step;
+
+          // Jeśli zostało mikro-przesunięcie, domykamy od razu (unikamy drżenia na końcu).
+          if (Math.abs(manualDeltaRef.current) < 0.5) {
+            manualDeltaRef.current = 0;
+          }
         }
+
+        offsetRef.current = wrapOffset(nextOffset, halfWidthRef.current);
 
         if (trackRef.current) {
           trackRef.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
@@ -144,21 +168,10 @@ export default function Opinions() {
     return (firstCard?.offsetWidth ?? 320) + CARD_GAP;
   };
 
+  // direction: +1 = w prawo (wstecz), -1 = w lewo (do przodu, zgodnie z auto-scrollem).
   const shiftBy = (direction: -1 | 1) => {
     if (halfWidthRef.current <= 0) return;
-
-    offsetRef.current += direction * getStep();
-
-    if (offsetRef.current <= -halfWidthRef.current) {
-      offsetRef.current += halfWidthRef.current;
-    }
-    if (offsetRef.current > 0) {
-      offsetRef.current -= halfWidthRef.current;
-    }
-
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
-    }
+    manualDeltaRef.current += direction * getStep();
   };
 
   return (
