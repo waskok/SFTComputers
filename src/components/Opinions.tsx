@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { ArrowLeft, Star } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
 import { company, opinions, type Opinion } from "../data/siteData";
 
-// Duplikujemy listę, aby pętla marquee była nieskończona i bez widocznego przeskoku.
+// Duplikujemy listę, aby pętla była nieskończona i bez widocznego przeskoku.
 const loopOpinions: Opinion[] = [...opinions, ...opinions];
 
 // Paleta kolorów awatarów — dobierana deterministycznie na podstawie imienia,
@@ -21,6 +21,11 @@ const AVATAR_COLORS = [
   "bg-teal-500",
   "bg-indigo-500",
 ];
+
+// Prędkość auto-scrolla (px/s) — wolniejsza niż poprzedni marquee CSS.
+const AUTO_SCROLL_SPEED = 42;
+// Gap między kartami — musi odpowiadać klasie Tailwind `gap-6` (1.5rem = 24px).
+const CARD_GAP = 24;
 
 // 1 litera imienia i nazwiska (np. "Mateusz Jajeśnica" -> "MJ"), a jeśli podano
 // tylko imię — sama jego pierwsza litera (np. "Oskar" -> "O").
@@ -57,6 +62,66 @@ export default function Opinions() {
   const isOpen = activeIndex !== null;
   const activeOpinion = activeIndex !== null ? loopOpinions[activeIndex] : null;
 
+  const trackRef = useRef<HTMLDivElement>(null);
+  const offsetRef = useRef(0);
+  const halfWidthRef = useRef(0);
+  const isOpenRef = useRef(false);
+  const prefersReducedMotionRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number | null>(null);
+
+  isOpenRef.current = isOpen;
+
+  // Mierzymy połowę szerokości toru (jedna kopia listy) — punkt pętli nieskończonej.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    const measure = () => {
+      halfWidthRef.current = track.scrollWidth / 2;
+    };
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(track);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  // Auto-scroll przez requestAnimationFrame — pauzuje przy otwartym modalu / reduced-motion.
+  useEffect(() => {
+    prefersReducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const tick = (timestamp: number) => {
+      if (lastTsRef.current == null) lastTsRef.current = timestamp;
+      const delta = (timestamp - lastTsRef.current) / 1000;
+      lastTsRef.current = timestamp;
+
+      if (!isOpenRef.current && !prefersReducedMotionRef.current && halfWidthRef.current > 0) {
+        offsetRef.current -= AUTO_SCROLL_SPEED * delta;
+
+        // Zapętlenie: gdy przesuniemy o jedną kopię listy, wracamy o tę samą wartość.
+        if (offsetRef.current <= -halfWidthRef.current) {
+          offsetRef.current += halfWidthRef.current;
+        }
+        if (offsetRef.current > 0) {
+          offsetRef.current -= halfWidthRef.current;
+        }
+
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+      lastTsRef.current = null;
+    };
+  }, []);
+
   // Blokujemy scroll strony i pozwalamy zamknąć podgląd klawiszem Escape.
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -73,6 +138,28 @@ export default function Opinions() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
+
+  const getStep = () => {
+    const firstCard = trackRef.current?.firstElementChild as HTMLElement | null;
+    return (firstCard?.offsetWidth ?? 320) + CARD_GAP;
+  };
+
+  const shiftBy = (direction: -1 | 1) => {
+    if (halfWidthRef.current <= 0) return;
+
+    offsetRef.current += direction * getStep();
+
+    if (offsetRef.current <= -halfWidthRef.current) {
+      offsetRef.current += halfWidthRef.current;
+    }
+    if (offsetRef.current > 0) {
+      offsetRef.current -= halfWidthRef.current;
+    }
+
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+    }
+  };
 
   return (
     <section id="opinie" className="py-20 sm:py-28">
@@ -103,17 +190,31 @@ export default function Opinions() {
         </Reveal>
       </div>
 
-      {/* Nieskończona karuzela (marquee) — pełna szerokość ekranu, zatrzymuje się po kliknięciu w opinię */}
+      {/* Nieskończona karuzela — pełna szerokość ekranu, z przyciskami lewo/prawo */}
       <Reveal className="mt-14">
         <div className="relative w-full overflow-hidden">
           {/* Gradientowe maski po bokach — opinie płynnie znikają na krawędziach ekranu */}
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent sm:w-32" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent sm:w-32" />
 
-          <div
-            className={`flex w-max gap-6 py-6 animate-marquee ${isOpen ? "is-paused" : ""}`}
-            style={{ "--marquee-duration": `${opinions.length * 4}s` } as React.CSSProperties}
+          <button
+            type="button"
+            onClick={() => shiftBy(1)}
+            aria-label="Poprzednia opinia"
+            className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-lg shadow-slate-300/50 transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-200 hover:text-blue-700 sm:left-6"
           >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => shiftBy(-1)}
+            aria-label="Następna opinia"
+            className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-lg shadow-slate-300/50 transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-200 hover:text-blue-700 sm:right-6"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          <div ref={trackRef} className="flex w-max gap-6 py-6 will-change-transform">
             {loopOpinions.map((opinion, index) => {
               const isActive = activeIndex === index;
 
@@ -123,11 +224,13 @@ export default function Opinions() {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-pressed={isActive}
-                  className={`relative flex w-72 flex-none cursor-pointer flex-col rounded-xl border bg-white p-6 text-left shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-300/70 sm:w-80 ${
+                  className={`group relative flex w-72 flex-none cursor-pointer flex-col rounded-xl border bg-white p-6 text-left shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-300/70 sm:w-80 ${
                     isActive ? "border-blue-300 ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-50" : "border-gray-100"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <ArrowUpRight className="absolute right-4 top-4 h-5 w-5 text-slate-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blue-600" />
+
+                  <div className="flex items-center gap-3 pr-7">
                     <span
                       className={`flex h-10 w-10 flex-none items-center justify-center rounded-full text-sm font-bold text-white ${getAvatarColor(
                         opinion.name

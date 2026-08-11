@@ -263,7 +263,7 @@ export const footerLinks: FooterLinkColumn[] = [
       { label: "Serwis i naprawa", href: "#uslugi" },
       { label: "Opieka IT dla firm", href: "#uslugi" },
       { label: "Odzyskiwanie danych", href: "#uslugi" },
-      { label: "Komputery do gier", href: "#konfigurator" },
+      { label: "Konfiguracja komputerów na zamówienie", href: "#konfigurator" },
       { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
     ],
   },
