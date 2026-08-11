@@ -19,10 +19,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
 /* Prosty helper do animacji "fade-in-up" wyzwalanej przy scrollu (patrz hook useReveal) */
