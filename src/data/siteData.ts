@@ -274,7 +274,6 @@ export const footerLinks: FooterLinkColumn[] = [
       { label: "Opinie klientów", href: "#opinie" },
       { label: "Kontakt", href: "#kontakt" },
       { label: "Polityka prywatności", href: "#" },
-      { label: "Regulamin", href: "#" },
     ],
   },
 ];

@@ -24,6 +24,15 @@ export default function PcBuilder() {
   const activePart = pcParts.find((part) => part.id === activeId) ?? pcParts[0];
   const ActiveIcon = PART_ICONS[activePart.id] ?? Cpu;
 
+  const setCategoryOnContact = (categoryId: string) => {
+    // Ustawienie kategorii w formularzu "Kontakt" realizujemy przez event globalny.
+    window.dispatchEvent(
+      new CustomEvent("sft:setContactCategory", {
+        detail: { categoryId },
+      }),
+    );
+  };
+
   return (
     <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-16 pb-6 sm:pt-20 sm:pb-8">
       <div className="mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
@@ -136,7 +145,7 @@ export default function PcBuilder() {
               </div>
 
               <div className="mt-6">
-                <Button href="#kontakt" variant="inverse">
+                <Button href="#kontakt" variant="inverse" onClick={() => setCategoryOnContact("konfiguracja-pc")}>
                   Skonfiguruj swój PC
                 </Button>
               </div>
