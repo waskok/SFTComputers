@@ -5,6 +5,15 @@ import Reveal from "./ui/Reveal";
 import { company } from "../data/siteData";
 
 export default function Hero() {
+  const setCategoryOnContact = (categoryId: string) => {
+    // Ustawienie kategorii w formularzu "Kontakt" realizujemy przez event globalny.
+    window.dispatchEvent(
+      new CustomEvent("sft:setContactCategory", {
+        detail: { categoryId },
+      }),
+    );
+  };
+
   return (
     <section id="top" className="relative overflow-hidden pt-56 pb-20 sm:pb-28 lg:pt-48 lg:pb-32">
       <div
@@ -35,7 +44,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Button href="#kontakt" icon={Wrench}>
+              <Button href="#kontakt" icon={Wrench} onClick={() => setCategoryOnContact("serwis")}>
                 Zgłoś awarię
               </Button>
               <Button href="#konfigurator" variant="secondary" icon={MonitorSmartphone}>

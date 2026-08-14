@@ -10,6 +10,15 @@ type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 const ICONS: Record<RefurbishedIconName, IconComponent> = { PiggyBank, ShieldCheck, BadgeCheck };
 
 export default function RefurbishedHardware() {
+  const setCategoryOnContact = (categoryId: string) => {
+    // Ustawienie kategorii w formularzu "Kontakt" realizujemy przez event globalny.
+    window.dispatchEvent(
+      new CustomEvent("sft:setContactCategory", {
+        detail: { categoryId },
+      }),
+    );
+  };
+
   return (
     <section id="poleasingowy" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -58,7 +67,9 @@ export default function RefurbishedHardware() {
             </div>
 
             <div className="mt-10">
-              <Button href="#kontakt">Jestem zainteresowany/a sprzętem poleasingowym</Button>
+              <Button href="#kontakt" onClick={() => setCategoryOnContact("poleasingowy")}>
+                Sprawdzam ofertę
+              </Button>
             </div>
           </Reveal>
         </div>

@@ -62,9 +62,6 @@ export default function Footer() {
             <a href="#" className="text-xs text-slate-400 hover:text-blue-700">
               Polityka prywatności
             </a>
-            <a href="#" className="text-xs text-slate-400 hover:text-blue-700">
-              Regulamin
-            </a>
           </div>
         </div>
       </div>
