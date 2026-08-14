@@ -4,6 +4,7 @@ import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
 import { refurbishedHighlights, type RefurbishedIconName } from "../data/siteData";
+import laptop from "../assets/laptop.jpg";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -29,12 +30,13 @@ export default function RefurbishedHardware() {
               className="pointer-events-none absolute inset-10 rounded-full bg-blue-100/60 blur-3xl"
               aria-hidden="true"
             />
-            <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-blue-600 text-white">
-              <Laptop className="h-10 w-10" />
-            </span>
-            <p className="relative text-sm font-medium text-slate-500">
-              [TO-DO: zdjęcie laptopów/komputerów poleasingowych]
-            </p>
+            <div className="relative w-full max-w-md overflow-hidden rounded-3xl">
+              <img
+                src={laptop}
+                alt="Poleasingowe laptopy biznesowe Dell, HP, Lenovo w ofercie SFT Computers"
+                className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </div>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-700">
               12 miesięcy gwarancji
             </span>
