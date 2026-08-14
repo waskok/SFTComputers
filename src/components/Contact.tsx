@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FocusEvent, type FormEvent } from "react";
 import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
@@ -7,16 +7,68 @@ import { categoryPlaceholders, company, contactCategories, defaultMessagePlaceho
 
 interface ContactFormState {
   name: string;
-  phone: string;
+  phone: string; // tylko cyfry (bez prefiksu +48), max 9 znaków
   email: string;
   category: string;
   message: string;
 }
 
+interface ContactFormErrors {
+  name?: string;
+  phone?: string;
+  email?: string;
+  message?: string;
+}
+
 const initialForm: ContactFormState = { name: "", phone: "", email: "", category: "", message: "" };
+
+const POLISH_LETTERS = "A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż";
+const NAME_PATTERN = new RegExp(`^[${POLISH_LETTERS}]+(?:[ -][${POLISH_LETTERS}]+)*$`);
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateName(value: string): string | undefined {
+  const trimmed = value.trim();
+  if (trimmed.length < 3) return "Imię i nazwisko musi mieć co najmniej 3 znaki.";
+  if (!NAME_PATTERN.test(trimmed)) return "Imię i nazwisko może zawierać tylko litery.";
+  return undefined;
+}
+
+function validatePhone(value: string): string | undefined {
+  if (value.length === 0) return "Numer telefonu jest wymagany.";
+  if (!/^\d{9}$/.test(value)) return "Numer telefonu musi mieć 9 cyfr.";
+  return undefined;
+}
+
+function validateEmail(value: string): string | undefined {
+  const trimmed = value.trim();
+  if (trimmed.length === 0) return "Adres e-mail jest wymagany.";
+  if (!EMAIL_PATTERN.test(trimmed)) return "Podaj poprawny adres e-mail.";
+  return undefined;
+}
+
+function validateMessage(value: string): string | undefined {
+  if (value.trim().length < 10) return "Opis problemu musi mieć co najmniej 10 znaków.";
+  return undefined;
+}
+
+function validateField(field: string, value: string): string | undefined {
+  switch (field) {
+    case "name":
+      return validateName(value);
+    case "phone":
+      return validatePhone(value);
+    case "email":
+      return validateEmail(value);
+    case "message":
+      return validateMessage(value);
+    default:
+      return undefined;
+  }
+}
 
 export default function Contact() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
@@ -38,13 +90,39 @@ export default function Contact() {
   ) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    // Jeśli pole miało już błąd, sprawdzamy je na bieżąco, żeby czerwony komunikat
+    // zniknął natychmiast po poprawieniu, a nie tylko po kolejnym opuszczeniu pola.
+    setErrors((prev) => (prev[name as keyof ContactFormErrors] ? { ...prev, [name]: validateField(name, value) } : prev));
+  };
+
+  const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = event.target.value.replace(/\D/g, "").slice(0, 9);
+    setForm((prev) => ({ ...prev, phone: digitsOnly }));
+    setErrors((prev) => (prev.phone ? { ...prev, phone: validatePhone(digitsOnly) } : prev));
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const nextErrors: ContactFormErrors = {
+      name: validateName(form.name),
+      phone: validatePhone(form.phone),
+      email: validateEmail(form.email),
+      message: validateMessage(form.message),
+    };
+    setErrors(nextErrors);
+
+    if (Object.values(nextErrors).some(Boolean)) return;
+
     // TODO: podłączyć wysyłkę formularza do backendu / usługi mailingowej.
     setIsSubmitted(true);
     setForm(initialForm);
+    setErrors({});
   };
 
   const messagePlaceholder = form.category
@@ -83,25 +161,51 @@ export default function Contact() {
                     required
                     value={form.name}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="Jan Kowalski"
-                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                    aria-invalid={Boolean(errors.name)}
+                    className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                      errors.name
+                        ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
+                        : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                    }`}
                   />
+                  {errors.name && <p className="text-xs font-medium text-rose-600">{errors.name}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="phone" className="text-sm font-semibold text-slate-700">
                     Numer telefonu
                   </label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="+48 123 456 789"
-                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
-                  />
+                  <div
+                    className={`flex items-center gap-2 rounded-2xl border bg-slate-50 pl-4 pr-3 transition-colors duration-200 focus-within:bg-white focus-within:ring-4 ${
+                      errors.phone
+                        ? "border-rose-400 focus-within:border-rose-400 focus-within:ring-rose-100"
+                        : "border-slate-200 focus-within:border-blue-400 focus-within:ring-blue-100"
+                    }`}
+                  >
+                    <span className="flex items-center gap-1.5 text-sm font-medium text-slate-500">
+                      <span aria-hidden="true">🇵🇱</span>
+                      +48
+                    </span>
+                    <span className="h-5 w-px bg-slate-200" aria-hidden="true" />
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel-national"
+                      required
+                      value={form.phone}
+                      onChange={handlePhoneChange}
+                      onBlur={handleBlur}
+                      placeholder="123 456 789"
+                      maxLength={9}
+                      aria-invalid={Boolean(errors.phone)}
+                      className="min-w-0 flex-1 bg-transparent py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                    />
+                  </div>
+                  {errors.phone && <p className="text-xs font-medium text-rose-600">{errors.phone}</p>}
                 </div>
               </div>
 
@@ -117,9 +221,16 @@ export default function Contact() {
                     required
                     value={form.email}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder="jan.kowalski@example.com"
-                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                    aria-invalid={Boolean(errors.email)}
+                    className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                      errors.email
+                        ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
+                        : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                    }`}
                   />
+                  {errors.email && <p className="text-xs font-medium text-rose-600">{errors.email}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -157,9 +268,16 @@ export default function Contact() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder={messagePlaceholder}
-                  className="resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                  aria-invalid={Boolean(errors.message)}
+                  className={`resize-none rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                    errors.message
+                      ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
+                      : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                  }`}
                 />
+                {errors.message && <p className="text-xs font-medium text-rose-600">{errors.message}</p>}
               </div>
 
               <p className="mt-3 text-xs text-slate-400">
