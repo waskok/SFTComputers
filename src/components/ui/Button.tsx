@@ -56,7 +56,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-300 ease-out whitespace-nowrap ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-300 ease-out whitespace-nowrap disabled:pointer-events-none disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0 ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`;
 
   const content = (
     <>

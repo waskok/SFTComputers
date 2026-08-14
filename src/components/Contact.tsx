@@ -1,5 +1,5 @@
 import { useEffect, useState, type ChangeEvent, type FocusEvent, type FormEvent } from "react";
-import { CheckCircle2, Clock3, Mail, MapPin, Phone, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock3, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
@@ -11,6 +11,7 @@ interface ContactFormState {
   email: string;
   category: string;
   message: string;
+  website: string; // honeypot - niewidoczne pole na boty, ludzie nigdy go nie wypełniają
 }
 
 interface ContactFormErrors {
@@ -20,7 +21,14 @@ interface ContactFormErrors {
   message?: string;
 }
 
-const initialForm: ContactFormState = { name: "", phone: "", email: "", category: "", message: "" };
+const initialForm: ContactFormState = {
+  name: "",
+  phone: "",
+  email: "",
+  category: "",
+  message: "",
+  website: "",
+};
 
 const POLISH_LETTERS = "A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż";
 const NAME_PATTERN = new RegExp(`^[${POLISH_LETTERS}]+(?:[ -][${POLISH_LETTERS}]+)*$`);
@@ -70,6 +78,8 @@ export default function Contact() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     function handleSetCategory(event: Event) {
@@ -79,6 +89,7 @@ export default function Contact() {
 
       setForm((prev) => ({ ...prev, category: categoryId }));
       setIsSubmitted(false);
+      setSubmitError(null);
     }
 
     window.addEventListener("sft:setContactCategory", handleSetCategory as EventListener);
@@ -106,7 +117,7 @@ export default function Contact() {
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const nextErrors: ContactFormErrors = {
@@ -119,10 +130,32 @@ export default function Contact() {
 
     if (Object.values(nextErrors).some(Boolean)) return;
 
-    // TODO: podłączyć wysyłkę formularza do backendu / usługi mailingowej.
-    setIsSubmitted(true);
-    setForm(initialForm);
-    setErrors({});
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const categoryLabel = contactCategories.find((item) => item.id === form.category)?.label ?? form.category;
+
+    try {
+      const response = await fetch("/send-mail.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, phone: `+48 ${form.phone}`, category: categoryLabel }),
+      });
+
+      const result = (await response.json()) as { success: boolean; message?: string };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Nie udało się wysłać wiadomości.");
+      }
+
+      setIsSubmitted(true);
+      setForm(initialForm);
+      setErrors({});
+    } catch {
+      setSubmitError("Nie udało się wysłać wiadomości. Spróbuj ponownie albo zadzwoń/napisz do nas bezpośrednio.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const messagePlaceholder = form.category
@@ -149,6 +182,18 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="flex h-full flex-col rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-200/60 sm:p-10"
             >
+              {/* Honeypot - niewidoczne dla ludzi pole na boty; nie usuwać z DOM, chowamy tylko wizualnie */}
+              <input
+                type="text"
+                name="website"
+                value={form.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-0 w-0 opacity-0"
+              />
+
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="text-sm font-semibold text-slate-700">
@@ -285,13 +330,25 @@ export default function Contact() {
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Button type="submit" icon={Send} className="cursor-pointer">
-                  Wyślij zgłoszenie
+                <Button
+                  type="submit"
+                  icon={isSubmitting ? undefined : Send}
+                  disabled={isSubmitting}
+                  className="cursor-pointer"
+                >
+                  {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+                  {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
                 </Button>
-                {isSubmitted && (
+                {isSubmitted && !isSubmitting && (
                   <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600">
                     <CheckCircle2 className="h-5 w-5" />
                     Dziękujemy! Odezwiemy się wkrótce.
+                  </span>
+                )}
+                {submitError && !isSubmitting && (
+                  <span className="flex items-center gap-2 text-sm font-semibold text-rose-600">
+                    <AlertCircle className="h-5 w-5" />
+                    {submitError}
                   </span>
                 )}
               </div>
