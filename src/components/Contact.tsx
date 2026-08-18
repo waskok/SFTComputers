@@ -13,11 +13,11 @@ import {
 
 interface ContactFormState {
   name: string;
-  phone: string; // tylko cyfry (bez prefiksu +48), max 9 znaków
+  phone: string;
   email: string;
   category: string;
   message: string;
-  website: string; // honeypot - niewidoczne pole na boty, ludzie nigdy go nie wypełniają
+  website: string;
 }
 
 interface ContactFormErrors {
@@ -36,7 +36,7 @@ const initialForm: ContactFormState = {
   website: "",
 };
 
-const POLISH_LETTERS = "A-Za-zĄąĆćĘęŁłŃńÓóŚśŹźŻż";
+const POLISH_LETTERS = "A-Za-z\\s\\u00C0-\\u024F\\u1E00-\\u1EFF";
 const NAME_PATTERN = new RegExp(`^[${POLISH_LETTERS}]+(?:[ -][${POLISH_LETTERS}]+)*$`);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -92,12 +92,10 @@ export default function Contact() {
       const custom = event as CustomEvent<{ categoryId?: string }>;
       const categoryId = custom.detail?.categoryId;
       if (!categoryId) return;
-
       setForm((prev) => ({ ...prev, category: categoryId }));
       setIsSubmitted(false);
       setSubmitError(null);
     }
-
     window.addEventListener("sft:setContactCategory", handleSetCategory as EventListener);
     return () => window.removeEventListener("sft:setContactCategory", handleSetCategory as EventListener);
   }, []);
@@ -107,8 +105,6 @@ export default function Contact() {
   ) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    // Jeśli pole miało już błąd, sprawdzamy je na bieżąco, żeby czerwony komunikat
-    // zniknął natychmiast po poprawieniu, a nie tylko po kolejnym opuszczeniu pola.
     setErrors((prev) => (prev[name as keyof ContactFormErrors] ? { ...prev, [name]: validateField(name, value) } : prev));
   };
 
@@ -125,7 +121,6 @@ export default function Contact() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const nextErrors: ContactFormErrors = {
       name: validateName(form.name),
       phone: validatePhone(form.phone),
@@ -133,7 +128,6 @@ export default function Contact() {
       message: validateMessage(form.message),
     };
     setErrors(nextErrors);
-
     if (Object.values(nextErrors).some(Boolean)) return;
 
     setIsSubmitting(true);
@@ -147,13 +141,10 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, phone: `+48 ${form.phone}`, category: categoryLabel }),
       });
-
       const result = (await response.json()) as { success: boolean; message?: string };
-
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Nie udało się wysłać wiadomości.");
       }
-
       setIsSubmitted(true);
       setForm(initialForm);
       setErrors({});
@@ -165,30 +156,28 @@ export default function Contact() {
   };
 
   const messagePlaceholder = form.category
-  ? categoryPlaceholders[form.category] || defaultMessagePlaceholder
-  : defaultMessagePlaceholder;
+    ? categoryPlaceholders[form.category] || defaultMessagePlaceholder
+    : defaultMessagePlaceholder;
 
   return (
-    <section id="kontakt" className="py-20 sm:py-28">
+    <section id="kontakt" className="py-20 sm:py-28 bg-[#0b0f19]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Kontakt i lokalizacja</SectionBadge>
-          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Skontaktuj się z nami
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            Jeśli jesteś zainteresowany naszymi usługami - zadzwoń, wypełnij formularz kontaktowy lub odwiedź nas w Krakowie.
+          <p className="mt-4 text-lg text-slate-400">
+            Jeśli jesteś zainteresowany naszymi usługami – zadzwoń, wypełnij formularz kontaktowy lub odwiedź nas w Krakowie.
           </p>
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Formularz kontaktowy - 7/12 */}
           <Reveal className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="flex h-full flex-col rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-200/60 sm:p-10"
+              className="flex h-full flex-col rounded-[2.5rem] border border-slate-800 bg-slate-900/80 p-8 shadow-2xl shadow-black/50 backdrop-blur-sm sm:p-10"
             >
-              {/* Honeypot - niewidoczne dla ludzi pole na boty; nie usuwać z DOM, chowamy tylko wizualnie */}
               <input
                 type="text"
                 name="website"
@@ -202,7 +191,7 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-sm font-semibold text-slate-700">
+                  <label htmlFor="name" className="text-sm font-semibold text-slate-300">
                     Imię i nazwisko
                   </label>
                   <input
@@ -215,31 +204,30 @@ export default function Contact() {
                     onBlur={handleBlur}
                     placeholder="Jan Kowalski"
                     aria-invalid={Boolean(errors.name)}
-                    className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                    className={`rounded-2xl border bg-slate-950 px-4 py-3 text-sm text-white outline-none transition-colors duration-200 placeholder:text-slate-500 focus:ring-4 ${
                       errors.name
-                        ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
-                        : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                        ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/20"
+                        : "border-slate-800 focus:border-blue-500 focus:ring-blue-500/20"
                     }`}
                   />
-                  {errors.name && <p className="text-xs font-medium text-rose-600">{errors.name}</p>}
+                  {errors.name && <p className="text-xs font-medium text-rose-400">{errors.name}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="text-sm font-semibold text-slate-700">
+                  <label htmlFor="phone" className="text-sm font-semibold text-slate-300">
                     Numer telefonu
                   </label>
                   <div
-                    className={`flex items-center gap-2 rounded-2xl border bg-slate-50 pl-4 pr-3 transition-colors duration-200 focus-within:bg-white focus-within:ring-4 ${
+                    className={`flex items-center gap-2 rounded-2xl border bg-slate-950 pl-4 pr-3 transition-colors duration-200 focus-within:ring-4 ${
                       errors.phone
-                        ? "border-rose-400 focus-within:border-rose-400 focus-within:ring-rose-100"
-                        : "border-slate-200 focus-within:border-blue-400 focus-within:ring-blue-100"
+                        ? "border-rose-500 focus-within:border-rose-500 focus-within:ring-rose-500/20"
+                        : "border-slate-800 focus-within:border-blue-500 focus-within:ring-blue-500/20"
                     }`}
                   >
-                    <span className="flex items-center gap-1.5 text-sm font-medium text-slate-500">
-                      <span aria-hidden="true">🇵🇱</span>
+                    <span className="flex items-center gap-1.5 text-sm font-medium text-slate-400">
                       +48
                     </span>
-                    <span className="h-5 w-px bg-slate-200" aria-hidden="true" />
+                    <span className="h-5 w-px bg-slate-800" aria-hidden="true" />
                     <input
                       id="phone"
                       name="phone"
@@ -253,16 +241,16 @@ export default function Contact() {
                       placeholder="123 456 789"
                       maxLength={9}
                       aria-invalid={Boolean(errors.phone)}
-                      className="min-w-0 flex-1 bg-transparent py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                      className="min-w-0 flex-1 bg-transparent py-3 text-sm text-white outline-none placeholder:text-slate-500"
                     />
                   </div>
-                  {errors.phone && <p className="text-xs font-medium text-rose-600">{errors.phone}</p>}
+                  {errors.phone && <p className="text-xs font-medium text-rose-400">{errors.phone}</p>}
                 </div>
               </div>
 
               <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-sm font-semibold text-slate-700">
+                  <label htmlFor="email" className="text-sm font-semibold text-slate-300">
                     Adres e-mail
                   </label>
                   <input
@@ -275,17 +263,17 @@ export default function Contact() {
                     onBlur={handleBlur}
                     placeholder="jan.kowalski@example.com"
                     aria-invalid={Boolean(errors.email)}
-                    className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                    className={`rounded-2xl border bg-slate-950 px-4 py-3 text-sm text-white outline-none transition-colors duration-200 placeholder:text-slate-500 focus:ring-4 ${
                       errors.email
-                        ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
-                        : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                        ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/20"
+                        : "border-slate-800 focus:border-blue-500 focus:ring-blue-500/20"
                     }`}
                   />
-                  {errors.email && <p className="text-xs font-medium text-rose-600">{errors.email}</p>}
+                  {errors.email && <p className="text-xs font-medium text-rose-400">{errors.email}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="category" className="text-sm font-semibold text-slate-700">
+                  <label htmlFor="category" className="text-sm font-semibold text-slate-300">
                     Kategoria zapytania
                   </label>
                   <select
@@ -294,13 +282,13 @@ export default function Contact() {
                     required
                     value={form.category}
                     onChange={handleChange}
-                    className="cursor-pointer rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                    className="cursor-pointer rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition-colors duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20"
                   >
-                    <option value="" disabled>
+                    <option value="" disabled className="bg-slate-900 text-slate-400">
                       Wybierz kategorię
                     </option>
                     {contactCategories.map((category) => (
-                      <option key={category.id} value={category.id}>
+                      <option key={category.id} value={category.id} className="bg-slate-900 text-white">
                         {category.label}
                       </option>
                     ))}
@@ -309,7 +297,7 @@ export default function Contact() {
               </div>
 
               <div className="mt-6 flex flex-col gap-2">
-                <label htmlFor="message" className="text-sm font-semibold text-slate-700">
+                <label htmlFor="message" className="text-sm font-semibold text-slate-300">
                   Opis problemu
                 </label>
                 <textarea
@@ -322,18 +310,18 @@ export default function Contact() {
                   onBlur={handleBlur}
                   placeholder={messagePlaceholder}
                   aria-invalid={Boolean(errors.message)}
-                  className={`resize-none rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+                  className={`resize-none rounded-2xl border bg-slate-950 px-4 py-3 text-sm text-white outline-none transition-colors duration-200 placeholder:text-slate-500 focus:ring-4 ${
                     errors.message
-                      ? "border-rose-400 focus:border-rose-400 focus:ring-rose-100"
-                      : "border-slate-200 focus:border-blue-400 focus:ring-blue-100"
+                      ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/20"
+                      : "border-slate-800 focus:border-blue-500 focus:ring-blue-500/20"
                   }`}
                 />
-                {errors.message && <p className="text-xs font-medium text-rose-600">{errors.message}</p>}
+                {errors.message && <p className="text-xs font-medium text-rose-400">{errors.message}</p>}
               </div>
 
-              <p className="mt-3 text-xs text-slate-400">
-                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie oraz akceptujesz naszą {" "}
-                <a href={privacyPolicyHash} className="font-semibold text-slate-500 underline hover:text-blue-700">
+              <p className="mt-3 text-xs text-slate-500">
+                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie oraz akceptujesz naszą{" "}
+                <a href={privacyPolicyHash} className="font-semibold text-blue-400 underline hover:text-blue-300">
                   politykę prywatności
                 </a>
                 .
@@ -349,14 +337,15 @@ export default function Contact() {
                   {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                   {isSubmitting ? "Wysyłanie..." : "Wyślij zgłoszenie"}
                 </Button>
+
                 {isSubmitted && !isSubmitting && (
-                  <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600">
+                  <span className="flex items-center gap-2 text-sm font-semibold text-emerald-400">
                     <CheckCircle2 className="h-5 w-5" />
                     Dziękujemy! Odezwiemy się wkrótce.
                   </span>
                 )}
                 {submitError && !isSubmitting && (
-                  <span className="flex items-center gap-2 text-sm font-semibold text-rose-600">
+                  <span className="flex items-center gap-2 text-sm font-semibold text-rose-400">
                     <AlertCircle className="h-5 w-5" />
                     {submitError}
                   </span>
@@ -365,58 +354,56 @@ export default function Contact() {
             </form>
           </Reveal>
 
-          {/* Dane adresowe + mapa - 5/12, bez pudełka: elementy oddzielone samą przestrzenią */}
           <Reveal delay={120} className="flex flex-col gap-10 lg:col-span-5">
             <div>
-              <h3 className="text-lg font-bold tracking-tight text-slate-900">SFT Computers - Kraków</h3>
-
+              <h3 className="text-lg font-bold tracking-tight text-white">SFT Computers – Kraków</h3>
               <ul className="mt-6 flex flex-col gap-5">
                 <li className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-950/80 border border-blue-800/40 text-blue-400">
                     <MapPin className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">Adres</p>
+                    <p className="text-sm font-semibold text-white">Adres</p>
                     <a
                       href={company.mapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-slate-500 hover:text-blue-700"
+                      className="text-sm text-slate-400 hover:text-blue-400"
                     >
                       {company.address.full}
                     </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-950/80 border border-blue-800/40 text-blue-400">
                     <Phone className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">Telefon</p>
-                    <a href={company.phoneHref} className="text-sm text-slate-500 hover:text-blue-700">
+                    <p className="text-sm font-semibold text-white">Telefon</p>
+                    <a href={company.phoneHref} className="text-sm text-slate-400 hover:text-blue-400">
                       {company.phone}
                     </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-950/80 border border-blue-800/40 text-blue-400">
                     <Mail className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">E-mail</p>
-                    <a href={`mailto:${company.email}`} className="text-sm text-slate-500 hover:text-blue-700">
+                    <p className="text-sm font-semibold text-white">E-mail</p>
+                    <a href={`mailto:${company.email}`} className="text-sm text-slate-400 hover:text-blue-400">
                       {company.email}
                     </a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-950/80 border border-blue-800/40 text-blue-400">
                     <Clock3 className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">Godziny otwarcia</p>
+                    <p className="text-sm font-semibold text-white">Godziny otwarcia</p>
                     {company.hours.map((slot) => (
-                      <p key={slot.days} className="text-sm text-slate-500">
+                      <p key={slot.days} className="text-sm text-slate-400">
                         {slot.days}: {slot.hours}
                       </p>
                     ))}
@@ -427,12 +414,12 @@ export default function Contact() {
 
             <div
               id="mapa"
-              className="flex min-h-[14rem] flex-1 scroll-mt-36 flex-col overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 shadow-md shadow-slate-200/50"
+              className="flex min-h-[14rem] flex-1 scroll-mt-36 flex-col overflow-hidden rounded-[2.5rem] border border-slate-800 bg-slate-900 shadow-xl"
             >
               <iframe
                 title="Lokalizacja SFT Computers na mapie Google"
                 src={company.mapsEmbedUrl}
-                className="h-full min-h-[14rem] w-full flex-1 border-0"
+                className="h-full min-h-[14rem] w-full flex-1 border-0 brightness-90 contrast-105 invert-[0.88] hue-rotate-180"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
@@ -441,7 +428,7 @@ export default function Contact() {
                 href={company.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-t border-slate-200 bg-white px-4 py-3 text-center text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50"
+                className="border-t border-slate-800 bg-slate-900 px-4 py-3 text-center text-sm font-semibold text-blue-400 transition-colors hover:bg-slate-800 hover:text-blue-300"
               >
                 Otwórz w Google Maps
               </a>

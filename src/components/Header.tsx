@@ -17,21 +17,16 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Header jest "fixed", więc mierzymy wysokość paska ogłoszeń (może się zawinąć
-  // do 2 linii na wąskich ekranach), żeby w spoczynku nagłówek zaczynał się dokładnie pod nim.
   useEffect(() => {
     const announcementBar = document.getElementById("announcement-bar");
     if (!announcementBar) return undefined;
-
     const measure = () => setAnnouncementHeight(announcementBar.offsetHeight);
     measure();
-
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(announcementBar);
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Scroll block strony, gdy otwarte jest menu mobilne.
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -39,7 +34,6 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  // Menu mobilne otwarte na samej górze strony też potrzebuje czytelnego, jednolitego tła.
   const isSolid = isScrolled || isMenuOpen;
 
   return (
@@ -47,9 +41,9 @@ export default function Header() {
       style={{ top: isScrolled ? 0 : announcementHeight }}
       className={`fixed inset-x-0 z-50 w-full transition-all duration-300 ease-out ${
         isSolid
-          ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md"
+          ? "border-b border-slate-800/80 bg-[#0b0f19]/90 shadow-lg shadow-black/20 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
-      } ${isScrolled ? "py-4" : "py-7"}`}
+      } ${isScrolled ? "py-3.5" : "py-6"}`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
         <a href="#top" className="group relative flex shrink-0 items-center">
@@ -71,11 +65,11 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700"
+              className="group relative py-1 text-base font-medium text-slate-300 transition-colors duration-200 hover:text-white"
             >
               {link.label}
               <span
-                className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-blue-600 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-blue-500 transition-transform duration-300 ease-out group-hover:scale-x-100"
                 aria-hidden="true"
               />
             </a>
@@ -93,16 +87,15 @@ export default function Header() {
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
           aria-expanded={isMenuOpen}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-slate-300 transition-colors duration-200 hover:bg-slate-800 lg:hidden"
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Menu mobilne — pełna szerokość, bez oddzielnej "karty" */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-out lg:hidden ${
-          isMenuOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+          isMenuOpen ? "max-h-[28rem] opacity-100 bg-[#0b0f19] border-b border-slate-800" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pb-5 pt-2 sm:px-6 lg:px-8">
@@ -111,7 +104,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setIsMenuOpen(false)}
-              className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 hover:text-blue-700"
+              className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 transition-colors duration-200 hover:bg-slate-800 hover:text-white"
             >
               {link.label}
             </a>

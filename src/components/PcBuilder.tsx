@@ -54,25 +54,21 @@ export default function PcBuilder() {
                   Pozycje "top"/"bottom" w % (a nie w px), bo zdjęcie ma sporo przezroczystego
                   marginesu nad/pod samą obudową - stałe px "wędrowały" przy zmianie rozmiaru kontenera. */}
               <div
-                className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-sky-400/45 blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute top-[8%] -right-10 h-52 w-52 rounded-full bg-pink-400/40 blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute bottom-[6%] -left-10 h-52 w-52 rounded-full bg-pink-400/35 blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute bottom-[6%] -right-10 h-52 w-52 rounded-full bg-sky-400/40 blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 rounded-full bg-white/15 blur-3xl"
-                aria-hidden="true"
-              />
+  className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-cyan-400/40 blur-3xl"
+  aria-hidden="true"
+/>
+<div
+  className="pointer-events-none absolute top-[8%] -right-10 h-52 w-52 rounded-full bg-teal-400/35 blur-3xl"
+  aria-hidden="true"
+/>
+<div
+  className="pointer-events-none absolute bottom-[6%] -left-10 h-52 w-52 rounded-full bg-teal-400/30 blur-3xl"
+  aria-hidden="true"
+/>
+<div
+  className="pointer-events-none absolute bottom-[6%] -right-10 h-52 w-52 rounded-full bg-cyan-500/40 blur-3xl"
+  aria-hidden="true"
+/>
               <img
                 src={gamingPcImage}
                 alt="Wizualizacja komputera do gier w białej obudowie z podświetleniem RGB"
