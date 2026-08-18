@@ -3,7 +3,13 @@ import { AlertCircle, CheckCircle2, Clock3, Loader2, Mail, MapPin, Phone, Send }
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
-import { categoryPlaceholders, company, contactCategories, defaultMessagePlaceholder } from "../data/siteData";
+import {
+  categoryPlaceholders,
+  company,
+  contactCategories,
+  defaultMessagePlaceholder,
+  privacyPolicyHash,
+} from "../data/siteData";
 
 interface ContactFormState {
   name: string;
@@ -326,7 +332,11 @@ export default function Contact() {
               </div>
 
               <p className="mt-3 text-xs text-slate-400">
-                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie oraz akceptujesz naszą politykę prywatności.
+                Wysyłając formularz, wyrażasz zgodę na kontakt w celu udzielenia odpowiedzi na zapytanie oraz akceptujesz naszą {" "}
+                <a href={privacyPolicyHash} className="font-semibold text-slate-500 underline hover:text-blue-700">
+                  politykę prywatności
+                </a>
+                .
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">

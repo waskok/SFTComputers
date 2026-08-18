@@ -1,6 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 import footerLogo from "../assets/FooterLogo.png";
-import { company, footerLinks } from "../data/siteData";
+import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
 
 export default function Footer() {
   return (
@@ -59,7 +59,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {company.registry.company}. Wszelkie prawa zastrzeżone.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-slate-400 hover:text-blue-700">
+            <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700">
               Polityka prywatności
             </a>
           </div>
