@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import { BadgeCheck, Laptop, PiggyBank, ShieldCheck } from "lucide-react";
+import { BadgeCheck, PiggyBank, ShieldCheck } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
@@ -21,34 +21,32 @@ export default function RefurbishedHardware() {
   };
 
   return (
-    <section id="poleasingowy" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Wizualizacja — 5/12, bez pudełka: ikona i opis leżą wprost na tle strony */}
-          <Reveal className="relative order-1 flex flex-col items-center justify-center gap-5 text-center lg:order-1 lg:col-span-5">
-            <div
-              className="pointer-events-none absolute inset-10 rounded-full bg-blue-100/60 blur-3xl"
-              aria-hidden="true"
-            />
-            <div className="relative w-full max-w-md overflow-hidden rounded-3xl">
-              <img
-                src={laptop}
-                alt="Poleasingowe laptopy biznesowe Dell, HP, Lenovo w ofercie SFT Computers"
-                className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </div>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-700">
-              12 miesięcy gwarancji
-            </span>
-          </Reveal>
+    <section id="poleasingowy" className="relative overflow-hidden bg-[#e7e7e7]">
+      <div className="grid grid-cols-1 lg:grid-cols-[55%_1fr]">
+        {/* Zdjęcie — tło całej lewej połowy sekcji, na pełną jej wysokość, bez marginesu do krawędzi ekranu */}
+        <Reveal className="relative h-72 sm:h-96 lg:h-auto">
+          <img
+            src={laptop}
+            alt="Poleasingowe laptopy biznesowe Dell, HP, Lenovo w ofercie SFT Computers"
+            className="absolute inset-0 h-full w-full object-cover object-left"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/0 lg:bg-gradient-to-r lg:from-black/10 lg:via-transparent lg:to-transparent" />
+          <span className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-1.5 text-xs font-bold text-emerald-700 shadow-lg backdrop-blur-sm sm:bottom-6 sm:left-6">
+            12 miesięcy gwarancji
+          </span>
+        </Reveal>
 
-          {/* Treść — 7/12 */}
-          <Reveal delay={120} className="order-2 flex flex-col justify-center lg:order-2 lg:col-span-7">
+        {/* Treść — prawa połowa sekcji */}
+        <Reveal
+          delay={120}
+          className="flex flex-col justify-center px-4 py-14 sm:px-6 sm:py-20 lg:px-12 lg:py-24 xl:px-20"
+        >
+          <div className="max-w-xl">
             <SectionBadge>Sprzęt poleasingowy</SectionBadge>
             <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
               Solidny sprzęt klasy biznesowej za mniej
             </h2>
-            <p className="mt-4 max-w-xl text-lg text-slate-600">
+            <p className="mt-4 text-lg text-slate-600">
               Laptopy i komputery używane wcześniej w firmach - sprawdzone, odnowione i gotowe do pracy.
               Oszczędzasz bez kompromisu na jakości i niezawodności.
             </p>
@@ -73,8 +71,8 @@ export default function RefurbishedHardware() {
                 Sprawdzam ofertę
               </Button>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
