@@ -89,6 +89,10 @@ export interface ContactCategory {
   label: string;
 }
 
+// Hash pod którym otwiera się "podstrona" polityki prywatności (patrz App.tsx) -
+// używany zarówno do linkowania do niej, jak i do wykrywania, że ma być widoczna.
+export const privacyPolicyHash = "#polityka-prywatnosci";
+
 export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
@@ -273,7 +277,7 @@ export const footerLinks: FooterLinkColumn[] = [
     links: [
       { label: "Opinie klientów", href: "#opinie" },
       { label: "Kontakt", href: "#kontakt" },
-      { label: "Polityka prywatności", href: "#" },
+      { label: "Polityka prywatności", href: privacyPolicyHash },
     ],
   },
 ];
