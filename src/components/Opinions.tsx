@@ -8,12 +8,15 @@ const loopOpinions: Opinion[] = [...opinions, ...opinions];
 
 const AVATAR_COLORS = [
   "bg-blue-600",
-  "bg-emerald-600",
-  "bg-amber-600",
-  "bg-rose-600",
-  "bg-violet-600",
+  "bg-emerald-500 dark:bg-emerald-600",
+  "bg-amber-500 dark:bg-amber-600",
+  "bg-rose-500 dark:bg-rose-600",
+  "bg-violet-500 dark:bg-violet-600",
   "bg-cyan-600",
-  "bg-indigo-600",
+  "bg-orange-500 dark:bg-orange-600",
+  "bg-pink-500 dark:bg-pink-600",
+  "bg-teal-500 dark:bg-teal-600",
+  "bg-indigo-500 dark:bg-indigo-600",
 ];
 
 const AUTO_SCROLL_SPEED = 42;
@@ -41,7 +44,7 @@ function Stars({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className={`h-4 w-4 ${i < rating ? "fill-current text-amber-400" : "fill-current text-slate-700"}`}
+          className={`h-4 w-4 ${i < rating ? "fill-current text-yellow-400 dark:text-amber-400" : "fill-current text-gray-200 dark:text-slate-700"}`}
         />
       ))}
     </div>
@@ -149,28 +152,28 @@ export default function Opinions() {
   };
 
   return (
-    <section id="opinie" className="py-20 sm:py-28 bg-[#0b0f19]">
+    <section id="opinie" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div className="max-w-xl">
             <SectionBadge>Opinie klientów</SectionBadge>
-            <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
               Zaufali nam mieszkańcy Krakowa
             </h2>
             <p className="mt-2 text-sm text-slate-400">Kliknij na opinię, by ją przeczytać</p>
           </div>
-          <div className="flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-900 px-6 py-4 shadow-xl">
+          <div className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white px-6 py-4 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-xl">
             <div className="flex text-amber-400">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="h-4 w-4 fill-current" />
               ))}
             </div>
-            <div className="h-8 w-px bg-slate-800" />
+            <div className="h-8 w-px bg-slate-100 dark:bg-slate-800" />
             <div className="text-left">
-              <p className="text-lg font-extrabold leading-none text-white">
+              <p className="text-lg font-extrabold leading-none text-slate-900 dark:text-white">
                 {company.googleRating.score}
               </p>
-              <p className="text-xs text-slate-400">★ {company.googleRating.reviewsCount}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">★ {company.googleRating.reviewsCount}</p>
             </div>
           </div>
         </Reveal>
@@ -178,14 +181,14 @@ export default function Opinions() {
 
       <Reveal className="mt-14">
         <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0b0f19] to-transparent sm:w-32" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0b0f19] to-transparent sm:w-32" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent sm:w-32 dark:from-[#0b0f19]" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent sm:w-32 dark:from-[#0b0f19]" />
 
           <button
             type="button"
             onClick={() => shiftBy(1)}
             aria-label="Poprzednia opinia"
-            className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-300 shadow-xl transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-400 hover:text-white sm:left-6"
+            className="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-lg shadow-slate-300/50 transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-200 hover:text-blue-700 sm:left-6 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:shadow-xl dark:hover:border-blue-400 dark:hover:text-white"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -193,7 +196,7 @@ export default function Opinions() {
             type="button"
             onClick={() => shiftBy(-1)}
             aria-label="Następna opinia"
-            className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-300 shadow-xl transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-400 hover:text-white sm:right-6"
+            className="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-lg shadow-slate-300/50 transition-all duration-200 hover:-translate-y-[calc(50%+2px)] hover:border-blue-200 hover:text-blue-700 sm:right-6 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:shadow-xl dark:hover:border-blue-400 dark:hover:text-white"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -207,11 +210,13 @@ export default function Opinions() {
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   aria-pressed={isActive}
-                  className={`group relative flex w-72 flex-none cursor-pointer flex-col rounded-2xl border bg-slate-900/80 p-6 text-left shadow-lg backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:border-slate-700 hover:bg-slate-900 hover:shadow-2xl hover:shadow-black/50 sm:w-80 ${
-                    isActive ? "border-blue-500 ring-2 ring-blue-500 ring-offset-2 ring-offset-[#0b0f19]" : "border-slate-800"
+                  className={`group relative flex w-72 flex-none cursor-pointer flex-col rounded-2xl border bg-white p-6 text-left shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:bg-slate-50 hover:shadow-xl hover:shadow-slate-300/70 sm:w-80 dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:shadow-2xl dark:hover:shadow-black/50 ${
+                    isActive
+                      ? "border-blue-300 ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-50 dark:border-blue-500 dark:ring-offset-[#0b0f19]"
+                      : "border-gray-100"
                   }`}
                 >
-                  <ArrowUpRight className="absolute right-4 top-4 h-5 w-5 text-slate-600 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blue-400" />
+                  <ArrowUpRight className="absolute right-4 top-4 h-5 w-5 text-slate-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blue-600 dark:text-slate-600 dark:group-hover:text-blue-400" />
                   <div className="flex items-center gap-3 pr-7">
                     <span
                       className={`flex h-10 w-10 flex-none items-center justify-center rounded-full text-sm font-bold text-white ${getAvatarColor(
@@ -220,12 +225,12 @@ export default function Opinions() {
                     >
                       {getInitials(opinion.name)}
                     </span>
-                    <p className="font-semibold text-white">{opinion.name}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{opinion.name}</p>
                   </div>
                   <div className="mt-3">
                     <Stars rating={opinion.rating} />
                   </div>
-                  <p className="mt-3 line-clamp-6 text-sm leading-relaxed text-slate-400">{opinion.text}</p>
+                  <p className="mt-3 line-clamp-6 text-sm leading-relaxed text-gray-600 dark:text-slate-400">{opinion.text}</p>
                 </button>
               );
             })}
@@ -237,7 +242,7 @@ export default function Opinions() {
         role="presentation"
         onClick={() => setActiveIndex(null)}
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm transition-opacity duration-300 ease-out sm:p-6 ${
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-slate-900/20 p-4 backdrop-blur-[2px] transition-opacity duration-300 ease-out sm:p-6 dark:bg-black/70 dark:backdrop-blur-sm ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -247,7 +252,7 @@ export default function Opinions() {
             aria-modal="true"
             aria-label={`Opinia – ${activeOpinion.name}`}
             onClick={(event) => event.stopPropagation()}
-            className={`relative flex max-h-[80vh] w-full max-w-lg flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl transition-all duration-300 ease-out ${
+            className={`relative flex max-h-[80vh] w-full max-w-lg flex-col rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 ease-out dark:border-slate-800 dark:bg-slate-900 ${
               isOpen ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-95 opacity-0"
             }`}
           >
@@ -260,12 +265,12 @@ export default function Opinions() {
                 >
                   {getInitials(activeOpinion.name)}
                 </span>
-                <p className="text-lg font-semibold text-white">{activeOpinion.name}</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">{activeOpinion.name}</p>
               </div>
               <div className="mt-4">
                 <Stars rating={activeOpinion.rating} />
               </div>
-              <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-300 sm:text-base">
+              <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-gray-600 sm:text-base dark:text-slate-300">
                 {activeOpinion.text}
               </p>
             </div>
@@ -273,7 +278,7 @@ export default function Opinions() {
               type="button"
               onClick={() => setActiveIndex(null)}
               aria-label="Wróć do karuzeli opinii"
-              className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-500"
+              className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 dark:hover:bg-blue-500"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>

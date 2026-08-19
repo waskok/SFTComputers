@@ -28,11 +28,13 @@ export type ButtonProps = ButtonAsAnchorProps | ButtonAsButtonProps;
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
-    "bg-blue-600 text-white shadow-xl shadow-blue-600/30 hover:bg-blue-500 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-0.5",
+    "bg-blue-600 text-white shadow-xl shadow-blue-600/25 hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5 dark:shadow-blue-600/30 dark:hover:bg-blue-500",
   secondary:
-    "bg-slate-900 text-white border border-slate-700 shadow-lg shadow-black/40 hover:bg-slate-800 hover:border-blue-400 hover:-translate-y-0.5",
-  ghost: "bg-blue-950/60 border border-blue-800/40 text-blue-400 hover:bg-blue-900/60 hover:text-white hover:-translate-y-0.5",
-  inverse: "bg-white text-slate-950 shadow-xl shadow-black/30 hover:bg-slate-200 hover:-translate-y-0.5 font-bold",
+    "bg-white text-slate-900 border border-slate-200 shadow-lg shadow-slate-200/60 hover:border-blue-200 hover:text-blue-700 hover:-translate-y-0.5 dark:bg-slate-900 dark:text-white dark:border-slate-700 dark:shadow-black/40 dark:hover:bg-slate-800 dark:hover:border-blue-400",
+  ghost:
+    "bg-blue-50 text-blue-700 hover:bg-blue-100 hover:-translate-y-0.5 dark:bg-blue-950/60 dark:border dark:border-blue-800/40 dark:text-blue-400 dark:hover:bg-blue-900/60 dark:hover:text-white",
+  inverse:
+    "bg-white text-blue-700 shadow-xl shadow-black/10 hover:bg-blue-50 hover:-translate-y-0.5 font-semibold dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 dark:shadow-black/30",
 };
 
 const SIZE_STYLES: Record<ButtonSize, string> = {

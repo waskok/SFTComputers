@@ -21,11 +21,11 @@ const PART_ICONS: Record<string, IconComponent> = {
 
 export default function PcBuilder() {
   const [activeId, setActiveId] = useState<string>(pcParts[0].id);
+
   const activePart = pcParts.find((part) => part.id === activeId) ?? pcParts[0];
   const ActiveIcon = PART_ICONS[activePart.id] ?? Cpu;
 
   const setCategoryOnContact = (categoryId: string) => {
-    // Ustawienie kategorii w formularzu "Kontakt" realizujemy przez event globalny.
     window.dispatchEvent(
       new CustomEvent("sft:setContactCategory", {
         detail: { categoryId },
@@ -34,41 +34,42 @@ export default function PcBuilder() {
   };
 
   return (
-    <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-16 pb-6 sm:pt-20 sm:pb-8">
+    <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-16 pb-6 sm:pt-20 sm:pb-8 dark:bg-slate-950 dark:border-y dark:border-slate-800/80">
       <div className="mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Komputery na zamówienie</SectionBadge>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Składamy komputer pod Twoje potrzeby
           </h2>
-          <p className="mt-3 text-lg text-slate-300">
-            Kliknij podzespół na wizualizacji, aby zobaczyć, jak dobieramy go pod kątem twoich potrzeb - bez przepłacania za moc, której nie wykorzystasz.
+          <p className="mt-3 text-lg text-slate-300 dark:text-slate-400">
+            Kliknij podzespół na wizualizacji, aby zobaczyć, jak dobieramy go pod kątem Twoich potrzeb – bez przepłacania za moc, której nie wykorzystasz.
           </p>
         </Reveal>
 
         <div className="mt-6 grid grid-cols-1 items-center gap-3 sm:mt-8 sm:gap-5 lg:grid-cols-12 lg:gap-12 xl:gap-16">
-          {/* Wizualizacja PC z hotspotami - 7/12, bez pudełka, przesunięta bliżej lewej krawędzi ekranu */}
           <Reveal className="relative lg:col-span-7">
             <div className="relative mx-auto aspect-[1664/2544] w-full max-w-[220px] sm:max-w-xs md:max-w-sm lg:mx-0 lg:max-w-lg">
-              {/* Poświata RGB dookoła całej obudowy, w kolorach jej podświetlenia.
-                  Pozycje "top"/"bottom" w % (a nie w px), bo zdjęcie ma sporo przezroczystego
-                  marginesu nad/pod samą obudową - stałe px "wędrowały" przy zmianie rozmiaru kontenera. */}
               <div
-  className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-cyan-400/40 blur-3xl"
-  aria-hidden="true"
-/>
-<div
-  className="pointer-events-none absolute top-[8%] -right-10 h-52 w-52 rounded-full bg-teal-400/35 blur-3xl"
-  aria-hidden="true"
-/>
-<div
-  className="pointer-events-none absolute bottom-[6%] -left-10 h-52 w-52 rounded-full bg-teal-400/30 blur-3xl"
-  aria-hidden="true"
-/>
-<div
-  className="pointer-events-none absolute bottom-[6%] -right-10 h-52 w-52 rounded-full bg-cyan-500/40 blur-3xl"
-  aria-hidden="true"
-/>
+                className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-sky-400/45 blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute top-[8%] -right-10 h-52 w-52 rounded-full bg-pink-400/40 blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute bottom-[6%] -left-10 h-52 w-52 rounded-full bg-pink-400/35 blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute bottom-[6%] -right-10 h-52 w-52 rounded-full bg-sky-400/40 blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 rounded-full bg-white/15 blur-3xl"
+                aria-hidden="true"
+              />
+
               <img
                 src={gamingPcImage}
                 alt="Wizualizacja komputera do gier w białej obudowie z podświetleniem RGB"
@@ -113,16 +114,13 @@ export default function PcBuilder() {
             </div>
           </Reveal>
 
-          {/* Opis wybranego podzespołu - 5/12, bez pudełka, przesunięty bliżej prawej krawędzi ekranu */}
           <Reveal delay={150} className="lg:col-span-5">
             <div>
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white sm:h-14 sm:w-14">
                 <ActiveIcon className="h-5 w-5 sm:h-7 sm:w-7" />
               </span>
-
               <h3 className="mt-4 text-2xl font-bold tracking-tight text-white">{activePart.title}</h3>
-              <p className="mt-2.5 text-base leading-relaxed text-slate-300">{activePart.description}</p>
-
+              <p className="mt-2.5 text-base leading-relaxed text-slate-300 dark:text-slate-400">{activePart.description}</p>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {pcParts.map((part) => (
                   <button
@@ -139,7 +137,6 @@ export default function PcBuilder() {
                   </button>
                 ))}
               </div>
-
               <div className="mt-6">
                 <Button href="#kontakt" variant="inverse" onClick={() => setCategoryOnContact("konfiguracja-pc")}>
                   Skonfiguruj swój PC
