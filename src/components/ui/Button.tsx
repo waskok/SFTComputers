@@ -7,7 +7,6 @@ import type {
 } from "react";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
-
 type ButtonVariant = "primary" | "secondary" | "ghost" | "inverse";
 type ButtonSize = "md" | "lg";
 
@@ -22,7 +21,6 @@ interface ButtonOwnProps {
 
 type ButtonAsAnchorProps = ButtonOwnProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & { href: string };
-
 type ButtonAsButtonProps = ButtonOwnProps &
   ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
 
@@ -30,11 +28,13 @@ export type ButtonProps = ButtonAsAnchorProps | ButtonAsButtonProps;
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
-    "bg-blue-600 text-white shadow-xl shadow-blue-600/25 hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5",
+    "bg-blue-600 text-white shadow-xl shadow-blue-600/25 hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-600/35 hover:-translate-y-0.5 dark:shadow-blue-600/30 dark:hover:bg-blue-500",
   secondary:
-    "bg-white text-slate-900 border border-slate-200 shadow-lg shadow-slate-200/60 hover:border-blue-200 hover:text-blue-700 hover:-translate-y-0.5",
-  ghost: "bg-blue-50 text-blue-700 hover:bg-blue-100 hover:-translate-y-0.5",
-  inverse: "bg-white text-blue-700 shadow-xl shadow-black/10 hover:bg-blue-50 hover:-translate-y-0.5",
+    "bg-white text-slate-900 border border-slate-200 shadow-lg shadow-slate-200/60 hover:border-blue-200 hover:text-blue-700 hover:-translate-y-0.5 dark:bg-slate-900 dark:text-white dark:border-slate-700 dark:shadow-black/40 dark:hover:bg-slate-800 dark:hover:border-blue-400",
+  ghost:
+    "bg-blue-50 text-blue-700 hover:bg-blue-100 hover:-translate-y-0.5 dark:bg-blue-950/60 dark:border dark:border-blue-800/40 dark:text-blue-400 dark:hover:bg-blue-900/60 dark:hover:text-white",
+  inverse:
+    "bg-white text-blue-700 shadow-xl shadow-black/10 hover:bg-blue-50 hover:-translate-y-0.5 font-semibold dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 dark:shadow-black/30",
 };
 
 const SIZE_STYLES: Record<ButtonSize, string> = {
@@ -42,10 +42,6 @@ const SIZE_STYLES: Record<ButtonSize, string> = {
   lg: "px-8 py-4 text-base",
 };
 
-/**
- * Przycisk CTA — wysoki kontrast, duży obszar dotykowy (min. 44px), płynny hover.
- * Renderuje <a> jeśli podano `href`, w przeciwnym razie <button>.
- */
 export default function Button({
   href,
   variant = "primary",

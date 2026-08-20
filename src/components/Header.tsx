@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, Moon, Sun, X } from "lucide-react";
 import Button from "./ui/Button";
 import logoSft from "../assets/Logo1.png";
 import logoSftHover from "../assets/Logo2.png";
@@ -9,6 +9,35 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [announcementHeight, setAnnouncementHeight] = useState(0);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Domyślnie strona ma się otwierać w motywie jasnym, niezależnie od preferencji
+    // systemowych użytkownika - motyw ciemny włącza się tylko, jeśli został wcześniej
+    // wybrany ręcznie (i zapamiętany w localStorage).
+    const savedTheme = localStorage.getItem("theme");
+    const shouldBeDark = savedTheme === "dark";
+
+    if (shouldBeDark) {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDark(false);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (isDark) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setIsDark(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setIsDark(true);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -17,21 +46,16 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Header jest "fixed", więc mierzymy wysokość paska ogłoszeń (może się zawinąć
-  // do 2 linii na wąskich ekranach), żeby w spoczynku nagłówek zaczynał się dokładnie pod nim.
   useEffect(() => {
     const announcementBar = document.getElementById("announcement-bar");
     if (!announcementBar) return undefined;
-
     const measure = () => setAnnouncementHeight(announcementBar.offsetHeight);
     measure();
-
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(announcementBar);
     return () => resizeObserver.disconnect();
   }, []);
 
-  // Scroll block strony, gdy otwarte jest menu mobilne.
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -39,7 +63,6 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  // Menu mobilne otwarte na samej górze strony też potrzebuje czytelnego, jednolitego tła.
   const isSolid = isScrolled || isMenuOpen;
 
   return (
@@ -47,7 +70,7 @@ export default function Header() {
       style={{ top: isScrolled ? 0 : announcementHeight }}
       className={`fixed inset-x-0 z-50 w-full transition-all duration-300 ease-out ${
         isSolid
-          ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md"
+          ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-[#0b0f19]/90 dark:shadow-black/20"
           : "border-b border-transparent bg-transparent"
       } ${isScrolled ? "py-4" : "py-7"}`}
     >
@@ -71,38 +94,54 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700"
+              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white"
             >
               {link.label}
               <span
-                className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-blue-600 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-blue-600 transition-transform duration-300 ease-out group-hover:scale-x-100 dark:bg-blue-500"
                 aria-hidden="true"
               />
             </a>
           ))}
         </nav>
 
-        <div className="hidden lg:ml-10 lg:block">
-          <Button href="#kontakt" variant="ghost" size="md" icon={ArrowRight}>
-            Sprawdzam ofertę
-          </Button>
-        </div>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+            aria-expanded={isMenuOpen}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
 
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((open) => !open)}
-          aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={isMenuOpen}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 lg:hidden"
-        >
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          {/* Guzik ma "odwrócony" wygląd względem aktywnego motywu: przy księżycu (przełączenie
+              na tryb ciemny) sam guzik jest ciemny, przy słońcu (przełączenie na tryb jasny) - jasny. */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDark ? "Przełącz na tryb jasny" : "Przełącz na tryb nocny"}
+            className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full shadow-sm transition-all duration-200 ${
+              isDark
+                ? "bg-white text-slate-700 hover:bg-slate-50 hover:text-blue-700"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+            }`}
+          >
+            {isDark ? (
+              <Sun className="h-5 w-5 text-amber-500" strokeWidth={2.2} />
+            ) : (
+              <Moon className="h-5 w-5 text-slate-200" strokeWidth={2.2} />
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* Menu mobilne — pełna szerokość, bez oddzielnej "karty" */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-out lg:hidden ${
-          isMenuOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+          isMenuOpen
+            ? "max-h-[28rem] border-b border-slate-100 bg-white opacity-100 dark:border-slate-800 dark:bg-[#0b0f19]"
+            : "max-h-0 opacity-0"
         }`}
       >
         <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pb-5 pt-2 sm:px-6 lg:px-8">
@@ -111,7 +150,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setIsMenuOpen(false)}
-              className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 hover:text-blue-700"
+              className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
             >
               {link.label}
             </a>

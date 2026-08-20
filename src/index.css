@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  /* Marka SFT Computers — technologiczny błękit/granat jako akcent */
+  /* Marka SFT Computers - technologiczny błękit/kobalt jako akcent */
   --color-brand-50: #eef4ff;
   --color-brand-100: #dbe7ff;
   --color-brand-200: #bfd6ff;
@@ -27,7 +29,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Prosty helper do animacji "fade-in-up" wyzwalanej przy scrollu (patrz hook useReveal) */
+/* Prosty helper do animacji "fade-in-up" wyzwalanej przy scrollu */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -46,21 +48,19 @@ body {
     transform: none;
     transition: none;
   }
-
   html {
     scroll-behavior: auto;
   }
 }
 
-/* Ukrycie scrollbara w poziomej karuzeli mobilnej (np. karty usług) bez utraty funkcji scrolla */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   scrollbar-width: none;
 }
 
-/* Nieskończona karuzela pozioma (marquee) opinii klientów — czyste CSS, bez JS/framer-motion */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -82,4 +82,31 @@ body {
   .animate-marquee {
     animation: none;
   }
+}
+
+/* Pasek postępu karuzeli zdjęć w Hero — wypełnia się od 0% do 100% w rytm zmiany zdjęcia */
+@keyframes hero-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-hero-progress {
+  animation: hero-progress 7s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-progress {
+    animation: none;
+    width: 100%;
+  }
+}
+
+.dark .map-container,
+.dark .leaflet-tile-pane,
+.dark iframe {
+  filter: none !important;
 }
