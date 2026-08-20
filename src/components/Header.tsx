@@ -122,10 +122,10 @@ export default function Header() {
             type="button"
             onClick={toggleTheme}
             aria-label={isDark ? "Przełącz na tryb jasny" : "Przełącz na tryb nocny"}
-            className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 shadow-sm transition-all duration-200 ${
+            className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full shadow-sm transition-all duration-200 ${
               isDark
-                ? "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:bg-slate-50 hover:text-blue-700"
-                : "border-slate-500 bg-slate-800 text-slate-300 hover:border-blue-400 hover:bg-slate-700 hover:text-white"
+                ? "bg-white text-slate-700 hover:bg-slate-50 hover:text-blue-700"
+                : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
             }`}
           >
             {isDark ? (

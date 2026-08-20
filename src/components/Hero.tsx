@@ -1,11 +1,55 @@
+import { useEffect, useState } from "react";
 import { Clock3, ShieldCheck, ShoppingBag, Star, Wrench, MonitorSmartphone } from "lucide-react";
 import Button from "./ui/Button";
 import SectionBadge from "./ui/SectionBadge";
 import Reveal from "./ui/Reveal";
 import { company } from "../data/siteData";
 import serviceImage from "../assets/service.jpg";
+import service2Image from "../assets/service2.jpg";
+import service3Image from "../assets/service3.jpg";
+
+const SLIDE_DURATION_MS = 7000;
+
+const heroSlides = [
+  {
+    image: serviceImage,
+    alt: "Diagnoza i naprawa sprzętu komputerowego SFT Computers w Krakowie",
+    icon: Wrench,
+    label: "Diagnoza usterki",
+    value: "Bezpłatnie",
+  },
+  {
+    image: service2Image,
+    alt: "Szybka naprawa laptopów i komputerów w serwisie SFT Computers",
+    icon: Clock3,
+    label: "Szybka naprawa",
+    value: "do 48h",
+  },
+  {
+    image: service3Image,
+    alt: "Gwarancja na usługi serwisowe SFT Computers",
+    icon: ShieldCheck,
+    label: "Gwarancja",
+    value: "Spokój na dłużej",
+  },
+];
 
 export default function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  // Automatyczna karuzela zdjęć w tle - zmiana co SLIDE_DURATION_MS. Timer resetuje się przy
+  // każdej zmianie aktywnego zdjęcia (również po kliknięciu paska), więc pasek postępu zawsze
+  // startuje od nowa razem z licznikiem.
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+    }, SLIDE_DURATION_MS);
+    return () => clearTimeout(timeout);
+  }, [activeSlide]);
+
+  const activeSlideData = heroSlides[activeSlide];
+  const ActiveIcon = activeSlideData.icon;
+
   const setCategoryOnContact = (categoryId: string) => {
     window.dispatchEvent(
       new CustomEvent("sft:setContactCategory", {
@@ -80,24 +124,56 @@ export default function Hero() {
           <Reveal delay={150} className="relative lg:col-span-5">
             <div className="relative mx-auto max-w-md lg:ml-auto lg:mr-0">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border border-slate-100 bg-slate-900 shadow-2xl shadow-blue-900/20 dark:border-slate-800 dark:shadow-black/60">
-                <img
-                  src={serviceImage}
-                  alt="Serwis i naprawa sprzętu komputerowego SFT Computers w Krakowie"
-                  className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                />
+                {heroSlides.map((slide, index) => (
+                  <img
+                    key={slide.image}
+                    src={slide.image}
+                    alt={slide.alt}
+                    className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
+                      index === activeSlide ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+
+                {/* Przyciemnienie zdjęcia - w trybie ciemnym mocne (zdjęcie wtapia się w ciemne UI),
+                    w jasnym motywie ledwo zauważalne, żeby zdjęcie zostało jasne i dopasowane do tła */}
                 <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent dark:from-black/60 dark:via-transparent dark:to-black/10"
                   aria-hidden="true"
                 />
+
+                {/* Scrim pod paskami postępu, żeby zawsze były czytelne niezależnie od jasności zdjęcia */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/45 to-transparent"
+                  aria-hidden="true"
+                />
+
+                {/* Paski postępu - jeden na zdjęcie, klikalne, wypełniają się przez 7s i przeskakują do kolejnego */}
+                <div className="absolute top-2 left-1/2 z-10 flex w-48 -translate-x-1/2 gap-1.5 sm:w-60">
+                  {heroSlides.map((slide, index) => (
+                    <button
+                      key={slide.image}
+                      type="button"
+                      onClick={() => setActiveSlide(index)}
+                      aria-label={`Pokaż: ${slide.label}`}
+                      className="h-[4px] flex-1 cursor-pointer overflow-hidden rounded-full bg-white/30"
+                    >
+                      {index < activeSlide && <div className="h-full w-full bg-white" />}
+                      {index === activeSlide && (
+                        <div key={activeSlide} className="h-full w-0 bg-white animate-hero-progress" />
+                      )}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <div className="absolute -left-2 top-10 flex items-center gap-3 rounded-2xl bg-white/85 px-3.5 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:-left-6 dark:border dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-xl">
+              <div className="absolute -left-4 top-16 flex items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:-left-8 dark:border dark:border-slate-800 dark:bg-slate-900/95 dark:shadow-xl">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:border dark:border-blue-800/50 dark:bg-blue-950 dark:text-blue-400">
-                  <Wrench className="h-5 w-5" />
+                  <ActiveIcon className="h-5 w-5" />
                 </span>
                 <div className="text-left">
-                  <p className="text-xs text-slate-500 dark:text-slate-400">Diagnoza usterki</p>
-                  <p className="text-sm font-bold text-slate-900 dark:text-white">Bezpłatnie</p>
+                  <p className="text-xs font-medium text-slate-600 dark:text-slate-300">{activeSlideData.label}</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{activeSlideData.value}</p>
                 </div>
               </div>
 

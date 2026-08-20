@@ -84,6 +84,27 @@ body {
   }
 }
 
+/* Pasek postępu karuzeli zdjęć w Hero — wypełnia się od 0% do 100% w rytm zmiany zdjęcia */
+@keyframes hero-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-hero-progress {
+  animation: hero-progress 7s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-progress {
+    animation: none;
+    width: 100%;
+  }
+}
+
 .dark .map-container,
 .dark .leaflet-tile-pane,
 .dark iframe {
