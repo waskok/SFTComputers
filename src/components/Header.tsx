@@ -12,9 +12,11 @@ export default function Header() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
+    // Domyślnie strona ma się otwierać w motywie jasnym, niezależnie od preferencji
+    // systemowych użytkownika - motyw ciemny włącza się tylko, jeśli został wcześniej
+    // wybrany ręcznie (i zapamiętany w localStorage).
     const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+    const shouldBeDark = savedTheme === "dark";
 
     if (shouldBeDark) {
       document.documentElement.classList.add("dark");
@@ -106,31 +108,31 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={toggleTheme}
-            aria-label={isDark ? "Przełącz na tryb jasny" : "Przełącz na tryb nocny"}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:border-blue-300 hover:bg-slate-50 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:bg-slate-800 dark:hover:text-white"
-          >
-            {isDark ? (
-              <Sun className="h-5 w-5 text-amber-400" strokeWidth={2.2} />
-            ) : (
-              <Moon className="h-5 w-5 text-slate-700" strokeWidth={2.2} />
-            )}
-          </button>
-
-          <div className="hidden lg:block">
-            <Button href="#kontakt" variant="ghost" size="md" icon={ArrowRight}>
-              Sprawdzam ofertę
-            </Button>
-          </div>
-
-          <button
-            type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={isMenuOpen}
             className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+
+          {/* Guzik ma "odwrócony" wygląd względem aktywnego motywu: przy księżycu (przełączenie
+              na tryb ciemny) sam guzik jest ciemny, przy słońcu (przełączenie na tryb jasny) - jasny. */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDark ? "Przełącz na tryb jasny" : "Przełącz na tryb nocny"}
+            className={`flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 shadow-sm transition-all duration-200 ${
+              isDark
+                ? "border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:bg-slate-50 hover:text-blue-700"
+                : "border-slate-500 bg-slate-800 text-slate-300 hover:border-blue-400 hover:bg-slate-700 hover:text-white"
+            }`}
+          >
+            {isDark ? (
+              <Sun className="h-5 w-5 text-amber-500" strokeWidth={2.2} />
+            ) : (
+              <Moon className="h-5 w-5 text-slate-200" strokeWidth={2.2} />
+            )}
           </button>
         </div>
       </div>

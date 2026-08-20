@@ -37,7 +37,7 @@ export default function Services() {
               <Reveal
                 key={service.id}
                 delay={index * 120}
-                className="group relative flex flex-col rounded-3xl transition-all duration-300 hover:-translate-y-1 sm:p-2 dark:border dark:border-slate-800/80 dark:bg-slate-900/60 dark:p-8 dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:shadow-xl dark:hover:shadow-black/40"
+                className="group relative flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-200/50 sm:p-8 dark:border-slate-800/80 dark:bg-slate-900/60 dark:shadow-none dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:shadow-xl dark:hover:shadow-black/40"
               >
                 <div className="group/cta flex items-start justify-between">
                   <button

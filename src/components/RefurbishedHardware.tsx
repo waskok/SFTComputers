@@ -23,11 +23,7 @@ export default function RefurbishedHardware() {
       id="poleasingowy"
       className="relative w-full overflow-hidden bg-[#eef0f3] transition-colors duration-300 dark:border-y dark:border-slate-800/80 dark:bg-slate-950"
     >
-      {/* Miękkie gradienty na łączeniach z sąsiednimi sekcjami (góra / dół) */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-10 bg-gradient-to-b from-slate-900 to-transparent dark:from-slate-950"
-        aria-hidden="true"
-      />
+      {/* Miękki gradient na łączeniu z sekcją poniżej (Opinie) */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-slate-50 to-transparent dark:from-[#0b0f19]"
         aria-hidden="true"
