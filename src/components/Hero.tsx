@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Clock3, ShieldCheck, ShoppingBag, Star, Wrench, MonitorSmartphone } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock3, ShieldCheck, ShoppingBag, Star, Wrench, MonitorSmartphone } from "lucide-react";
 import Button from "./ui/Button";
 import SectionBadge from "./ui/SectionBadge";
 import Reveal from "./ui/Reveal";
@@ -49,6 +49,9 @@ export default function Hero() {
 
   const activeSlideData = heroSlides[activeSlide];
   const ActiveIcon = activeSlideData.icon;
+
+  const goToPrevSlide = () => setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  const goToNextSlide = () => setActiveSlide((prev) => (prev + 1) % heroSlides.length);
 
   const setCategoryOnContact = (categoryId: string) => {
     window.dispatchEvent(
@@ -165,6 +168,24 @@ export default function Hero() {
                     </button>
                   ))}
                 </div>
+
+                {/* Strzałki do zmiany zdjęcia - widoczne zawsze, na desktopie odrobinę mniejsze */}
+                <button
+                  type="button"
+                  onClick={goToPrevSlide}
+                  aria-label="Poprzednie zdjęcie"
+                  className="absolute left-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:h-6 lg:w-6"
+                >
+                  <ChevronLeft className="h-4 w-4 lg:h-3 lg:w-3" />
+                </button>
+                <button
+                  type="button"
+                  onClick={goToNextSlide}
+                  aria-label="Następne zdjęcie"
+                  className="absolute right-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/25 text-white backdrop-blur-sm transition-colors hover:bg-white/40 lg:h-6 lg:w-6"
+                >
+                  <ChevronRight className="h-4 w-4 lg:h-3 lg:w-3" />
+                </button>
               </div>
 
               <div className="absolute -left-4 top-16 flex items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-lg shadow-slate-900/10 backdrop-blur-md sm:-left-8 dark:border dark:border-slate-800 dark:bg-slate-900/95 dark:shadow-xl">

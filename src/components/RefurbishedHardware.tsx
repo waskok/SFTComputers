@@ -30,8 +30,8 @@ export default function RefurbishedHardware() {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-        {/* Lewa kolumna: zdjęcie laptopa na pełną wysokość */}
-        <Reveal className="relative min-h-[22rem] sm:min-h-[28rem] lg:min-h-[38rem] lg:col-span-6 xl:col-span-7 overflow-hidden bg-[#eef0f3] dark:bg-slate-950">
+        {/* Lewa kolumna: zdjęcie laptopa na pełną wysokość - tylko od lg w górę, na mobile go nie pokazujemy */}
+        <Reveal className="relative hidden min-h-[22rem] overflow-hidden bg-[#eef0f3] sm:min-h-[28rem] lg:block lg:col-span-6 lg:min-h-[38rem] xl:col-span-7 dark:bg-slate-950">
           <img
             src={laptop}
             alt="Poleasingowe laptopy biznesowe Dell, HP, Lenovo w ofercie SFT Computers"
@@ -69,17 +69,19 @@ export default function RefurbishedHardware() {
                 const Icon = ICONS[item.icon];
                 return (
                   <div key={item.title} className="flex flex-col gap-2.5">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:border dark:border-blue-800/40 dark:bg-blue-950/70 dark:text-blue-400">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <p className="text-sm font-bold text-slate-900 dark:text-white">{item.title}</p>
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-2.5">
+                      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:border dark:border-blue-800/40 dark:bg-blue-950/70 dark:text-blue-400">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">{item.title}</p>
+                    </div>
                     <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{item.description}</p>
                   </div>
                 );
               })}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10 flex justify-center lg:justify-start">
               <Button href="#kontakt" onClick={() => setCategoryOnContact("poleasingowy")}>
                 Sprawdzam ofertę
               </Button>
