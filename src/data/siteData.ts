@@ -33,6 +33,8 @@ export interface CompanyData {
   hours: HoursSlot[];
   registry: RegistryInfo;
   googleRating: GoogleRatingInfo;
+  mapsUrl: string;
+  mapsEmbedUrl: string;
 }
 
 export interface NavLink {
@@ -87,31 +89,39 @@ export interface ContactCategory {
   label: string;
 }
 
+// Hash pod którym otwiera się "podstrona" polityki prywatności (patrz App.tsx) -
+// używany zarówno do linkowania do niej, jak i do wykrywania, że ma być widoczna.
+export const privacyPolicyHash = "#polityka-prywatnosci";
+
 export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",
-  phone: "TO-DO",
-  phoneHref: "tel:+48123456789",
-  email: "TO-DO",
+  phone: "12 640 10 50",
+  phoneHref: "tel:+48126401050",
+  email: "biuro@sft.net.pl",
   address: {
-    street: "ul. Przykładowa 12",
-    city: "30-001 Kraków",
-    full: "TO-DO",
+    street: "Osiedle 2 Pułku Lotniczego 1E",
+    city: "31-867 Kraków",
+    full: "Osiedle 2 Pułku Lotniczego 1E, 31-867 Kraków",
   },
   hours: [
     { days: "Poniedziałek – Piątek", hours: "10:00 – 18:00" },
     { days: "Sobota - Niedziela", hours: "Nieczynne" },
   ],
   registry: {
-    company: "SFT Computers",
-    nip: "NIP: TO-DO",
-    krs: "KRS: TO-DO",
-    regon: "REGON: TO-DO",
+    company: "SFT COMPUTERS M.KUBIŃSKI SPÓŁKA JAWNA",
+    nip: "NIP: 6782002498",
+    krs: "KRS: 0000084555",
+    regon: "REGON: 35116762700000",
   },
   googleRating: {
     score: "4.8 / 5",
     reviewsCount: "opinie Google",
   },
+  mapsUrl:
+    "https://www.google.com/maps/place/SFT+Computers/@50.0790951,20.0142603,17z/data=!3m1!4b1!4m6!3m5!1s0x47164545b70faf69:0xeefc72e925ce152!8m2!3d50.0790951!4d20.0142603!16s%2Fg%2F1pp2tzr35",
+  mapsEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.503384876389456!2d20.011685313451903!3d50.0790951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47164545b70faf69%3A0xeefc72e925ce152!2sSFT%20Computers!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl",
 };
 
 export const navLinks: NavLink[] = [
@@ -127,7 +137,7 @@ export const services: ServiceItem[] = [
     id: "serwis",
     title: "Serwis i naprawa",
     description:
-      "Szybka diagnoza i naprawa komputerów oraz laptopów. Oddajesz sprzęt sprawny, bez zbędnego czekania i niejasnych kosztów.",
+      "Szybko diagnozujemy usterkę i przywracamy urządzenie do życia. Odbierasz w pełni sprawny sprzęt na jasnych zasadach i bez ukrytych opłat.",
     bullets: ["Bezpłatna diagnoza usterki", "Naprawa najczęściej w 24–48h", "Gwarancja na wykonaną usługę"],
     icon: "Wrench",
   },
@@ -144,7 +154,7 @@ export const services: ServiceItem[] = [
     title: "Odzyskiwanie danych",
     description:
       "Utracone zdjęcia, dokumenty czy baza klientów? Odzyskujemy dane z dysków, kart pamięci i uszkodzonych nośników.",
-    bullets: ["Dyski HDD, SSD i pendrive'y", "Bezpieczna, poufna procedura", "Płatność tylko za sukces"],
+    bullets: ["Dyski HDD, SSD i pendrive'y", "Bezpieczna, poufna procedura", "Realna ocena szans przed rozpoczęciem prac"],
     icon: "DatabaseBackup",
   },
 ];
@@ -153,68 +163,68 @@ export const pcParts: PcPart[] = [
   {
     id: "cpu",
     label: "Procesor (CPU)",
-    position: { top: "28%", left: "50%" },
+    position: { top: "40%", left: "41%" },
     title: "Procesor - mózg Twojego komputera",
-    description: "TO-DO",
+    description: "Dobieramy procesor tak, aby idealnie pasował do Twoich potrzeb. Zamiast wciskać najdroższy model, szukamy złotego środka. Dzięki temu komputer działa błyskawicznie, a Ty nie przepłacasz za moc, której nie wykorzystasz.",
   },
   {
     id: "gpu",
     label: "Karta graficzna (GPU)",
-    position: { top: "58%", left: "28%" },
+    position: { top: "56%", left: "23%" },
     title: "Karta graficzna - płynność w Twoich ulubionych tytułach",
-    description: "TO-DO",
+    description: "To ona odpowiada za generowanie obrazu i klatek na sekundę. Dostosujeny ją w taki sposób, aby pozostałe komponenty nie ograniczały jej mocy.",
   },
   {
     id: "chlodzenie",
     label: "Chłodzenie",
-    position: { top: "18%", left: "72%" },
+    position: { top: "62%", left: "75%" },
     title: "Chłodzenie - cichy komputer, który żyje dłużej",
-    description: "TO-DO",
+    description: "Koniec z komputerem wyjącym jak odkurzacz. Projektujemy ciche i chłodne zestawy, które działają stabilnie nawet podczas wielogodzinnego grania czy pracy. Chłodny sprzęt to sprzęt, który służy latami.",
   },
   {
     id: "ram",
     label: "Pamięć RAM",
-    position: { top: "68%", left: "70%" },
+    position: { top: "45%", left: "56%" },
     title: "Pamięć RAM - płynne przełączanie się między zadaniami",
-    description: "TO-DO",
+    description: "Kilka programów, zakładki w przeglądarce, gra w tle i Spotify? Żaden problem. Używamy szybkich i sprawdzonych pamięci, które pozwolą Ci na płynną pracę z wieloma programami naraz, bez najmniejszych zacięć.",
   },
   {
     id: "obudowa",
     label: "Obudowa",
-    position: { top: "42%", left: "18%" },
+    position: { top: "39%", left: "89%" },
     title: "Obudowa - wygląd, chłodzenie i miejsce na rozbudowę",
-    description: "TO-DO",
+    description: "Selekcjonujemy konstrukcje łączące estetykę z odpowiednią wentylacją. Profesjonalnie układamy i chowamy każdy przewód, co poprawia przepływ powietrza i ułatwia rozbudowę.",
   },
   {
     id: "dysk",
     label: "Dysk",
-    position: { top: "78%", left: "42%" },
+    position: { top: "64%", left: "39%" },
     title: "Dysk - szybki start systemu i bezpieczeństwo danych",
-    description: "TO-DO",
+    description: "Stosujemy tylko nowoczesne dyski, dzięki którym system uruchamia się błyskawicznie, a gry ładują się w mgnieniu oka. Zależy nam na Twoim spokoju, dlatego stawiamy na sprawdzone marki, by Twoje dane były zawsze bezpieczne.",
   },
   {
     id: "zasilacz",
     label: "Zasilacz",
-    position: { top: "82%", left: "78%" },
+    position: { top: "78%", left: "22%" },
     title: "Zasilacz - stabilna moc i bezpieczeństwo podzespołów",
-    description: "TO-DO",
+    description: "Dobieramy jednostki z certyfikatem sprawności oraz zapasem mocy, dostosowane do specyfiki zestawu. To stabilne napięcia i pełny pakiet zabezpieczeń, stanowiące gwarancję bezawaryjnej pracy całego systemu.",
   },
 ];
 
 export const refurbishedHighlights: RefurbishedHighlight[] = [
   {
-    title: "Nawet X% niższa cena",
+    title: "Nawet 40% niższa cena",
     description: "Sprzęt klasy biznesowej w cenie znacznie niższej niż nowe modele o podobnych parametrach.",
     icon: "PiggyBank",
   },
   {
-    title: "X miesięcy gwarancji",
+    title: "12 miesięcy gwarancji",
     description: "Każdy laptop i komputer przechodzi pełny serwis i testy przed sprzedażą.",
     icon: "ShieldCheck",
   },
   {
     title: "Sprawdzona niezawodność",
-    description: "Marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
+    description: "Renomowane marki takie jak Dell, HP i Lenovo, wcześniej używane w firmach - solidne i przetestowane.",
     icon: "BadgeCheck",
   },
 ];
@@ -248,6 +258,7 @@ export const contactCategories: ContactCategory[] = [
   { id: "dane", label: "Odzyskiwanie danych" },
   { id: "it-firmy", label: "Opieka IT dla firmy" },
   { id: "poleasingowy", label: "Sprzęt poleasingowy" },
+  { id: "inny-problem", label: "Inny problem" },
 ];
 
 export const footerLinks: FooterLinkColumn[] = [
@@ -257,7 +268,7 @@ export const footerLinks: FooterLinkColumn[] = [
       { label: "Serwis i naprawa", href: "#uslugi" },
       { label: "Opieka IT dla firm", href: "#uslugi" },
       { label: "Odzyskiwanie danych", href: "#uslugi" },
-      { label: "Komputery do gier", href: "#konfigurator" },
+      { label: "Konfiguracja komputerów na zamówienie", href: "#konfigurator" },
       { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
     ],
   },
@@ -266,8 +277,24 @@ export const footerLinks: FooterLinkColumn[] = [
     links: [
       { label: "Opinie klientów", href: "#opinie" },
       { label: "Kontakt", href: "#kontakt" },
-      { label: "Polityka prywatności", href: "#" },
-      { label: "Regulamin", href: "#" },
+      { label: "Polityka prywatności", href: privacyPolicyHash },
     ],
   },
 ];
+
+export const categoryPlaceholders: Record<string, string> = {
+  dostepnosc: "Podaj nazwę lub model poszukiwanego komponentu bądź akcesorium",
+
+  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje",
+
+  serwis: "Opisz zaobserwowane objawy usterki oraz jakiego urządzenia dotyczą",
+
+  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików",
+
+  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego",
+  
+  poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu",
+  "inny-problem": "Opisz krótko, w czym możemy Ci pomóc",
+};
+
+export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
