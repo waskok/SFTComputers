@@ -137,7 +137,7 @@ export const services: ServiceItem[] = [
     id: "serwis",
     title: "Serwis i naprawa",
     description:
-      "Szybka diagnoza i naprawa komputerów oraz laptopów. Oddajesz sprzęt sprawny, bez zbędnego czekania i niejasnych kosztów.",
+      "Szybko diagnozujemy usterkę i przywracamy urządzenie do życia. Odbierasz w pełni sprawny sprzęt na jasnych zasadach i bez ukrytych opłat.",
     bullets: ["Bezpłatna diagnoza usterki", "Naprawa najczęściej w 24–48h", "Gwarancja na wykonaną usługę"],
     icon: "Wrench",
   },
@@ -154,7 +154,7 @@ export const services: ServiceItem[] = [
     title: "Odzyskiwanie danych",
     description:
       "Utracone zdjęcia, dokumenty czy baza klientów? Odzyskujemy dane z dysków, kart pamięci i uszkodzonych nośników.",
-    bullets: ["Dyski HDD, SSD i pendrive'y", "Bezpieczna, poufna procedura", "Płatność tylko za sukces"],
+    bullets: ["Dyski HDD, SSD i pendrive'y", "Bezpieczna, poufna procedura", "Realna ocena szans przed rozpoczęciem prac"],
     icon: "DatabaseBackup",
   },
 ];
@@ -283,18 +283,18 @@ export const footerLinks: FooterLinkColumn[] = [
 ];
 
 export const categoryPlaceholders: Record<string, string> = {
-  dostepnosc: "Podaj nazwę, model lub kod poszukiwanego komponentu bądź akcesorium...",
+  dostepnosc: "Podaj nazwę lub model poszukiwanego komponentu bądź akcesorium",
 
-  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje...",
+  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje",
 
-  serwis: "Opisz zaobserwowane objawy usterki (np. brak reakcji na włącznik, wyłączanie pod obciążeniem, głośna praca układu chłodzenia)...",
+  serwis: "Opisz zaobserwowane objawy usterki oraz jakiego urządzenia dotyczą",
 
-  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików...",
+  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików",
 
-  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego...",
+  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego",
   
-  poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu...",
-  "inny-problem": "Opisz krótko, w czym możemy Ci pomóc...",
+  poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu",
+  "inny-problem": "Opisz krótko, w czym możemy Ci pomóc",
 };
 
 export const defaultMessagePlaceholder = "Opisz krótko, w czym możemy Ci pomóc...";
