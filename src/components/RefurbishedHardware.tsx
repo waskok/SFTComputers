@@ -30,8 +30,8 @@ export default function RefurbishedHardware() {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-        {/* Lewa kolumna: zdjęcie laptopa na pełną wysokość */}
-        <Reveal className="relative min-h-[22rem] sm:min-h-[28rem] lg:min-h-[38rem] lg:col-span-6 xl:col-span-7 overflow-hidden bg-[#eef0f3] dark:bg-slate-950">
+        {/* Lewa kolumna: zdjęcie laptopa na pełną wysokość - tylko od lg w górę, na mobile go nie pokazujemy */}
+        <Reveal className="relative hidden min-h-[22rem] overflow-hidden bg-[#eef0f3] sm:min-h-[28rem] lg:block lg:col-span-6 lg:min-h-[38rem] xl:col-span-7 dark:bg-slate-950">
           <img
             src={laptop}
             alt="Poleasingowe laptopy biznesowe Dell, HP, Lenovo w ofercie SFT Computers"
