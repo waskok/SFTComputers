@@ -22,13 +22,14 @@ export default function Services() {
   };
 
   // Karuzela na mobile/tablecie - przewijanie strzałkami synchronizowane z natywnym scrollem (swipe).
+  // Zawija się w kółko: z ostatniej karty strzałka "dalej" wraca do pierwszej i odwrotnie.
   const scrollToSlide = (index: number) => {
     const track = trackRef.current;
     if (!track) return;
-    const clamped = Math.max(0, Math.min(index, services.length - 1));
-    const card = track.children[clamped] as HTMLElement | undefined;
+    const wrapped = ((index % services.length) + services.length) % services.length;
+    const card = track.children[wrapped] as HTMLElement | undefined;
     card?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    setActiveSlide(clamped);
+    setActiveSlide(wrapped);
   };
 
   const handleTrackScroll = () => {
@@ -123,9 +124,8 @@ export default function Services() {
             <button
               type="button"
               onClick={() => scrollToSlide(activeSlide - 1)}
-              disabled={activeSlide === 0}
               aria-label="Poprzednia usługa"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-400 dark:hover:border-blue-800 dark:hover:text-blue-400"
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600 dark:border-slate-700 dark:text-slate-400 dark:hover:border-blue-800 dark:hover:text-blue-400"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -147,9 +147,8 @@ export default function Services() {
             <button
               type="button"
               onClick={() => scrollToSlide(activeSlide + 1)}
-              disabled={activeSlide === services.length - 1}
               aria-label="Następna usługa"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-400 dark:hover:border-blue-800 dark:hover:text-blue-400"
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-blue-200 hover:text-blue-600 dark:border-slate-700 dark:text-slate-400 dark:hover:border-blue-800 dark:hover:text-blue-400"
             >
               <ChevronRight className="h-4 w-4" />
             </button>

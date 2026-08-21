@@ -69,17 +69,19 @@ export default function RefurbishedHardware() {
                 const Icon = ICONS[item.icon];
                 return (
                   <div key={item.title} className="flex flex-col gap-2.5">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:border dark:border-blue-800/40 dark:bg-blue-950/70 dark:text-blue-400">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <p className="text-sm font-bold text-slate-900 dark:text-white">{item.title}</p>
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-2.5">
+                      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:border dark:border-blue-800/40 dark:bg-blue-950/70 dark:text-blue-400">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">{item.title}</p>
+                    </div>
                     <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{item.description}</p>
                   </div>
                 );
               })}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10 flex justify-center lg:justify-start">
               <Button href="#kontakt" onClick={() => setCategoryOnContact("poleasingowy")}>
                 Sprawdzam ofertę
               </Button>

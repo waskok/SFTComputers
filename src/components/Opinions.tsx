@@ -162,7 +162,7 @@ export default function Opinions() {
             </h2>
             <p className="mt-2 text-sm text-slate-400">Kliknij na opinię, by ją przeczytać</p>
           </div>
-          <div className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white px-6 py-4 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-xl">
+          <div className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white px-6 py-4 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-lg dark:shadow-white/10">
             <div className="flex text-amber-400">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="h-4 w-4 fill-current" />
