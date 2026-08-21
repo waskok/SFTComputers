@@ -127,7 +127,7 @@ export default function PcBuilder() {
                     key={part.id}
                     type="button"
                     onClick={() => setActiveId(part.id)}
-                    className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-xs ${
+                    className={`cursor-pointer rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors duration-200 sm:px-4 sm:py-2 sm:text-xs ${
                       part.id === activeId
                         ? "bg-blue-600 text-white"
                         : "bg-white/5 text-slate-300 hover:bg-white/10"
