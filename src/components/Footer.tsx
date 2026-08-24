@@ -3,6 +3,10 @@ import footerLogo from "../assets/FooterLogo.png";
 import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
 
 export default function Footer() {
+  const openCookieSettings = () => {
+    window.dispatchEvent(new CustomEvent("sft:openCookieBanner"));
+  };
+
   return (
     <footer className="border-t border-slate-100 bg-white text-slate-500 dark:border-slate-800/80 dark:bg-slate-950 dark:text-slate-400">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -61,6 +65,13 @@ export default function Footer() {
             <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400">
               Polityka prywatności
             </a>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="cursor-pointer text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400"
+            >
+              Zgoda cookies
+            </button>
           </div>
         </div>
       </div>

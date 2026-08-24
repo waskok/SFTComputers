@@ -9,6 +9,7 @@ import Opinions from "./components/Opinions";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import CookieBanner from "./components/CookieBanner";
 import { privacyPolicyHash } from "./data/siteData";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <Footer />
         </>
       )}
+      <CookieBanner />
     </div>
   );
 }
