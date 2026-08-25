@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Menu, Moon, Sun, X } from "lucide-react";
 import Button from "./ui/Button";
-import logoSft from "../assets/Logo1.png";
-import logoSftHover from "../assets/Logo2.png";
+import logoSft from "../assets/SFT-Logo.png";
 import { company, navLinks } from "../data/siteData";
 
 export default function Header() {
@@ -72,20 +71,14 @@ export default function Header() {
         isSolid
           ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-[#0b0f19]/90 dark:shadow-black/20"
           : "border-b border-transparent bg-transparent"
-      } ${isScrolled ? "py-4" : "py-7"}`}
+      } ${isScrolled ? "h-16 lg:h-26" : "h-20 lg:h-30"}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <a href="#top" className="group relative flex shrink-0 items-center">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
+        <a href="#top" className="flex h-full shrink-0 items-center py-2">
           <img
             src={logoSft}
             alt={`Logo ${company.name}`}
-            className="h-16 w-auto object-contain transition-opacity duration-200 ease-out group-hover:opacity-0 sm:h-20"
-          />
-          <img
-            src={logoSftHover}
-            alt=""
-            aria-hidden="true"
-            className="absolute left-0 top-0 h-16 w-auto object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 sm:h-20"
+            className="h-full w-auto aspect-square rounded-xl object-cover sm:rounded-2xl"
           />
         </a>
 

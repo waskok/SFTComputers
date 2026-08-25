@@ -13,7 +13,7 @@ export default function AnnouncementBar() {
     >
       <div className="relative mx-auto flex max-w-7xl items-center justify-center px-9 sm:px-12">
         <p className="text-center font-medium leading-snug">
-          Prowadzimy również sklep stacjonarny: podzespoły, przewody i sprzęt IT od ręki lub na zamówienie w świetnych cenach!
+          Zapraszamy do odwiedzenia nas na miejscu w Krakowie: podzespoły, przewody i sprzęt IT od ręki lub na zamówienie w świetnych cenach!
         </p>
         <button
           type="button"

@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import footerLogo from "../assets/FooterLogo.png";
+import footerLogo from "../assets/SFT-Logo.png";
 import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
 
 export default function Footer() {
@@ -13,7 +13,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <a href="#top" className="flex items-center">
-              <img src={footerLogo} alt={`Logo ${company.name}`} className="h-32 w-auto object-contain sm:h-40" />
+              <img
+                src={footerLogo}
+                alt={`Logo ${company.name}`}
+                className="h-28 w-28 rounded-lg object-cover shadow-sm sm:h-36 sm:w-36"
+              />
             </a>
           </div>
 
