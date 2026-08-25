@@ -61,22 +61,48 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-100 pt-8 sm:flex-row dark:border-slate-800/80">
-          <p className="text-xs text-slate-400 dark:text-slate-500">
-            © {new Date().getFullYear()} {company.registry.company}. Wszelkie prawa zastrzeżone.
-          </p>
-          <div className="flex items-center gap-6">
-            <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400">
-              Polityka prywatności
-            </a>
-            <button
-              type="button"
-              onClick={openCookieSettings}
-              className="cursor-pointer text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400"
-            >
-              Zgoda cookies
-            </button>
+        <div className="mt-12 flex flex-col gap-4 border-t border-slate-100 pt-8 dark:border-slate-800/80 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              © {new Date().getFullYear()} {company.registry.company}. Wszelkie prawa zastrzeżone.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400">
+                Polityka prywatności
+              </a>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="cursor-pointer text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400"
+              >
+                Zgoda cookies
+              </button>
+            </div>
           </div>
+
+          <p className="flex flex-wrap items-baseline justify-center gap-x-2 text-sm text-slate-400 dark:text-slate-500 sm:justify-end">
+            <span className="font-calligraphy text-[1.35rem] leading-none text-slate-500 dark:text-slate-400">
+              Designed by
+            </span>
+            <a
+              href="https://rymn.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base transition-colors duration-200 hover:opacity-80"
+            >
+              <span className="font-medium text-slate-800 dark:text-white">rymn</span>
+              <span className="text-slate-400 dark:text-slate-500">.me</span>
+            </a>
+            <span className="text-sm text-slate-400 dark:text-slate-500">&amp;</span>
+            <a
+              href="https://www.linkedin.com/in/tomasz-dudara-17531b339/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base text-slate-400 transition-colors duration-200 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400"
+            >
+              Dud3q
+            </a>
+          </p>
         </div>
       </div>
     </footer>

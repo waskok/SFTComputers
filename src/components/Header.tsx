@@ -78,7 +78,7 @@ export default function Header() {
           <img
             src={logoSft}
             alt={`Logo ${company.name}`}
-            className="h-full w-auto aspect-square rounded-xl object-cover sm:rounded-2xl"
+            className="h-full w-auto aspect-square rounded-xl object-cover sm:rounded-xl"
           />
         </a>
 

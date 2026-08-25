@@ -42,7 +42,7 @@ export interface NavLink {
   href: string;
 }
 
-export type ServiceIconName = "Wrench" | "Building2" | "DatabaseBackup";
+export type ServiceIconName = "Wrench" | "Store" | "MonitorSmartphone";
 
 export interface ServiceItem {
   id: string;
@@ -105,7 +105,7 @@ export const company: CompanyData = {
     full: "Osiedle 2 Pułku Lotniczego 1E, 31-867 Kraków",
   },
   hours: [
-    { days: "Poniedziałek – Piątek", hours: "10:00 – 18:00" },
+    { days: "Poniedziałek - Piątek", hours: "10:00 - 18:00" },
     { days: "Sobota - Niedziela", hours: "Nieczynne" },
   ],
   registry: {
@@ -138,24 +138,28 @@ export const services: ServiceItem[] = [
     title: "Serwis i naprawa",
     description:
       "Szybko diagnozujemy usterkę i przywracamy urządzenie do życia. Odbierasz w pełni sprawny sprzęt na jasnych zasadach i bez ukrytych opłat.",
-    bullets: ["Bezpłatna diagnoza usterki", "Naprawa najczęściej w 24–48h", "Gwarancja na wykonaną usługę"],
+    bullets: ["Bezpłatna diagnoza usterki", "Naprawa najczęściej w 24-48h", "Gwarancja na wykonaną usługę"],
     icon: "Wrench",
   },
   {
-    id: "it-firmy",
-    title: "Opieka IT dla firm",
+    id: "sklep",
+    title: "Sklep stacjonarny",
     description:
-      "Stały nadzór nad sprzętem i siecią w Twojej firmie. Mniej przestojów, szybsza pomoc i jeden numer do wszystkich problemów IT.",
-    bullets: ["Zdalna i stacjonarna pomoc", "Bezpieczeństwo danych", "Reakcja tego samego dnia"],
-    icon: "Building2",
+      "Salon w Krakowie z podzespołami, akcesoriami i sprzętem IT. Oferujemy produkty dostępne od ręki oraz sprowadzane na zamówienie.",
+    bullets: [
+      "Sprzęt i akcesoria od ręki",
+      "Zamówienia indywidualne",
+      "Doradztwo przy wyborze sprzętu",
+    ],
+    icon: "Store",
   },
   {
-    id: "dane",
-    title: "Odzyskiwanie danych",
+    id: "konfiguracja-pc",
+    title: "Składanie i konfiguracja PC",
     description:
-      "Utracone zdjęcia, dokumenty czy baza klientów? Odzyskujemy dane z dysków, kart pamięci i uszkodzonych nośników.",
-    bullets: ["Dyski HDD, SSD i pendrive'y", "Bezpieczna, poufna procedura", "Realna ocena szans przed rozpoczęciem prac"],
-    icon: "DatabaseBackup",
+      "Budujemy komputer pod Twój budżet i zastosowanie - od zestawów gamingowych po maszyny do pracy i nauki, bez przepłacania za zbędną moc.",
+    bullets: ["Gaming, praca i codzienny użytek", "Dobór podzespołów pod budżet", "Montaż, testy i konfiguracja systemu"],
+    icon: "MonitorSmartphone",
   },
 ];
 
@@ -252,11 +256,9 @@ export const opinions: Opinion[] = [
 ];
 
 export const contactCategories: ContactCategory[] = [
-  { id: "dostepnosc", label: "Dostępność produktu w sklepie" },
-  { id: "konfiguracja-pc", label: "Konfiguracja PC na zamówienie" },
   { id: "serwis", label: "Serwis / naprawa sprzętu" },
-  { id: "dane", label: "Odzyskiwanie danych" },
-  { id: "it-firmy", label: "Opieka IT dla firmy" },
+  { id: "sklep", label: "Sklep stacjonarny / dostępność produktu" },
+  { id: "konfiguracja-pc", label: "Składanie i konfiguracja PC" },
   { id: "poleasingowy", label: "Sprzęt poleasingowy" },
   { id: "inny-problem", label: "Inny problem" },
 ];
@@ -266,9 +268,8 @@ export const footerLinks: FooterLinkColumn[] = [
     heading: "Oferta",
     links: [
       { label: "Serwis i naprawa", href: "#uslugi" },
-      { label: "Opieka IT dla firm", href: "#uslugi" },
-      { label: "Odzyskiwanie danych", href: "#uslugi" },
-      { label: "Konfiguracja komputerów na zamówienie", href: "#konfigurator" },
+      { label: "Sklep stacjonarny", href: "#uslugi" },
+      { label: "Składanie i konfiguracja PC", href: "#konfigurator" },
       { label: "Sprzęt poleasingowy", href: "#poleasingowy" },
     ],
   },
@@ -283,17 +284,15 @@ export const footerLinks: FooterLinkColumn[] = [
 ];
 
 export const categoryPlaceholders: Record<string, string> = {
-  dostepnosc: "Podaj nazwę lub model poszukiwanego komponentu bądź akcesorium",
-
-  "konfiguracja-pc": "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje",
-
   serwis: "Opisz zaobserwowane objawy usterki oraz jakiego urządzenia dotyczą",
 
-  dane: "Wskaż rodzaj nośnika (dysk SSD, HDD, pendrive) oraz opisz okoliczności, w jakich doszło do utraty dostępu do plików",
+  sklep: "Podaj nazwę lub model poszukiwanego produktu - sprawdzimy dostępność w sklepie stacjonarnym",
 
-  "it-firmy": "Przedstaw krótko profil działalności, liczbę stanowisk komputerowych oraz zakres oczekiwanego wsparcia technicznego",
-  
+  "konfiguracja-pc":
+    "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje",
+
   poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu",
+
   "inny-problem": "Opisz krótko, w czym możemy Ci pomóc",
 };
 

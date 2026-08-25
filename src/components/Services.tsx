@@ -1,12 +1,12 @@
 import type { ComponentType, SVGProps } from "react";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Building2, Check, ChevronLeft, ChevronRight, DatabaseBackup, Wrench } from "lucide-react";
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, MonitorSmartphone, Store, Wrench } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
 import { services, type ServiceIconName, type ServiceItem } from "../data/siteData";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
-const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Building2, DatabaseBackup };
+const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Store, MonitorSmartphone };
 
 export default function Services() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -86,7 +86,7 @@ export default function Services() {
             Wsparcie na każdą sytuację
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-            Od pojedynczej naprawy do stałej opieki nad sprzętem firmowym – zajmiemy się Twoim komputerem tak, jakby był naszym własnym.
+            Od szybkiej naprawy przez sklep stacjonarny po komputer złożony pod Twój budżet - zajmiemy się tym kompleksowo.
           </p>
         </Reveal>
 
