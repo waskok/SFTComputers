@@ -1,5 +1,5 @@
 import { useEffect, useState, type ChangeEvent, type FocusEvent, type FormEvent } from "react";
-import { AlertCircle, CheckCircle2, Clock3, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Clock3, Cookie, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
@@ -87,6 +87,10 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const [hasMapConsent, setHasMapConsent] = useState<boolean>(() => {
+    return localStorage.getItem("sft_cookie_consent") === "accepted";
+  });
+
   useEffect(() => {
     function handleSetCategory(event: Event) {
       const custom = event as CustomEvent<{ categoryId?: string }>;
@@ -96,9 +100,30 @@ export default function Contact() {
       setIsSubmitted(false);
       setSubmitError(null);
     }
+
+    function handleConsentChange(event: Event) {
+      const custom = event as CustomEvent<{ status?: string }>;
+      setHasMapConsent(custom.detail?.status === "accepted");
+    }
+
     window.addEventListener("sft:setContactCategory", handleSetCategory as EventListener);
-    return () => window.removeEventListener("sft:setContactCategory", handleSetCategory as EventListener);
+    window.addEventListener("sft:cookieConsentChanged", handleConsentChange as EventListener);
+
+    return () => {
+      window.removeEventListener("sft:setContactCategory", handleSetCategory as EventListener);
+      window.removeEventListener("sft:cookieConsentChanged", handleConsentChange as EventListener);
+    };
   }, []);
+
+  const enableMapWithConsent = () => {
+    localStorage.setItem("sft_cookie_consent", "accepted");
+    setHasMapConsent(true);
+    window.dispatchEvent(
+      new CustomEvent("sft:cookieConsentChanged", {
+        detail: { status: "accepted" },
+      }),
+    );
+  };
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -414,16 +439,35 @@ export default function Contact() {
 
             <div
               id="mapa"
-              className="flex min-h-[14rem] flex-1 scroll-mt-36 flex-col overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 shadow-md shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-xl"
+              className="flex min-h-[16rem] flex-1 scroll-mt-36 flex-col overflow-hidden rounded-[2.5rem] border border-slate-200 bg-slate-50 shadow-md shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-xl"
             >
-              <iframe
-                title="Lokalizacja SFT Computers na mapie Google"
-                src={company.mapsEmbedUrl}
-                className="h-full min-h-[14rem] w-full flex-1 border-0 dark:brightness-90 dark:contrast-105 dark:invert-[0.88] dark:hue-rotate-180"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              {hasMapConsent ? (
+                <iframe
+                  title="Lokalizacja SFT Computers na mapie Google"
+                  src={company.mapsEmbedUrl}
+                  className="h-full min-h-[14rem] w-full flex-1 border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="flex h-full min-h-[14rem] flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                    <Cookie className="h-5 w-5" />
+                  </div>
+                  <p className="max-w-xs text-xs text-slate-600 dark:text-slate-400">
+                    Wyświetlenie mapy wymaga załadowania zewnętrznych plików cookies firmy Google.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={enableMapWithConsent}
+                    className="cursor-pointer rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition-colors hover:bg-blue-700 dark:hover:bg-blue-500"
+                  >
+                    Włącz mapę (zaakceptuj cookies)
+                  </button>
+                </div>
+              )}
+
               <a
                 href={company.mapsUrl}
                 target="_blank"
