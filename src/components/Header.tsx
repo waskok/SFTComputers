@@ -71,7 +71,7 @@ export default function Header() {
         isSolid
           ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-[#0b0f19]/90 dark:shadow-black/20"
           : "border-b border-transparent bg-transparent"
-      } ${isScrolled ? "h-16 lg:h-26" : "h-20 lg:h-30"}`}
+      } ${isScrolled ? "h-16 lg:h-24" : "h-20 lg:h-30"}`}
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
         <a href="#top" className="flex h-full shrink-0 items-center py-2">

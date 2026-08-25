@@ -1,4 +1,4 @@
-import { Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import footerLogo from "../assets/SFT-Logo.png";
 import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
 
@@ -80,27 +80,47 @@ export default function Footer() {
             </div>
           </div>
 
-          <p className="flex flex-wrap items-baseline justify-center gap-x-2 text-sm text-slate-400 dark:text-slate-500 sm:justify-end">
-            <span className="font-calligraphy text-[1.35rem] leading-none text-slate-500 dark:text-slate-400">
-              Designed by
+          <p className="flex flex-wrap items-baseline justify-center gap-x-1.5 text-xs text-slate-400 dark:text-slate-500 sm:justify-end">
+            <span className="font-calligraphy text-[1.2rem] leading-none tracking-wide text-slate-500 dark:text-slate-400">
+              Design &amp; Code by
             </span>
             <a
               href="https://rymn.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base transition-colors duration-200 hover:opacity-80"
+              className="group relative inline-flex items-baseline gap-0.5 pb-0.5 text-sm font-bold"
             >
-              <span className="font-medium text-slate-800 dark:text-white">rymn</span>
-              <span className="text-slate-400 dark:text-slate-500">.me</span>
+              <span className="text-slate-800 transition-colors duration-200 group-hover:text-slate-950 dark:text-white dark:group-hover:text-slate-300">
+                rymn
+              </span>
+              <span className="font-bold text-slate-500 transition-colors duration-200 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-500">
+                .me
+              </span>
+              <ArrowUpRight
+                className="relative top-px h-2.5 w-2.5 shrink-0 text-slate-500 transition-colors duration-200 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-300"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute inset-x-0 bottom-0 h-px bg-slate-400 transition-all duration-300 ease-out group-hover:h-0.5 group-hover:bg-slate-700 dark:bg-slate-500 dark:group-hover:bg-slate-300"
+                aria-hidden="true"
+              />
             </a>
-            <span className="text-sm text-slate-400 dark:text-slate-500">&amp;</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">&amp;</span>
             <a
               href="https://www.linkedin.com/in/tomasz-dudara-17531b339/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base text-slate-400 transition-colors duration-200 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400"
+              className="group relative inline-flex items-baseline gap-0.5 pb-0.5 text-sm font-bold text-slate-400 transition-colors duration-200 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-400"
             >
               Dud3q
+              <ArrowUpRight
+                className="relative top-px h-2.5 w-2.5 shrink-0 transition-colors duration-200"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute inset-x-0 bottom-0 h-px bg-slate-400 transition-all duration-300 ease-out group-hover:h-0.5 group-hover:bg-slate-600 dark:bg-slate-500 dark:group-hover:bg-slate-400"
+                aria-hidden="true"
+              />
             </a>
           </p>
         </div>
