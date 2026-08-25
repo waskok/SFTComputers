@@ -5,13 +5,11 @@ import { privacyPolicyHash } from "../data/siteData";
 export type CookieConsentStatus = "accepted" | "rejected" | "undecided";
 
 export default function CookieBanner() {
-  const [consent, setConsent] = useState<CookieConsentStatus>("undecided");
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("sft_cookie_consent") as CookieConsentStatus | null;
     if (saved === "accepted" || saved === "rejected") {
-      setConsent(saved);
       setIsOpen(false);
     } else {
       setIsOpen(true);
@@ -27,7 +25,6 @@ export default function CookieBanner() {
 
   const handleDecision = (status: "accepted" | "rejected") => {
     localStorage.setItem("sft_cookie_consent", status);
-    setConsent(status);
     setIsOpen(false);
     window.dispatchEvent(
       new CustomEvent("sft:cookieConsentChanged", {
