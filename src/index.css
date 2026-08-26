@@ -96,7 +96,7 @@ body {
 }
 
 .animate-hero-progress {
-  animation: hero-progress 6s linear forwards;
+  animation: hero-progress 7s linear forwards;
 }
 
 .animate-hero-progress.is-paused {

@@ -94,8 +94,8 @@ $category   = cleanHeaderField((string) ($data["category"] ?? ""));
 $categoryId = cleanHeaderField((string) ($data["categoryId"] ?? ""));
 $message    = trim((string) ($data["message"] ?? "")); // treść może mieć wiele linii - nie trafia do nagłówków, więc to bezpieczne
 
-if ($name === "" || $phone === "" || $email === "" || $category === "" || $message === "") {
-    respond(false, "Wszystkie pola są wymagane.", 422);
+if ($name === "" || $email === "" || $category === "" || $message === "") {
+    respond(false, "Wszystkie wymagane pola muszą być wypełnione.", 422);
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -110,9 +110,11 @@ $recipientEmail = resolveRecipient($categoryId, $EMAIL_SERWIS, $EMAIL_SKLEP, $EM
 
 $subject = "Nowe zapytanie z formularza - " . $category;
 
-$body  = "Imię i nazwisko: " . $name . "\n";
+$phoneLine = $phone !== "" ? $phone : "nie podano";
+
+$body  = "Imię / nazwa firmy: " . $name . "\n";
 $body .= "Email: " . $email . "\n";
-$body .= "Numer telefonu: " . $phone . "\n";
+$body .= "Numer telefonu: " . $phoneLine . "\n";
 $body .= "Kategoria: " . $category . "\n";
 $body .= "Treść: " . $message . "\n";
 

@@ -36,19 +36,20 @@ const initialForm: ContactFormState = {
   website: "",
 };
 
-const POLISH_LETTERS = "A-Za-z\\s\\u00C0-\\u024F\\u1E00-\\u1EFF";
-const NAME_PATTERN = new RegExp(`^[${POLISH_LETTERS}]+(?:[ -][${POLISH_LETTERS}]+)*$`);
+const POLISH_LETTERS = "A-Za-z0-9\\s\\u00C0-\\u024F\\u1E00-\\u1EFF";
+const NAME_PATTERN = new RegExp(`^[${POLISH_LETTERS}&.,'"\-]+(?:[ -][${POLISH_LETTERS}&.,'"\-]+)*$`);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validateName(value: string): string | undefined {
   const trimmed = value.trim();
-  if (trimmed.length < 3) return "Imię i nazwisko musi mieć co najmniej 3 znaki.";
-  if (!NAME_PATTERN.test(trimmed)) return "Imię i nazwisko może zawierać tylko litery.";
+  if (trimmed.length < 3) return "Imię lub nazwa firmy musi mieć co najmniej 3 znaki.";
+  if (!NAME_PATTERN.test(trimmed)) return "Imię lub nazwa firmy zawiera niedozwolone znaki.";
   return undefined;
 }
 
 function validatePhone(value: string): string | undefined {
-  if (value.length === 0) return "Numer telefonu jest wymagany.";
+  // Telefon jest opcjonalny - puste pole jest OK.
+  if (value.length === 0) return undefined;
   if (!/^\d{9}$/.test(value)) return "Numer telefonu musi mieć 9 cyfr.";
   return undefined;
 }
@@ -166,7 +167,7 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
-          phone: `+48 ${form.phone}`,
+          phone: form.phone ? `+48 ${form.phone}` : "",
           category: categoryLabel,
           categoryId: form.category,
         }),
@@ -222,7 +223,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Imię i nazwisko
+                    Imię
                   </label>
                   <input
                     id="name"
@@ -232,7 +233,7 @@ export default function Contact() {
                     value={form.name}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    placeholder="Jan Kowalski"
+                    placeholder="Podaj swoje imię lub nazwę firmy"
                     aria-invalid={Boolean(errors.name)}
                     className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500 ${
                       errors.name
@@ -245,16 +246,23 @@ export default function Contact() {
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="phone" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Numer telefonu
+                    Numer telefonu{" "}
+                    <span className="font-normal text-slate-400 dark:text-slate-500">(opcjonalny)</span>
                   </label>
                   <div
-                    className={`flex items-center gap-2 rounded-2xl border bg-slate-50 pl-4 pr-3 transition-colors duration-200 focus-within:bg-white focus-within:ring-4 dark:bg-slate-950 ${
+                    className={`flex items-center gap-2 rounded-2xl border bg-slate-50 pl-3 pr-3 transition-colors duration-200 focus-within:bg-white focus-within:ring-4 dark:bg-slate-950 ${
                       errors.phone
                         ? "border-rose-400 focus-within:border-rose-400 focus-within:ring-rose-100 dark:border-rose-500 dark:focus-within:border-rose-500 dark:focus-within:ring-rose-500/20"
                         : "border-slate-200 focus-within:border-blue-400 focus-within:ring-blue-100 dark:border-slate-800 dark:focus-within:border-blue-500 dark:focus-within:ring-blue-500/20"
                     }`}
                   >
-                    <span className="flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <span className="flex items-center gap-1.5 text-sm font-medium text-slate-500 dark:text-slate-400" aria-hidden="true">
+                      <svg viewBox="0 0 16 10" className="h-3 w-[1.15rem] shrink-0 rounded-[1px] shadow-sm" role="img">
+                        <title>Flaga Polski</title>
+                        <rect width="16" height="5" y="0" fill="#fff" />
+                        <rect width="16" height="5" y="5" fill="#dc143c" />
+                        <rect width="15.5" height="9.5" x="0.25" y="0.25" fill="none" stroke="#cbd5e1" strokeWidth="0.5" />
+                      </svg>
                       +48
                     </span>
                     <span className="h-5 w-px bg-slate-200 dark:bg-slate-800" aria-hidden="true" />
@@ -264,7 +272,6 @@ export default function Contact() {
                       type="tel"
                       inputMode="numeric"
                       autoComplete="tel-national"
-                      required
                       value={form.phone}
                       onChange={handlePhoneChange}
                       onBlur={handleBlur}
@@ -291,7 +298,7 @@ export default function Contact() {
                     value={form.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    placeholder="jan.kowalski@example.com"
+                    placeholder="twoj@email.com"
                     aria-invalid={Boolean(errors.email)}
                     className={`rounded-2xl border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors duration-200 placeholder:text-slate-400 focus:bg-white focus:ring-4 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500 ${
                       errors.email

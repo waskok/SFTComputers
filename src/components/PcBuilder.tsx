@@ -46,7 +46,7 @@ export default function PcBuilder() {
           </p>
         </Reveal>
 
-        <div className="relative z-0 mt-1 grid grid-cols-1 items-start gap-1 sm:mt-2 sm:gap-2 lg:mt-2 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+        <div className="relative z-0 mt-12 grid grid-cols-1 items-start gap-2 sm:mt-14 sm:gap-3 lg:mt-14 lg:grid-cols-12 lg:gap-8 xl:gap-12">
           <Reveal className="relative lg:col-span-7">
             <div className="relative mx-auto aspect-[800/846] w-full max-w-[220px] sm:max-w-xs md:max-w-sm lg:mx-0 lg:max-w-lg">
               <div
