@@ -164,7 +164,12 @@ export default function Contact() {
       const response = await fetch("/send-mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, phone: `+48 ${form.phone}`, category: categoryLabel }),
+        body: JSON.stringify({
+          ...form,
+          phone: `+48 ${form.phone}`,
+          category: categoryLabel,
+          categoryId: form.category,
+        }),
       });
       const result = (await response.json()) as { success: boolean; message?: string };
       if (!response.ok || !result.success) {

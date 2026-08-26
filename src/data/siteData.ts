@@ -98,7 +98,7 @@ export const company: CompanyData = {
   claim: "Serwis komputerowy Kraków",
   phone: "12 640 10 50",
   phoneHref: "tel:+48126401050",
-  email: "biuro@sft.net.pl",
+  email: "sklep@sft.net.pl",
   address: {
     street: "Osiedle 2 Pułku Lotniczego 1E",
     city: "31-867 Kraków",
@@ -116,7 +116,7 @@ export const company: CompanyData = {
   },
   googleRating: {
     score: "4.8 / 5",
-    reviewsCount: "opinie Google",
+    reviewsCount: "150+ opinii Google",
   },
   mapsUrl:
     "https://www.google.com/maps/place/SFT+Computers/@50.0790951,20.0142603,17z/data=!3m1!4b1!4m6!3m5!1s0x47164545b70faf69:0xeefc72e925ce152!8m2!3d50.0790951!4d20.0142603!16s%2Fg%2F1pp2tzr35",
@@ -260,6 +260,7 @@ export const contactCategories: ContactCategory[] = [
   { id: "sklep", label: "Sklep stacjonarny / dostępność produktu" },
   { id: "konfiguracja-pc", label: "Składanie i konfiguracja PC" },
   { id: "poleasingowy", label: "Sprzęt poleasingowy" },
+  { id: "wspolpraca", label: "Zapytanie o współpracę" },
   { id: "inny-problem", label: "Inny problem" },
 ];
 
@@ -292,6 +293,8 @@ export const categoryPlaceholders: Record<string, string> = {
     "Określ przewidywany budżet, główne zastosowanie komputera (gry, praca, obróbka wideo) oraz indywidualne preferencje",
 
   poleasingowy: "Określ typ poszukiwanego sprzętu (laptop czy komputer stacjonarny) oraz wymagania dotyczące wydajności lub budżetu",
+
+  wspolpraca: "Krótko opisz propozycję współpracy",
 
   "inny-problem": "Opisz krótko, w czym możemy Ci pomóc",
 };

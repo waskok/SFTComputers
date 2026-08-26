@@ -34,21 +34,21 @@ export default function PcBuilder() {
   };
 
   return (
-    <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-16 pb-6 sm:pt-20 sm:pb-8 dark:bg-slate-950 dark:border-y dark:border-slate-800/80">
+    <section id="konfigurator" className="overflow-hidden bg-slate-900 pt-10 pb-10 sm:pt-12 sm:pb-14 dark:bg-slate-950 dark:border-y dark:border-slate-800/80">
       <div className="mx-auto max-w-[96rem] px-4 sm:px-6 lg:px-10 xl:px-16">
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <Reveal className="relative z-10 mx-auto max-w-2xl text-center">
           <SectionBadge>Komputery na zamówienie</SectionBadge>
-          <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Składamy komputer pod Twoje potrzeby
           </h2>
-          <p className="mt-3 text-lg text-slate-300 dark:text-slate-400">
+          <p className="mt-2 text-base text-slate-300 sm:text-lg dark:text-slate-400">
             Kliknij podzespół na wizualizacji, aby zobaczyć, jak dobieramy go pod kątem Twoich potrzeb – bez przepłacania za moc, której nie wykorzystasz.
           </p>
         </Reveal>
 
-        <div className="mt-6 grid grid-cols-1 items-center gap-3 sm:mt-8 sm:gap-5 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+        <div className="relative z-0 mt-1 grid grid-cols-1 items-start gap-1 sm:mt-2 sm:gap-2 lg:mt-2 lg:grid-cols-12 lg:gap-8 xl:gap-12">
           <Reveal className="relative lg:col-span-7">
-            <div className="relative mx-auto aspect-[1664/2544] w-full max-w-[220px] sm:max-w-xs md:max-w-sm lg:mx-0 lg:max-w-lg">
+            <div className="relative mx-auto aspect-[800/846] w-full max-w-[220px] sm:max-w-xs md:max-w-sm lg:mx-0 lg:max-w-lg">
               <div
                 className="pointer-events-none absolute top-[8%] -left-10 h-52 w-52 rounded-full bg-sky-400/45 blur-3xl"
                 aria-hidden="true"
@@ -115,7 +115,7 @@ export default function PcBuilder() {
           </Reveal>
 
           <Reveal delay={150} className="lg:col-span-5">
-            <div>
+            <div className="lg:pt-8 xl:pt-10">
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white sm:h-14 sm:w-14">
                 <ActiveIcon className="h-5 w-5 sm:h-7 sm:w-7" />
               </span>
