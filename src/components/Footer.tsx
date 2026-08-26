@@ -1,6 +1,7 @@
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import footerLogo from "../assets/SFT-Logo.png";
 import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
+import { goToHome } from "../lib/navigation";
 
 export default function Footer() {
   const openCookieSettings = () => {
@@ -12,7 +13,14 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <a href="#top" className="flex items-center">
+            <a
+              href="#top"
+              onClick={(event) => {
+                event.preventDefault();
+                goToHome();
+              }}
+              className="flex items-center"
+            >
               <img
                 src={footerLogo}
                 alt={`Logo ${company.name}`}
@@ -107,7 +115,7 @@ export default function Footer() {
             </a>
             <span className="text-xs text-slate-400 dark:text-slate-500">&amp;</span>
             <a
-              href="https://www.linkedin.com/in/tomasz-dudara-17531b339/"
+              href="https://linktr.ee/dud3q"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-baseline gap-0.5 pb-0.5 text-sm font-bold text-slate-400 transition-colors duration-200 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-400"

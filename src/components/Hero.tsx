@@ -189,7 +189,7 @@ export default function Hero() {
   }, [currentSlide, isPaused]);
 
   return (
-    <section id="top" className="relative w-full overflow-hidden pt-20 pb-0 lg:pt-30">
+    <section className="relative w-full overflow-hidden bg-slate-950 pt-20 pb-0 lg:pt-30">
       <div className="relative flex min-h-[36rem] w-full flex-col justify-between overflow-hidden bg-slate-950 sm:min-h-[40rem] lg:min-h-[42rem]">
         {/* Tła slajdów */}
         {HERO_SLIDES.map((slide, index) => (

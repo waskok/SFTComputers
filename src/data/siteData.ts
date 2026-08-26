@@ -93,6 +93,9 @@ export interface ContactCategory {
 // używany zarówno do linkowania do niej, jak i do wykrywania, że ma być widoczna.
 export const privacyPolicyHash = "#polityka-prywatnosci";
 
+/** Website ID widgetu Crisp Chat — skrypt ładujemy dopiero po zgodzie na cookies. */
+export const crispWebsiteId = "131bfb46-4d68-4429-a261-e06023033820";
+
 export const company: CompanyData = {
   name: "SFT Computers",
   claim: "Serwis komputerowy Kraków",

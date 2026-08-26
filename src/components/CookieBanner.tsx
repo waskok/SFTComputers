@@ -46,7 +46,8 @@ export default function CookieBanner() {
             <Cookie className="h-4 w-4" />
           </div>
           <p className="text-xs text-slate-300 sm:text-sm">
-            Ta strona korzysta z plików cookies niezbędnych do jej działania. Szczegóły znajdziesz w naszej{" "}
+            Ta strona korzysta z plików cookies (m.in. mapa Google oraz czat Crisp) niezbędnych do wybranych funkcji.
+            Szczegóły znajdziesz w naszej{" "}
             <a href={privacyPolicyHash} className="font-semibold text-white underline hover:text-blue-400">
               Polityce prywatności
             </a>

@@ -3,6 +3,7 @@ import { ArrowRight, Menu, Moon, Sun, X } from "lucide-react";
 import Button from "./ui/Button";
 import logoSft from "../assets/SFT-Logo.png";
 import { company, navLinks } from "../data/siteData";
+import { goToHome } from "../lib/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -74,7 +75,14 @@ export default function Header() {
       } ${isScrolled ? "h-16 lg:h-24" : "h-20 lg:h-30"}`}
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <a href="#top" className="flex h-full shrink-0 items-center py-2">
+        <a
+          href="#top"
+          onClick={(event) => {
+            event.preventDefault();
+            goToHome();
+          }}
+          className="flex h-full shrink-0 items-center py-2"
+        >
           <img
             src={logoSft}
             alt={`Logo ${company.name}`}
