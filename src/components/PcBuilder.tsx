@@ -1,6 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import { useState } from "react";
-import { Cpu, Fan, Gpu, HardDrive, MemoryStick, PcCase, Zap } from "lucide-react";
+import { Cpu, Fan, Gpu, HardDrive, MemoryStick, PcCase, Zap, ArrowUpRight } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
@@ -138,8 +138,8 @@ export default function PcBuilder() {
                 ))}
               </div>
               <div className="mt-6">
-                <Button href="#kontakt" variant="inverse" onClick={() => setCategoryOnContact("konfiguracja-pc")}>
-                  Skonfiguruj swój PC
+                <Button href="#kontakt" variant="inverse" icon={ArrowUpRight} onClick={() => setCategoryOnContact("konfiguracja-pc")}>
+                  Jestem zainteresowany/a
                 </Button>
               </div>
             </div>

@@ -96,7 +96,11 @@ body {
 }
 
 .animate-hero-progress {
-  animation: hero-progress 7s linear forwards;
+  animation: hero-progress 10s linear forwards;
+}
+
+.animate-hero-progress.is-paused {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

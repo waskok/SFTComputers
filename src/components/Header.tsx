@@ -70,7 +70,7 @@ export default function Header() {
       className={`fixed inset-x-0 z-50 w-full transition-all duration-300 ease-out ${
         isSolid
           ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-[#0b0f19]/90 dark:shadow-black/20"
-          : "border-b border-transparent bg-transparent"
+          : "border-b border-transparent bg-slate-950"
       } ${isScrolled ? "h-16 lg:h-24" : "h-20 lg:h-30"}`}
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
@@ -87,7 +87,11 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white"
+              className={`group relative py-1 text-base font-bold transition-colors duration-200 ${
+                isSolid
+                  ? "text-slate-700 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white"
+                  : "text-white hover:text-blue-300"
+              }`}
             >
               {link.label}
               <span
@@ -104,7 +108,11 @@ export default function Header() {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={isMenuOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200 lg:hidden ${
+              isSolid
+                ? "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                : "text-white hover:bg-white/10"
+            }`}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
