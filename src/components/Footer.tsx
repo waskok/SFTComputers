@@ -1,6 +1,7 @@
-import { Mail, Phone } from "lucide-react";
-import footerLogo from "../assets/FooterLogo.png";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import footerLogo from "../assets/SFT-Logo.png";
 import { company, footerLinks, privacyPolicyHash } from "../data/siteData";
+import { goToHome } from "../lib/navigation";
 
 export default function Footer() {
   const openCookieSettings = () => {
@@ -12,8 +13,19 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <a href="#top" className="flex items-center">
-              <img src={footerLogo} alt={`Logo ${company.name}`} className="h-32 w-auto object-contain sm:h-40" />
+            <a
+              href="#top"
+              onClick={(event) => {
+                event.preventDefault();
+                goToHome();
+              }}
+              className="flex items-center"
+            >
+              <img
+                src={footerLogo}
+                alt={`Logo ${company.name}`}
+                className="h-28 w-28 rounded-lg object-cover shadow-sm sm:h-36 sm:w-36"
+              />
             </a>
           </div>
 
@@ -57,22 +69,68 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-100 pt-8 sm:flex-row dark:border-slate-800/80">
-          <p className="text-xs text-slate-400 dark:text-slate-500">
-            © {new Date().getFullYear()} {company.registry.company}. Wszelkie prawa zastrzeżone.
-          </p>
-          <div className="flex items-center gap-6">
-            <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400">
-              Polityka prywatności
-            </a>
-            <button
-              type="button"
-              onClick={openCookieSettings}
-              className="cursor-pointer text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400"
-            >
-              Zgoda cookies
-            </button>
+        <div className="mt-12 flex flex-col gap-4 border-t border-slate-100 pt-8 dark:border-slate-800/80 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              © {new Date().getFullYear()} {company.registry.company}. Wszelkie prawa zastrzeżone.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href={privacyPolicyHash} className="text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400">
+                Polityka prywatności
+              </a>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="cursor-pointer text-xs text-slate-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-blue-400"
+              >
+                Zgoda cookies
+              </button>
+            </div>
           </div>
+
+          <p className="flex flex-wrap items-baseline justify-center gap-x-1.5 text-xs text-slate-400 dark:text-slate-500 sm:justify-end">
+            <span className="font-calligraphy text-[1.2rem] leading-none tracking-wide text-slate-500 dark:text-slate-400">
+              Design &amp; Code by
+            </span>
+            <a
+              href="https://rymn.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-baseline gap-0.5 pb-0.5 text-sm font-bold"
+            >
+              <span className="text-slate-800 transition-colors duration-200 group-hover:text-slate-950 dark:text-white dark:group-hover:text-slate-300">
+                rymn
+              </span>
+              <span className="font-bold text-slate-500 transition-colors duration-200 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-500">
+                .me
+              </span>
+              <ArrowUpRight
+                className="relative top-px h-2.5 w-2.5 shrink-0 text-slate-500 transition-colors duration-200 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-300"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute inset-x-0 bottom-0 h-px bg-slate-400 transition-all duration-300 ease-out group-hover:h-0.5 group-hover:bg-slate-700 dark:bg-slate-500 dark:group-hover:bg-slate-300"
+                aria-hidden="true"
+              />
+            </a>
+            <span className="text-xs text-slate-400 dark:text-slate-500">&amp;</span>
+            <a
+              href="https://linktr.ee/dud3q"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-baseline gap-0.5 pb-0.5 text-sm font-bold text-slate-400 transition-colors duration-200 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-400"
+            >
+              Dud3q
+              <ArrowUpRight
+                className="relative top-px h-2.5 w-2.5 shrink-0 transition-colors duration-200"
+                aria-hidden="true"
+              />
+              <span
+                className="absolute inset-x-0 bottom-0 h-px bg-slate-400 transition-all duration-300 ease-out group-hover:h-0.5 group-hover:bg-slate-600 dark:bg-slate-500 dark:group-hover:bg-slate-400"
+                aria-hidden="true"
+              />
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -4,6 +4,7 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-calligraphy: "Great Vibes", cursive;
 
   /* Marka SFT Computers - technologiczny błękit/kobalt jako akcent */
   --color-brand-50: #eef4ff;
@@ -96,6 +97,10 @@ body {
 
 .animate-hero-progress {
   animation: hero-progress 7s linear forwards;
+}
+
+.animate-hero-progress.is-paused {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,12 +1,18 @@
 import type { ComponentType, SVGProps } from "react";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Building2, Check, ChevronLeft, ChevronRight, DatabaseBackup, Wrench } from "lucide-react";
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, MonitorSmartphone, Store, Wrench } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
 import { services, type ServiceIconName, type ServiceItem } from "../data/siteData";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
-const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Building2, DatabaseBackup };
+const ICONS: Record<ServiceIconName, IconComponent> = { Wrench, Store, MonitorSmartphone };
+
+const SERVICE_CTA: Record<string, { label: string; action: "kontakt" | "konfigurator" }> = {
+  serwis: { label: "Zgłoś awarię", action: "kontakt" },
+  sklep: { label: "Spytaj o dostępność", action: "kontakt" },
+  "konfiguracja-pc": { label: "Konfigurator", action: "konfigurator" },
+};
 
 export default function Services() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -19,6 +25,15 @@ export default function Services() {
       }),
     );
     document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleServiceCta = (service: ServiceItem) => {
+    const cta = SERVICE_CTA[service.id];
+    if (cta?.action === "konfigurator") {
+      document.getElementById("konfigurator")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    setCategoryFromService(service.id);
   };
 
   // Karuzela na mobile/tablecie - przewijanie strzałkami synchronizowane z natywnym scrollem (swipe).
@@ -41,25 +56,29 @@ export default function Services() {
 
   const renderCardContent = (service: ServiceItem) => {
     const Icon = ICONS[service.icon];
+    const cta = SERVICE_CTA[service.id];
     return (
       <>
-        <div className="group/cta flex items-start justify-between">
+        <div className="group/cta flex items-start justify-between gap-3">
           <button
             type="button"
-            onClick={() => setCategoryFromService(service.id)}
+            onClick={() => handleServiceCta(service)}
             aria-label={`Wybierz usługę: ${service.title}`}
             className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-colors duration-300 group-hover/cta:bg-blue-600 group-hover/cta:text-white dark:border dark:border-blue-800/40 dark:bg-blue-950/80 dark:text-blue-400"
           >
             <Icon className="h-7 w-7" />
           </button>
-          <button
-            type="button"
-            onClick={() => setCategoryFromService(service.id)}
-            aria-label={`Przejdź do formularza: ${service.title}`}
-            className="cursor-pointer rounded-lg p-1 text-slate-300 transition-all duration-300 group-hover/cta:-translate-y-1 group-hover/cta:translate-x-1 group-hover/cta:text-blue-600 dark:text-slate-500 dark:group-hover/cta:text-blue-400"
-          >
-            <ArrowUpRight className="h-5 w-5" />
-          </button>
+          {cta && (
+            <button
+              type="button"
+              onClick={() => handleServiceCta(service)}
+              aria-label={cta.label}
+              className="flex cursor-pointer items-center gap-1.5 rounded-lg p-1 text-sm font-semibold text-slate-400 transition-all duration-300 group-hover/cta:-translate-y-1 group-hover/cta:translate-x-0.5 group-hover/cta:text-blue-600 dark:text-slate-500 dark:group-hover/cta:text-blue-400"
+            >
+              <span>{cta.label}</span>
+              <ArrowUpRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         <h3 className="mt-6 text-xl font-bold tracking-tight text-slate-900 dark:text-white">{service.title}</h3>
@@ -78,7 +97,7 @@ export default function Services() {
   };
 
   return (
-    <section id="uslugi" className="py-20 sm:py-28">
+    <section id="uslugi" className="pt-8 pb-20 sm:pt-10 sm:pb-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionBadge>Nasze usługi</SectionBadge>
@@ -86,7 +105,7 @@ export default function Services() {
             Wsparcie na każdą sytuację
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-            Od pojedynczej naprawy do stałej opieki nad sprzętem firmowym – zajmiemy się Twoim komputerem tak, jakby był naszym własnym.
+            Od szybkiej naprawy przez sklep stacjonarny po komputer złożony pod Twój budżet - zajmiemy się tym kompleksowo.
           </p>
         </Reveal>
 

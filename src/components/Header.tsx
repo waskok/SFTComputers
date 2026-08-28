@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Menu, Moon, Sun, X } from "lucide-react";
 import Button from "./ui/Button";
-import logoSft from "../assets/Logo1.png";
-import logoSftHover from "../assets/Logo2.png";
+import logoSft from "../assets/SFT-Logo.png";
 import { company, navLinks } from "../data/siteData";
+import { goToHome } from "../lib/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,21 +71,22 @@ export default function Header() {
       className={`fixed inset-x-0 z-50 w-full transition-all duration-300 ease-out ${
         isSolid
           ? "border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800/80 dark:bg-[#0b0f19]/90 dark:shadow-black/20"
-          : "border-b border-transparent bg-transparent"
-      } ${isScrolled ? "py-4" : "py-7"}`}
+          : "border-b border-transparent bg-slate-950"
+      } ${isScrolled ? "h-16 lg:h-24" : "h-20 lg:h-30"}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
-        <a href="#top" className="group relative flex shrink-0 items-center">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between pl-3 pr-4 sm:pl-4 sm:pr-6 lg:pl-6 lg:pr-8">
+        <a
+          href="#top"
+          onClick={(event) => {
+            event.preventDefault();
+            goToHome();
+          }}
+          className="flex h-full shrink-0 items-center py-2"
+        >
           <img
             src={logoSft}
             alt={`Logo ${company.name}`}
-            className="h-16 w-auto object-contain transition-opacity duration-200 ease-out group-hover:opacity-0 sm:h-20"
-          />
-          <img
-            src={logoSftHover}
-            alt=""
-            aria-hidden="true"
-            className="absolute left-0 top-0 h-16 w-auto object-contain opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 sm:h-20"
+            className="h-full w-auto aspect-square rounded-xl object-cover sm:rounded-xl"
           />
         </a>
 
@@ -94,7 +95,11 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="group relative py-1 text-base font-bold text-slate-700 transition-colors duration-200 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white"
+              className={`group relative py-1 text-base font-bold transition-colors duration-200 ${
+                isSolid
+                  ? "text-slate-700 hover:text-blue-700 dark:text-slate-300 dark:hover:text-white"
+                  : "text-white hover:text-blue-300"
+              }`}
             >
               {link.label}
               <span
@@ -111,7 +116,11 @@ export default function Header() {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={isMenuOpen}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200 lg:hidden ${
+              isSolid
+                ? "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                : "text-white hover:bg-white/10"
+            }`}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>

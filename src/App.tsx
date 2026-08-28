@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import CookieBanner from "./components/CookieBanner";
+import CrispChat from "./components/CrispChat";
 import { privacyPolicyHash } from "./data/siteData";
 
 function App() {
@@ -26,7 +27,11 @@ function App() {
           window.scrollTo({ top: 0 });
           return;
         }
-        const target = hash ? document.getElementById(hash.slice(1)) : null;
+        if (!hash || hash === "#top") {
+          window.scrollTo({ top: 0 });
+          return;
+        }
+        const target = document.getElementById(hash.slice(1));
         if (target) {
           target.scrollIntoView();
         } else {
@@ -39,7 +44,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#0b0f19] dark:text-slate-300">
+    <div id="top" className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#0b0f19] dark:text-slate-300">
       <AnnouncementBar />
       <Header />
       {isPrivacyOpen ? (
@@ -58,6 +63,7 @@ function App() {
         </>
       )}
       <CookieBanner />
+      <CrispChat />
     </div>
   );
 }

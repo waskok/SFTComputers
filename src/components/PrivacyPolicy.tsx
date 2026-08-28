@@ -1,5 +1,6 @@
 import { ArrowLeft, Cookie } from "lucide-react";
 import { company } from "../data/siteData";
+import { goToHome } from "../lib/navigation";
 
 export default function PrivacyPolicy() {
   const openCookieSettings = () => {
@@ -11,6 +12,10 @@ export default function PrivacyPolicy() {
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <a
           href="#top"
+          onClick={(event) => {
+            event.preventDefault();
+            goToHome(false);
+          }}
           className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -60,6 +65,18 @@ export default function PrivacyPolicy() {
               <li>
                 <strong className="text-slate-900 dark:text-white">Zewnętrzne pliki cookies (Google Maps):</strong> na stronie w sekcji kontaktowej osadzona jest interaktywna mapa firmy Google LLC. Załadowanie mapy następuje <em>wyłącznie po wyrażeniu przez Ciebie dobrowolnej zgody</em> w banerze cookies lub bezpośrednio w module mapy. W przypadku braku zgody moduł mapy pozostaje zablokowany i nie pobiera żadnych danych zewnętrznych.
               </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Zewnętrzne pliki cookies (Crisp Chat):</strong> na stronie dostępny jest dymek czatu obsługiwany przez Crisp IM (Crisp). Widget czatu ładuje się <em>wyłącznie po wyrażeniu przez Ciebie zgody</em> w banerze cookies. Bez zgody skrypt czatu nie jest uruchamiany. Crisp może zapisywać pliki cookies / dane sesji niezbędne do prowadzenia rozmowy (np. identyfikator sesji czatu). Szczegóły:{" "}
+                <a
+                  href="https://crisp.chat/en/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-blue-700 hover:underline dark:text-blue-400"
+                >
+                  polityka prywatności Crisp
+                </a>
+                .
+              </li>
             </ul>
             <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950">
               <div className="flex items-center gap-3">
@@ -99,16 +116,26 @@ export default function PrivacyPolicy() {
             <p className="mt-3 leading-relaxed">
               Dane z formularza trafiają wyłącznie do skrzynki pocztowej administratora, obsługiwanej przez firmę
               hostingową świadczącą usługi poczty elektronicznej. Nie przekazujemy danych osobowych innym podmiotom
-              trzecim ani nie wykorzystujemy ich do celów marketingowych bez odrębnej zgody. W przypadku wyrażenia zgody na mapę Google, podmiotem przetwarzającym dane techniczne połączenia jest Google LLC zgodnie z ich{" "}
+              trzecim ani nie wykorzystujemy ich do celów marketingowych bez odrębnej zgody. W przypadku wyrażenia zgody na cookies podmiotami przetwarzającymi dane techniczne połączenia mogą być: Google LLC (mapa) oraz Crisp IM (czat na stronie), zgodnie z ich politykami prywatności
+              (
               <a
                 href="https://policies.google.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-blue-700 hover:underline dark:text-blue-400"
               >
-                polityką prywatności
+                Google
               </a>
-              .
+              {", "}
+              <a
+                href="https://crisp.chat/en/privacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-700 hover:underline dark:text-blue-400"
+              >
+                Crisp
+              </a>
+              ). Treść rozmowy prowadzonej w czacie Crisp jest przetwarzana w celu obsługi Twojego zapytania.
             </p>
           </section>
 

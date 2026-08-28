@@ -3,8 +3,8 @@
  * Endpoint formularza kontaktowego SFT Computers.
  *
  * Odbiera zgłoszenie z formularza (JSON), waliduje i sanityzuje dane,
- * a następnie wysyła e-mail w ustalonym formacie na jeden, stały adres
- * odbiorcy zdefiniowany poniżej w $RECIPIENT_EMAIL.
+ * a następnie wysyła e-mail w ustalonym formacie. Adres odbiorcy zależy
+ * od kategorii zapytania (patrz resolveRecipient).
  *
  * Wymagania: PHP z włączoną funkcją mail() (standard na hostingu współdzielonym).
  * Brak zewnętrznych zależności (bez Composera) - plik można wgrać samym FTP
@@ -13,9 +13,11 @@
 
 declare(strict_types=1);
 
-// --- Konfiguracja - TESTOWO: cała wysyłka idzie tylko na ten jeden adres ----
-$RECIPIENT_EMAIL = "sft.form@gmail.com";
-$FROM_NAME        = "Formularz SFT Computers";
+// --- Konfiguracja odbiorców wg kategorii ------------------------------------
+$EMAIL_SERWIS = "serwis@sft.net.pl";
+$EMAIL_SKLEP  = "sklep@sft.net.pl";
+$EMAIL_BIURO  = "biuro@sft.net.pl";
+$FROM_NAME    = "Formularz SFT Computers";
 // ----------------------------------------------------------------------------
 
 header("Content-Type: application/json; charset=UTF-8");
@@ -47,6 +49,26 @@ function cleanHeaderField(string $value): string
     return trim(str_replace(["\r", "\n"], " ", $value));
 }
 
+/**
+ * Dobiera skrzynkę odbiorczą na podstawie ID kategorii z formularza.
+ *
+ * - serwis / inny-problem  → serwis@sft.net.pl
+ * - wspolpraca             → biuro@sft.net.pl
+ * - pozostałe kategorie    → sklep@sft.net.pl
+ */
+function resolveRecipient(string $categoryId, string $emailSerwis, string $emailSklep, string $emailBiuro): string
+{
+    if ($categoryId === "wspolpraca") {
+        return $emailBiuro;
+    }
+
+    if ($categoryId === "serwis" || $categoryId === "inny-problem") {
+        return $emailSerwis;
+    }
+
+    return $emailSklep;
+}
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     respond(false, "Nieprawidłowa metoda żądania.", 405);
 }
@@ -65,14 +87,15 @@ if (!empty($data["website"] ?? "")) {
     respond(true, "OK");
 }
 
-$name     = cleanHeaderField((string) ($data["name"] ?? ""));
-$phone    = cleanHeaderField((string) ($data["phone"] ?? ""));
-$email    = cleanHeaderField((string) ($data["email"] ?? ""));
-$category = cleanHeaderField((string) ($data["category"] ?? ""));
-$message  = trim((string) ($data["message"] ?? "")); // treść może mieć wiele linii - nie trafia do nagłówków, więc to bezpieczne
+$name       = cleanHeaderField((string) ($data["name"] ?? ""));
+$phone      = cleanHeaderField((string) ($data["phone"] ?? ""));
+$email      = cleanHeaderField((string) ($data["email"] ?? ""));
+$category   = cleanHeaderField((string) ($data["category"] ?? ""));
+$categoryId = cleanHeaderField((string) ($data["categoryId"] ?? ""));
+$message    = trim((string) ($data["message"] ?? "")); // treść może mieć wiele linii - nie trafia do nagłówków, więc to bezpieczne
 
-if ($name === "" || $phone === "" || $email === "" || $category === "" || $message === "") {
-    respond(false, "Wszystkie pola są wymagane.", 422);
+if ($name === "" || $email === "" || $category === "" || $message === "") {
+    respond(false, "Wszystkie wymagane pola muszą być wypełnione.", 422);
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -83,11 +106,15 @@ if (mb_strlen($name) > 150 || mb_strlen($phone) > 50 || mb_strlen($category) > 1
     respond(false, "Jedno z pól przekracza dopuszczalną długość.", 422);
 }
 
+$recipientEmail = resolveRecipient($categoryId, $EMAIL_SERWIS, $EMAIL_SKLEP, $EMAIL_BIURO);
+
 $subject = "Nowe zapytanie z formularza - " . $category;
 
-$body  = "Imię i nazwisko: " . $name . "\n";
+$phoneLine = $phone !== "" ? $phone : "nie podano";
+
+$body  = "Imię / nazwa firmy: " . $name . "\n";
 $body .= "Email: " . $email . "\n";
-$body .= "Numer telefonu: " . $phone . "\n";
+$body .= "Numer telefonu: " . $phoneLine . "\n";
 $body .= "Kategoria: " . $category . "\n";
 $body .= "Treść: " . $message . "\n";
 
@@ -104,9 +131,7 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 mb_internal_encoding("UTF-8");
 
-// $RECIPIENT_EMAIL jest jedynym adresem, na który ten skrypt kiedykolwiek wysyła -
-// nie ma tu żadnego innego odbiorcy, kopii, ani BCC.
-$sent = mail($RECIPIENT_EMAIL, encodeHeaderText($subject), $body, $headers);
+$sent = mail($recipientEmail, encodeHeaderText($subject), $body, $headers);
 
 if ($sent) {
     respond(true, "Wiadomość została wysłana.");

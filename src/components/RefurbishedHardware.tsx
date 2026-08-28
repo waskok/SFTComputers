@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import { BadgeCheck, PiggyBank, ShieldCheck } from "lucide-react";
+import { BadgeCheck, PiggyBank, ShieldCheck, ArrowUpRight } from "lucide-react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionBadge from "./ui/SectionBadge";
@@ -82,8 +82,8 @@ export default function RefurbishedHardware() {
             </div>
 
             <div className="mt-10 flex justify-center lg:justify-start">
-              <Button href="#kontakt" onClick={() => setCategoryOnContact("poleasingowy")}>
-                Sprawdzam ofertę
+              <Button href="#kontakt" icon={ArrowUpRight} onClick={() => setCategoryOnContact("poleasingowy")}>
+                Skontaktuj się z nami
               </Button>
             </div>
           </div>
